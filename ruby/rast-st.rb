@@ -31,7 +31,7 @@ class SmalltalkASTWriter
 		@result << " "
 		node.getNodeNames.each do |each|
 			value = node.getNode(each)
-			if value.is_a?(Array) && value.count == 0
+			if (value.is_a?(Array) && value.count == 0) || value == nil
 				next
 			end
 			@result << each
@@ -41,7 +41,7 @@ class SmalltalkASTWriter
 		end
 		node.getTokenNames.each do |each|
 			value = node.getToken(each)
-			if value.is_a?(Array) && value.count == 0
+			if (value.is_a?(Array) && value.count == 0) || value == nil
 				next
 			end
 			if each == "comments"
