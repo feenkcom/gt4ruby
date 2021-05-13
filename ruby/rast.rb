@@ -1322,9 +1322,11 @@ class ASTBuilder < Ripper
 
 	def on_command(command, args)
 		node = Node.new("Call")
-		node.token("name", command) 
-		node.node("arguments", args[0])
-		node.token("commas", args[1])
+		node.token("name", command)
+		argsNode = Node.new("Arguments")
+		argsNode.node("arguments", args[0])
+		argsNode.token("commas", args[1])
+		node.node("arguments", argsNode)
 		popped = popUntilNode(command)
 		push(node)
 		popped.pop
@@ -1339,8 +1341,10 @@ class ASTBuilder < Ripper
 		node.token("period", period)
 		node.token("name", name) 
 		if args.is_a?(Array)
-			node.node("arguments", args[0])
-			node.token("commas", args[1])
+			argsNode = Node.new("Arguments")
+			argsNode.node("arguments", args[0])
+			argsNode.token("commas", args[1])
+			node.node("arguments", argsNode)
 		end
 		popped = popUntilNode(rcvr)
 		popped.pop
@@ -1610,7 +1614,7 @@ class ASTBuilder < Ripper
 	def on_class(name, superClass, stmts)
 		node = Node.new("Class")
 		popped = popUntilToken("class")
-		node.token("class", popped.pop)
+		node.token("classToken", popped.pop)
 		node.node("name", popped.pop)
 		if superClass != nil
 			node.token("lt", popped.pop)
@@ -1764,7 +1768,7 @@ class ASTBuilder < Ripper
 	def on_sclass(name, stmts)
 		node = Node.new("SingletonClass")
 		popped = popUntilToken("class")
-		node.token("class", popped.pop)
+		node.token("classToken", popped.pop)
 		node.token("ltLt", popped.pop)
 		node.node("name", popped.pop)
 		while isTokenValue?(popped.last, ";")

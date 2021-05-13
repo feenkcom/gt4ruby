@@ -10,7 +10,7 @@ class SmalltalkASTWriter
 		@lines.push(1)
 		for i in 0..@source.length
 			if @source[i] == "\n" || (@source[i] == "\r" && @source[i+1] != "\n")
-				@lines.push(i + 1)
+				@lines.push(i + 2)
 			end
 		end
 	end
