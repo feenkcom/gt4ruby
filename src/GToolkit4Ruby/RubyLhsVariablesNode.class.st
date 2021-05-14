@@ -4,10 +4,32 @@ Class {
 	#instVars : [
 		'variables',
 		'left',
-		'right'
+		'right',
+		'commas'
 	],
 	#category : #GToolkit4Ruby
 }
+
+{ #category : #generated }
+RubyLhsVariablesNode >> commas [
+	^ commas
+]
+
+{ #category : #generated }
+RubyLhsVariablesNode >> commas: anOrderedCollection [
+	commas := anOrderedCollection
+]
+
+{ #category : #generated }
+RubyLhsVariablesNode >> compositeTokenVariables [
+	^ #(commas)
+]
+
+{ #category : #generated }
+RubyLhsVariablesNode >> initialize [
+	super initialize.
+	commas := OrderedCollection new: 2
+]
 
 { #category : #generated }
 RubyLhsVariablesNode >> left [

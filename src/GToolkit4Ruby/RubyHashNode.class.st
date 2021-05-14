@@ -4,7 +4,10 @@ Class {
 	#instVars : [
 		'associations',
 		'left',
-		'right'
+		'right',
+		'commas',
+		'leftParens',
+		'rightParens'
 	],
 	#category : #GToolkit4Ruby
 }
@@ -22,14 +25,32 @@ RubyHashNode >> associations: anOrderedCollection [
 ]
 
 { #category : #generated }
+RubyHashNode >> commas [
+	^ commas
+]
+
+{ #category : #generated }
+RubyHashNode >> commas: anOrderedCollection [
+	commas := anOrderedCollection
+]
+
+{ #category : #generated }
 RubyHashNode >> compositeNodeVariables [
 	^ #(associations)
 ]
 
 { #category : #generated }
+RubyHashNode >> compositeTokenVariables [
+	^ #(commas leftParens rightParens)
+]
+
+{ #category : #generated }
 RubyHashNode >> initialize [
 	super initialize.
-	associations := OrderedCollection new: 2
+	commas := OrderedCollection new: 2.
+	leftParens := OrderedCollection new: 2.
+	associations := OrderedCollection new: 2.
+	rightParens := OrderedCollection new: 2
 ]
 
 { #category : #generated }
@@ -43,6 +64,16 @@ RubyHashNode >> left: aToken [
 ]
 
 { #category : #generated }
+RubyHashNode >> leftParens [
+	^ leftParens
+]
+
+{ #category : #generated }
+RubyHashNode >> leftParens: anOrderedCollection [
+	leftParens := anOrderedCollection
+]
+
+{ #category : #generated }
 RubyHashNode >> right [
 	^ right
 ]
@@ -50,6 +81,16 @@ RubyHashNode >> right [
 { #category : #generated }
 RubyHashNode >> right: aToken [
 	right := aToken
+]
+
+{ #category : #generated }
+RubyHashNode >> rightParens [
+	^ rightParens
+]
+
+{ #category : #generated }
+RubyHashNode >> rightParens: anOrderedCollection [
+	rightParens := anOrderedCollection
 ]
 
 { #category : #generated }

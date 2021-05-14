@@ -1,8 +1,8 @@
 Class {
-	#name : #RubyReturnNode,
+	#name : #RubyYieldNode,
 	#superclass : #RubyProgramNode,
 	#instVars : [
-		'return',
+		'yield',
 		'values',
 		'commas'
 	],
@@ -10,55 +10,55 @@ Class {
 }
 
 { #category : #generated }
-RubyReturnNode >> commas [
+RubyYieldNode >> commas [
 	^ commas
 ]
 
 { #category : #generated }
-RubyReturnNode >> commas: anOrderedCollection [
+RubyYieldNode >> commas: anOrderedCollection [
 	commas := anOrderedCollection
 ]
 
 { #category : #generated }
-RubyReturnNode >> compositeNodeVariables [
+RubyYieldNode >> compositeNodeVariables [
 	^ #(values)
 ]
 
 { #category : #generated }
-RubyReturnNode >> compositeTokenVariables [
+RubyYieldNode >> compositeTokenVariables [
 	^ #(commas)
 ]
 
 { #category : #generated }
-RubyReturnNode >> initialize [
+RubyYieldNode >> initialize [
 	super initialize.
 	commas := OrderedCollection new: 2.
 	values := OrderedCollection new: 2
 ]
 
 { #category : #generated }
-RubyReturnNode >> return [
-	^ return
+RubyYieldNode >> tokenVariables [
+	^ #(yield)
 ]
 
 { #category : #generated }
-RubyReturnNode >> return: aToken [
-	return := aToken
-]
-
-{ #category : #generated }
-RubyReturnNode >> tokenVariables [
-	^ #(return)
-]
-
-{ #category : #generated }
-RubyReturnNode >> values [
+RubyYieldNode >> values [
 	^ values
 ]
 
 { #category : #generated }
-RubyReturnNode >> values: anOrderedCollection [
+RubyYieldNode >> values: anOrderedCollection [
 	self setParent: self values to: nil.
 	values := anOrderedCollection.
 	self setParent: self values to: self
+]
+
+{ #category : #generated }
+RubyYieldNode >> yield [
+	^ yield
+]
+
+{ #category : #generated }
+RubyYieldNode >> yield: aToken [
+	yield := aToken
 ]

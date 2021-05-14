@@ -8,7 +8,8 @@ Class {
 		'right',
 		'body',
 		'do',
-		'end'
+		'end',
+		'semicolons'
 	],
 	#category : #GToolkit4Ruby
 }
@@ -28,6 +29,11 @@ RubyBlockNode >> body: aNode [
 { #category : #generated }
 RubyBlockNode >> compositeNodeVariables [
 	^ #(statements)
+]
+
+{ #category : #generated }
+RubyBlockNode >> compositeTokenVariables [
+	^ #(semicolons)
 ]
 
 { #category : #generated }
@@ -53,7 +59,7 @@ RubyBlockNode >> end: aToken [
 { #category : #generated }
 RubyBlockNode >> initialize [
 	super initialize.
-	statements := OrderedCollection new: 2
+	semicolons := OrderedCollection new: 2
 ]
 
 { #category : #generated }
@@ -72,6 +78,11 @@ RubyBlockNode >> nodeVariables [
 ]
 
 { #category : #generated }
+RubyBlockNode >> otherVariables [
+	^ #(statements)
+]
+
+{ #category : #generated }
 RubyBlockNode >> right [
 	^ right
 ]
@@ -82,14 +93,24 @@ RubyBlockNode >> right: aToken [
 ]
 
 { #category : #generated }
+RubyBlockNode >> semicolons [
+	^ semicolons
+]
+
+{ #category : #generated }
+RubyBlockNode >> semicolons: anOrderedCollection [
+	semicolons := anOrderedCollection
+]
+
+{ #category : #generated }
 RubyBlockNode >> statements [
 	^ statements
 ]
 
 { #category : #generated }
-RubyBlockNode >> statements: anOrderedCollection [
+RubyBlockNode >> statements: anObject [
 	self setParent: self statements to: nil.
-	statements := anOrderedCollection.
+	statements := anObject.
 	self setParent: self statements to: self
 ]
 

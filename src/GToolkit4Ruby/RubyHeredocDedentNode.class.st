@@ -4,10 +4,17 @@ Class {
 	#instVars : [
 		'string',
 		'start',
-		'end'
+		'end',
+		'leftParens',
+		'rightParens'
 	],
 	#category : #GToolkit4Ruby
 }
+
+{ #category : #generated }
+RubyHeredocDedentNode >> compositeTokenVariables [
+	^ #(leftParens rightParens)
+]
 
 { #category : #generated }
 RubyHeredocDedentNode >> end [
@@ -20,8 +27,35 @@ RubyHeredocDedentNode >> end: aToken [
 ]
 
 { #category : #generated }
+RubyHeredocDedentNode >> initialize [
+	super initialize.
+	leftParens := OrderedCollection new: 2.
+	rightParens := OrderedCollection new: 2
+]
+
+{ #category : #generated }
+RubyHeredocDedentNode >> leftParens [
+	^ leftParens
+]
+
+{ #category : #generated }
+RubyHeredocDedentNode >> leftParens: anOrderedCollection [
+	leftParens := anOrderedCollection
+]
+
+{ #category : #generated }
 RubyHeredocDedentNode >> nodeVariables [
 	^ #(string)
+]
+
+{ #category : #generated }
+RubyHeredocDedentNode >> rightParens [
+	^ rightParens
+]
+
+{ #category : #generated }
+RubyHeredocDedentNode >> rightParens: anOrderedCollection [
+	rightParens := anOrderedCollection
 ]
 
 { #category : #generated }

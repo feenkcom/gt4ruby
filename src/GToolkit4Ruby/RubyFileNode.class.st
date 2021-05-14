@@ -3,7 +3,8 @@ Class {
 	#superclass : #RubyProgramNode,
 	#instVars : [
 		'statements',
-		'comments'
+		'comments',
+		'embeddedDocumentItems'
 	],
 	#category : #GToolkit4Ruby
 }
@@ -14,8 +15,24 @@ RubyFileNode >> compositeNodeVariables [
 ]
 
 { #category : #generated }
+RubyFileNode >> compositeTokenVariables [
+	^ #(embeddedDocumentItems)
+]
+
+{ #category : #generated }
+RubyFileNode >> embeddedDocumentItems [
+	^ embeddedDocumentItems
+]
+
+{ #category : #generated }
+RubyFileNode >> embeddedDocumentItems: anOrderedCollection [
+	embeddedDocumentItems := anOrderedCollection
+]
+
+{ #category : #generated }
 RubyFileNode >> initialize [
 	super initialize.
+	embeddedDocumentItems := OrderedCollection new: 2.
 	statements := OrderedCollection new: 2
 ]
 

@@ -16,9 +16,9 @@ RubyArgumentsNode >> arguments [
 ]
 
 { #category : #generated }
-RubyArgumentsNode >> arguments: anOrderedCollection [
+RubyArgumentsNode >> arguments: anObject [
 	self setParent: self arguments to: nil.
-	arguments := anOrderedCollection.
+	arguments := anObject.
 	self setParent: self arguments to: self
 ]
 
@@ -45,8 +45,7 @@ RubyArgumentsNode >> compositeTokenVariables [
 { #category : #generated }
 RubyArgumentsNode >> initialize [
 	super initialize.
-	commas := OrderedCollection new: 2.
-	arguments := OrderedCollection new: 2
+	commas := OrderedCollection new: 2
 ]
 
 { #category : #generated }
@@ -57,6 +56,11 @@ RubyArgumentsNode >> left [
 { #category : #generated }
 RubyArgumentsNode >> left: aToken [
 	left := aToken
+]
+
+{ #category : #generated }
+RubyArgumentsNode >> otherVariables [
+	^ #(arguments)
 ]
 
 { #category : #generated }

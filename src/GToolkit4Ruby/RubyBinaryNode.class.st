@@ -29,10 +29,10 @@ RubyBinaryNode >> left [
 ]
 
 { #category : #generated }
-RubyBinaryNode >> left: aNode [
-	self left notNil ifTrue: [ self left parent: nil ].
-	left := aNode.
-	self left notNil ifTrue: [ self left parent: self ]
+RubyBinaryNode >> left: anObject [
+	self setParent: self left to: nil.
+	left := anObject.
+	self setParent: self left to: self
 ]
 
 { #category : #generated }
@@ -61,15 +61,20 @@ RubyBinaryNode >> operator: aToken [
 ]
 
 { #category : #generated }
+RubyBinaryNode >> otherVariables [
+	^ #(left right)
+]
+
+{ #category : #generated }
 RubyBinaryNode >> right [
 	^ right
 ]
 
 { #category : #generated }
-RubyBinaryNode >> right: aNode [
-	self right notNil ifTrue: [ self right parent: nil ].
-	right := aNode.
-	self right notNil ifTrue: [ self right parent: self ]
+RubyBinaryNode >> right: anObject [
+	self setParent: self right to: nil.
+	right := anObject.
+	self setParent: self right to: self
 ]
 
 { #category : #generated }

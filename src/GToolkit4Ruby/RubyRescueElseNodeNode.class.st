@@ -1,5 +1,5 @@
 Class {
-	#name : #RubyElseNode,
+	#name : #RubyRescueElseNodeNode,
 	#superclass : #RubyProgramNode,
 	#instVars : [
 		'statements',
@@ -9,44 +9,39 @@ Class {
 }
 
 { #category : #generated }
-RubyElseNode >> compositeNodeVariables [
+RubyRescueElseNodeNode >> compositeNodeVariables [
 	^ #(statements)
 ]
 
 { #category : #generated }
-RubyElseNode >> else [
+RubyRescueElseNodeNode >> else [
 	^ else
 ]
 
 { #category : #generated }
-RubyElseNode >> else: aToken [
+RubyRescueElseNodeNode >> else: aToken [
 	else := aToken
 ]
 
 { #category : #generated }
-RubyElseNode >> initialize [
+RubyRescueElseNodeNode >> initialize [
 	super initialize.
 	statements := OrderedCollection new: 2
 ]
 
 { #category : #generated }
-RubyElseNode >> otherVariables [
-	^ #(statements)
-]
-
-{ #category : #generated }
-RubyElseNode >> statements [
+RubyRescueElseNodeNode >> statements [
 	^ statements
 ]
 
 { #category : #generated }
-RubyElseNode >> statements: anObject [
+RubyRescueElseNodeNode >> statements: anOrderedCollection [
 	self setParent: self statements to: nil.
-	statements := anObject.
+	statements := anOrderedCollection.
 	self setParent: self statements to: self
 ]
 
 { #category : #generated }
-RubyElseNode >> tokenVariables [
+RubyRescueElseNodeNode >> tokenVariables [
 	^ #(else)
 ]

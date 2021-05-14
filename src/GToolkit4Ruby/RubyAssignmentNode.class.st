@@ -4,7 +4,9 @@ Class {
 	#instVars : [
 		'lhs',
 		'value',
-		'assignment'
+		'assignment',
+		'leftParens',
+		'rightParens'
 	],
 	#category : #GToolkit4Ruby
 }
@@ -17,6 +19,28 @@ RubyAssignmentNode >> assignment [
 { #category : #generated }
 RubyAssignmentNode >> assignment: aToken [
 	assignment := aToken
+]
+
+{ #category : #generated }
+RubyAssignmentNode >> compositeTokenVariables [
+	^ #(leftParens rightParens)
+]
+
+{ #category : #generated }
+RubyAssignmentNode >> initialize [
+	super initialize.
+	leftParens := OrderedCollection new: 2.
+	rightParens := OrderedCollection new: 2
+]
+
+{ #category : #generated }
+RubyAssignmentNode >> leftParens [
+	^ leftParens
+]
+
+{ #category : #generated }
+RubyAssignmentNode >> leftParens: anOrderedCollection [
+	leftParens := anOrderedCollection
 ]
 
 { #category : #generated }
@@ -33,7 +57,22 @@ RubyAssignmentNode >> lhs: aNode [
 
 { #category : #generated }
 RubyAssignmentNode >> nodeVariables [
-	^ #(lhs value)
+	^ #(lhs)
+]
+
+{ #category : #generated }
+RubyAssignmentNode >> otherVariables [
+	^ #(value)
+]
+
+{ #category : #generated }
+RubyAssignmentNode >> rightParens [
+	^ rightParens
+]
+
+{ #category : #generated }
+RubyAssignmentNode >> rightParens: anOrderedCollection [
+	rightParens := anOrderedCollection
 ]
 
 { #category : #generated }
@@ -47,8 +86,8 @@ RubyAssignmentNode >> value [
 ]
 
 { #category : #generated }
-RubyAssignmentNode >> value: aNode [
-	self value notNil ifTrue: [ self value parent: nil ].
-	value := aNode.
-	self value notNil ifTrue: [ self value parent: self ]
+RubyAssignmentNode >> value: anObject [
+	self setParent: self value to: nil.
+	value := anObject.
+	self setParent: self value to: self
 ]

@@ -5,7 +5,8 @@ Class {
 		'condition',
 		'thenStatements',
 		'unlessToken',
-		'end'
+		'end',
+		'else'
 	],
 	#category : #GToolkit4Ruby
 }
@@ -28,6 +29,18 @@ RubyUnlessNode >> condition: aNode [
 ]
 
 { #category : #generated }
+RubyUnlessNode >> else [
+	^ else
+]
+
+{ #category : #generated }
+RubyUnlessNode >> else: aNode [
+	self else notNil ifTrue: [ self else parent: nil ].
+	else := aNode.
+	self else notNil ifTrue: [ self else parent: self ]
+]
+
+{ #category : #generated }
 RubyUnlessNode >> end [
 	^ end
 ]
@@ -45,7 +58,7 @@ RubyUnlessNode >> initialize [
 
 { #category : #generated }
 RubyUnlessNode >> nodeVariables [
-	^ #(condition)
+	^ #(condition else)
 ]
 
 { #category : #generated }

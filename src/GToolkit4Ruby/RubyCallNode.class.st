@@ -6,7 +6,9 @@ Class {
 		'name',
 		'receiver',
 		'period',
-		'block'
+		'block',
+		'leftParens',
+		'rightParens'
 	],
 	#category : #GToolkit4Ruby
 }
@@ -36,6 +38,28 @@ RubyCallNode >> block: aNode [
 ]
 
 { #category : #generated }
+RubyCallNode >> compositeTokenVariables [
+	^ #(leftParens rightParens)
+]
+
+{ #category : #generated }
+RubyCallNode >> initialize [
+	super initialize.
+	leftParens := OrderedCollection new: 2.
+	rightParens := OrderedCollection new: 2
+]
+
+{ #category : #generated }
+RubyCallNode >> leftParens [
+	^ leftParens
+]
+
+{ #category : #generated }
+RubyCallNode >> leftParens: anOrderedCollection [
+	leftParens := anOrderedCollection
+]
+
+{ #category : #generated }
 RubyCallNode >> name [
 	^ name
 ]
@@ -47,7 +71,12 @@ RubyCallNode >> name: aToken [
 
 { #category : #generated }
 RubyCallNode >> nodeVariables [
-	^ #(arguments block receiver)
+	^ #(arguments block)
+]
+
+{ #category : #generated }
+RubyCallNode >> otherVariables [
+	^ #(receiver)
 ]
 
 { #category : #generated }
@@ -66,10 +95,20 @@ RubyCallNode >> receiver [
 ]
 
 { #category : #generated }
-RubyCallNode >> receiver: aNode [
-	self receiver notNil ifTrue: [ self receiver parent: nil ].
-	receiver := aNode.
-	self receiver notNil ifTrue: [ self receiver parent: self ]
+RubyCallNode >> receiver: anObject [
+	self setParent: self receiver to: nil.
+	receiver := anObject.
+	self setParent: self receiver to: self
+]
+
+{ #category : #generated }
+RubyCallNode >> rightParens [
+	^ rightParens
+]
+
+{ #category : #generated }
+RubyCallNode >> rightParens: anOrderedCollection [
+	rightParens := anOrderedCollection
 ]
 
 { #category : #generated }

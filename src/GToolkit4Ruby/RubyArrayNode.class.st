@@ -5,7 +5,9 @@ Class {
 		'values',
 		'commas',
 		'leftBracket',
-		'rightBracket'
+		'rightBracket',
+		'leftParens',
+		'rightParens'
 	],
 	#category : #GToolkit4Ruby
 }
@@ -22,13 +24,15 @@ RubyArrayNode >> commas: anOrderedCollection [
 
 { #category : #generated }
 RubyArrayNode >> compositeTokenVariables [
-	^ #(commas)
+	^ #(commas leftParens rightParens)
 ]
 
 { #category : #generated }
 RubyArrayNode >> initialize [
 	super initialize.
-	commas := OrderedCollection new: 2
+	commas := OrderedCollection new: 2.
+	leftParens := OrderedCollection new: 2.
+	rightParens := OrderedCollection new: 2
 ]
 
 { #category : #generated }
@@ -39,6 +43,16 @@ RubyArrayNode >> leftBracket [
 { #category : #generated }
 RubyArrayNode >> leftBracket: aToken [
 	leftBracket := aToken
+]
+
+{ #category : #generated }
+RubyArrayNode >> leftParens [
+	^ leftParens
+]
+
+{ #category : #generated }
+RubyArrayNode >> leftParens: anOrderedCollection [
+	leftParens := anOrderedCollection
 ]
 
 { #category : #generated }
@@ -54,6 +68,16 @@ RubyArrayNode >> rightBracket [
 { #category : #generated }
 RubyArrayNode >> rightBracket: aToken [
 	rightBracket := aToken
+]
+
+{ #category : #generated }
+RubyArrayNode >> rightParens [
+	^ rightParens
+]
+
+{ #category : #generated }
+RubyArrayNode >> rightParens: anOrderedCollection [
+	rightParens := anOrderedCollection
 ]
 
 { #category : #generated }

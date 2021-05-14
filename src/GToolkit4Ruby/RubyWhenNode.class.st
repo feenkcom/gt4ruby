@@ -6,7 +6,8 @@ Class {
 		'statements',
 		'next',
 		'when',
-		'commas'
+		'commas',
+		'then'
 	],
 	#category : #GToolkit4Ruby
 }
@@ -23,7 +24,7 @@ RubyWhenNode >> commas: anOrderedCollection [
 
 { #category : #generated }
 RubyWhenNode >> compositeNodeVariables [
-	^ #(conditions statements)
+	^ #(conditions)
 ]
 
 { #category : #generated }
@@ -47,8 +48,7 @@ RubyWhenNode >> conditions: anOrderedCollection [
 RubyWhenNode >> initialize [
 	super initialize.
 	commas := OrderedCollection new: 2.
-	conditions := OrderedCollection new: 2.
-	statements := OrderedCollection new: 2
+	conditions := OrderedCollection new: 2
 ]
 
 { #category : #generated }
@@ -69,20 +69,35 @@ RubyWhenNode >> nodeVariables [
 ]
 
 { #category : #generated }
+RubyWhenNode >> otherVariables [
+	^ #(statements)
+]
+
+{ #category : #generated }
 RubyWhenNode >> statements [
 	^ statements
 ]
 
 { #category : #generated }
-RubyWhenNode >> statements: anOrderedCollection [
+RubyWhenNode >> statements: anObject [
 	self setParent: self statements to: nil.
-	statements := anOrderedCollection.
+	statements := anObject.
 	self setParent: self statements to: self
 ]
 
 { #category : #generated }
+RubyWhenNode >> then [
+	^ then
+]
+
+{ #category : #generated }
+RubyWhenNode >> then: aToken [
+	then := aToken
+]
+
+{ #category : #generated }
 RubyWhenNode >> tokenVariables [
-	^ #(when)
+	^ #(then when)
 ]
 
 { #category : #generated }

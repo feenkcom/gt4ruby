@@ -4,10 +4,17 @@ Class {
 	#instVars : [
 		'condition',
 		'statement',
-		'ifToken'
+		'ifToken',
+		'leftParens',
+		'rightParens'
 	],
 	#category : #GToolkit4Ruby
 }
+
+{ #category : #generated }
+RubyIfModNode >> compositeTokenVariables [
+	^ #(leftParens rightParens)
+]
 
 { #category : #generated }
 RubyIfModNode >> condition [
@@ -32,8 +39,35 @@ RubyIfModNode >> ifToken: aToken [
 ]
 
 { #category : #generated }
+RubyIfModNode >> initialize [
+	super initialize.
+	leftParens := OrderedCollection new: 2.
+	rightParens := OrderedCollection new: 2
+]
+
+{ #category : #generated }
+RubyIfModNode >> leftParens [
+	^ leftParens
+]
+
+{ #category : #generated }
+RubyIfModNode >> leftParens: anOrderedCollection [
+	leftParens := anOrderedCollection
+]
+
+{ #category : #generated }
 RubyIfModNode >> nodeVariables [
 	^ #(condition statement)
+]
+
+{ #category : #generated }
+RubyIfModNode >> rightParens [
+	^ rightParens
+]
+
+{ #category : #generated }
+RubyIfModNode >> rightParens: anOrderedCollection [
+	rightParens := anOrderedCollection
 ]
 
 { #category : #generated }

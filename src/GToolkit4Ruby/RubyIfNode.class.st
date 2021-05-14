@@ -6,7 +6,11 @@ Class {
 		'thenStatements',
 		'ifToken',
 		'end',
-		'else'
+		'else',
+		'then',
+		'leftParens',
+		'rightParens',
+		'semicolons'
 	],
 	#category : #GToolkit4Ruby
 }
@@ -14,6 +18,11 @@ Class {
 { #category : #generated }
 RubyIfNode >> compositeNodeVariables [
 	^ #(thenStatements)
+]
+
+{ #category : #generated }
+RubyIfNode >> compositeTokenVariables [
+	^ #(leftParens rightParens semicolons)
 ]
 
 { #category : #generated }
@@ -63,12 +72,55 @@ RubyIfNode >> ifToken: aToken [
 { #category : #generated }
 RubyIfNode >> initialize [
 	super initialize.
+	semicolons := OrderedCollection new: 2.
+	leftParens := OrderedCollection new: 2.
+	rightParens := OrderedCollection new: 2.
 	thenStatements := OrderedCollection new: 2
+]
+
+{ #category : #generated }
+RubyIfNode >> leftParens [
+	^ leftParens
+]
+
+{ #category : #generated }
+RubyIfNode >> leftParens: anOrderedCollection [
+	leftParens := anOrderedCollection
 ]
 
 { #category : #generated }
 RubyIfNode >> nodeVariables [
 	^ #(condition else)
+]
+
+{ #category : #generated }
+RubyIfNode >> rightParens [
+	^ rightParens
+]
+
+{ #category : #generated }
+RubyIfNode >> rightParens: anOrderedCollection [
+	rightParens := anOrderedCollection
+]
+
+{ #category : #generated }
+RubyIfNode >> semicolons [
+	^ semicolons
+]
+
+{ #category : #generated }
+RubyIfNode >> semicolons: anOrderedCollection [
+	semicolons := anOrderedCollection
+]
+
+{ #category : #generated }
+RubyIfNode >> then [
+	^ then
+]
+
+{ #category : #generated }
+RubyIfNode >> then: aToken [
+	then := aToken
 ]
 
 { #category : #generated }
@@ -85,5 +137,5 @@ RubyIfNode >> thenStatements: anOrderedCollection [
 
 { #category : #generated }
 RubyIfNode >> tokenVariables [
-	^ #(end ifToken)
+	^ #(end ifToken then)
 ]

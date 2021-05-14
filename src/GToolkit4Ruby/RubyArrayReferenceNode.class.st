@@ -5,7 +5,10 @@ Class {
 		'array',
 		'indices',
 		'left',
-		'right'
+		'right',
+		'commas',
+		'leftParens',
+		'rightParens'
 	],
 	#category : #GToolkit4Ruby
 }
@@ -23,8 +26,23 @@ RubyArrayReferenceNode >> array: aNode [
 ]
 
 { #category : #generated }
+RubyArrayReferenceNode >> commas [
+	^ commas
+]
+
+{ #category : #generated }
+RubyArrayReferenceNode >> commas: anOrderedCollection [
+	commas := anOrderedCollection
+]
+
+{ #category : #generated }
 RubyArrayReferenceNode >> compositeNodeVariables [
 	^ #(indices)
+]
+
+{ #category : #generated }
+RubyArrayReferenceNode >> compositeTokenVariables [
+	^ #(commas leftParens rightParens)
 ]
 
 { #category : #generated }
@@ -33,16 +51,18 @@ RubyArrayReferenceNode >> indices [
 ]
 
 { #category : #generated }
-RubyArrayReferenceNode >> indices: anOrderedCollection [
+RubyArrayReferenceNode >> indices: anObject [
 	self setParent: self indices to: nil.
-	indices := anOrderedCollection.
+	indices := anObject.
 	self setParent: self indices to: self
 ]
 
 { #category : #generated }
 RubyArrayReferenceNode >> initialize [
 	super initialize.
-	indices := OrderedCollection new: 2
+	commas := OrderedCollection new: 2.
+	leftParens := OrderedCollection new: 2.
+	rightParens := OrderedCollection new: 2
 ]
 
 { #category : #generated }
@@ -56,8 +76,23 @@ RubyArrayReferenceNode >> left: aToken [
 ]
 
 { #category : #generated }
+RubyArrayReferenceNode >> leftParens [
+	^ leftParens
+]
+
+{ #category : #generated }
+RubyArrayReferenceNode >> leftParens: anOrderedCollection [
+	leftParens := anOrderedCollection
+]
+
+{ #category : #generated }
 RubyArrayReferenceNode >> nodeVariables [
 	^ #(array)
+]
+
+{ #category : #generated }
+RubyArrayReferenceNode >> otherVariables [
+	^ #(indices)
 ]
 
 { #category : #generated }
@@ -68,6 +103,16 @@ RubyArrayReferenceNode >> right [
 { #category : #generated }
 RubyArrayReferenceNode >> right: aToken [
 	right := aToken
+]
+
+{ #category : #generated }
+RubyArrayReferenceNode >> rightParens [
+	^ rightParens
+]
+
+{ #category : #generated }
+RubyArrayReferenceNode >> rightParens: anOrderedCollection [
+	rightParens := anOrderedCollection
 ]
 
 { #category : #generated }

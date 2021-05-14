@@ -1,52 +1,47 @@
 Class {
-	#name : #RubyElseNode,
+	#name : #RubyEnsureBlockNode,
 	#superclass : #RubyProgramNode,
 	#instVars : [
 		'statements',
-		'else'
+		'ensure'
 	],
 	#category : #GToolkit4Ruby
 }
 
 { #category : #generated }
-RubyElseNode >> compositeNodeVariables [
+RubyEnsureBlockNode >> compositeNodeVariables [
 	^ #(statements)
 ]
 
 { #category : #generated }
-RubyElseNode >> else [
-	^ else
+RubyEnsureBlockNode >> ensure [
+	^ ensure
 ]
 
 { #category : #generated }
-RubyElseNode >> else: aToken [
-	else := aToken
+RubyEnsureBlockNode >> ensure: aToken [
+	ensure := aToken
 ]
 
 { #category : #generated }
-RubyElseNode >> initialize [
+RubyEnsureBlockNode >> initialize [
 	super initialize.
 	statements := OrderedCollection new: 2
 ]
 
 { #category : #generated }
-RubyElseNode >> otherVariables [
-	^ #(statements)
-]
-
-{ #category : #generated }
-RubyElseNode >> statements [
+RubyEnsureBlockNode >> statements [
 	^ statements
 ]
 
 { #category : #generated }
-RubyElseNode >> statements: anObject [
+RubyEnsureBlockNode >> statements: anOrderedCollection [
 	self setParent: self statements to: nil.
-	statements := anObject.
+	statements := anOrderedCollection.
 	self setParent: self statements to: self
 ]
 
 { #category : #generated }
-RubyElseNode >> tokenVariables [
-	^ #(else)
+RubyEnsureBlockNode >> tokenVariables [
+	^ #(ensure)
 ]
