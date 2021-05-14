@@ -262,6 +262,46 @@ GtRubyImporter >> createTokenFrom: aLiteralArray [
 ]
 
 { #category : #'generating ast node classes' }
+GtRubyImporter >> createVisitor [
+	| model |
+	model := self createInitialRubyParseNode.
+	self createVisitorIn: model.
+	^ model
+]
+
+{ #category : #'generating ast node classes' }
+GtRubyImporter >> createVisitorIn: aModel [
+	| class trait |
+	class := aModel classNamed: #RubyProgramNode.
+	trait := (aModel classNamed: #TRubyProgramNodeVisitor)
+		ifNil: [ aModel
+				smaccDefineTrait:
+					'Trait named: #TRubyProgramNodeVisitor uses: TSmaCCParseNodeVisitor package: ''GToolkit4Ruby'''.
+			aModel classNamed: #TRubyProgramNodeVisitor ].
+	class withAllSubclasses
+		do: [ :cls | 
+			| name superName |
+			name := cls name copyFrom: 5 to: cls name size - 4.
+			superName := cls == class
+				ifTrue: [ 'SmaCCParseNode' ]
+				ifFalse: [ cls superclass name copyFrom: 5 to: cls superclass name size - 4 ].
+			trait
+				compile:
+					('visit<1s>: aNode<r><t>^ self visit<2s>: aNode'
+						expandMacrosWith: name
+						with: superName)
+				classified: #generated ].
+	aModel
+		defineClass:
+			'Object subclass: #RubyProgramNodeVisitor
+				uses: TRubyProgramNodeVisitor
+				instanceVariableNames: ''''
+				classVariableNames: ''''
+				poolDictionaries: ''''
+				package: ''GToolkit4Ruby'''
+]
+
+{ #category : #'generating ast node classes' }
 GtRubyImporter >> initialVariableTypesFrom: aModel [
 	| types |
 	types := Dictionary new.
