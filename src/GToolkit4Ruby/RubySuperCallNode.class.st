@@ -21,14 +21,14 @@ RubySuperCallNode >> arguments: anOrderedCollection [
 ]
 
 { #category : #generated }
-RubySuperCallNode >> compositeNodeVariables [
-	^ #(arguments)
-]
-
-{ #category : #generated }
 RubySuperCallNode >> initialize [
 	super initialize.
 	arguments := OrderedCollection new: 2
+]
+
+{ #category : #generated }
+RubySuperCallNode >> otherVariables [
+	^ #(arguments)
 ]
 
 { #category : #generated }

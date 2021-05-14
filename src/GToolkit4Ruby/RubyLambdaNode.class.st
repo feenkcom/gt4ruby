@@ -34,11 +34,6 @@ RubyLambdaNode >> block: anOrderedCollection [
 ]
 
 { #category : #generated }
-RubyLambdaNode >> compositeNodeVariables [
-	^ #(block)
-]
-
-{ #category : #generated }
 RubyLambdaNode >> initialize [
 	super initialize.
 	block := OrderedCollection new: 2
@@ -58,7 +53,7 @@ RubyLambdaNode >> left: anObject [
 
 { #category : #generated }
 RubyLambdaNode >> otherVariables [
-	^ #(left parameters)
+	^ #(left parameters block)
 ]
 
 { #category : #generated }

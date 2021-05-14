@@ -26,11 +26,6 @@ RubyMethodNode >> block: aNode [
 ]
 
 { #category : #generated }
-RubyMethodNode >> compositeNodeVariables [
-	^ #(params)
-]
-
-{ #category : #generated }
 RubyMethodNode >> defToken [
 	^ defToken
 ]
@@ -81,6 +76,11 @@ RubyMethodNode >> name: aToken [
 { #category : #generated }
 RubyMethodNode >> nodeVariables [
 	^ #(block module)
+]
+
+{ #category : #generated }
+RubyMethodNode >> otherVariables [
+	^ #(params)
 ]
 
 { #category : #generated }

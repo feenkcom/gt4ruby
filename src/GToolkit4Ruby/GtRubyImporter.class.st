@@ -374,6 +374,7 @@ GtRubyImporter >> parseDirectory: aString [
 			literalAST := self loadASTAsLiteral: each.
 			node := self createASTFrom: literalAST.
 			node completeSource: each contents.
+			node filename: each fullName.
 			node ]
 ]
 
