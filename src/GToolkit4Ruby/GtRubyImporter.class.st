@@ -275,7 +275,8 @@ GtRubyImporter >> initialVariableTypesFrom: aModel [
 							selector := entry first.
 							varTypes := entry last.
 							((sub methodFor: selector)
-								ifNotNil: [ :method | self literalArrayFor: method ])
+								ifNotNil: [ :method | self literalArrayFor: method ]
+								ifNil: [ #() ])
 								do: [ :each | 
 									(types at: sub ifAbsentPut: [ Dictionary new ])
 										at: each
