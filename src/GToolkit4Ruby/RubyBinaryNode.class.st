@@ -46,11 +46,6 @@ RubyBinaryNode >> leftParens: anOrderedCollection [
 ]
 
 { #category : #generated }
-RubyBinaryNode >> nodeVariables [
-	^ #(left right)
-]
-
-{ #category : #generated }
 RubyBinaryNode >> operator [
 	^ operator
 ]

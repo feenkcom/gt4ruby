@@ -33,11 +33,6 @@ RubyArgumentsNode >> commas: anOrderedCollection [
 ]
 
 { #category : #generated }
-RubyArgumentsNode >> compositeNodeVariables [
-	^ #(arguments)
-]
-
-{ #category : #generated }
 RubyArgumentsNode >> compositeTokenVariables [
 	^ #(commas)
 ]

@@ -36,11 +36,6 @@ RubyArrayReferenceNode >> commas: anOrderedCollection [
 ]
 
 { #category : #generated }
-RubyArrayReferenceNode >> compositeNodeVariables [
-	^ #(indices)
-]
-
-{ #category : #generated }
 RubyArrayReferenceNode >> compositeTokenVariables [
 	^ #(commas leftParens rightParens)
 ]

@@ -9,11 +9,6 @@ Class {
 }
 
 { #category : #generated }
-RubyElseNode >> compositeNodeVariables [
-	^ #(statements)
-]
-
-{ #category : #generated }
 RubyElseNode >> else [
 	^ else
 ]

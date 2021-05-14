@@ -27,11 +27,6 @@ RubyBlockNode >> body: aNode [
 ]
 
 { #category : #generated }
-RubyBlockNode >> compositeNodeVariables [
-	^ #(statements)
-]
-
-{ #category : #generated }
 RubyBlockNode >> compositeTokenVariables [
 	^ #(semicolons)
 ]
