@@ -552,14 +552,11 @@ class ASTBuilder < Ripper
 
 	def on_call(rcvr, period, name)
 		node = Node.new("Call")
-		node.node("receiver", rcvr)
-		node.token("period", period)
-		node.token("name", name) 
 		popped = popUntilNode(rcvr)
+		node.node("receiver", popped.pop) if rcvr != nil
+		node.token("period", popped.pop)
+		node.token("name", popped.pop) 
 		push(node)
-		popped.pop
-		popped.pop
-		popped.pop if rcvr != nil
 		pushItems(popped)
 		node
 	end
@@ -591,7 +588,7 @@ class ASTBuilder < Ripper
 			(keywordParams.count - 1).downto(0) {|i|
 				var = Node.new("KeywordVariable")
 				var.node("label", keywordParams[i][0])
-				if keywordParams[0][1] != false
+				if keywordParams[i][1] != false
 					var.node("value", keywordParams[i][1])
 				end
 				nodes.unshift(var)
@@ -1337,20 +1334,15 @@ class ASTBuilder < Ripper
 
 	def on_command_call(rcvr, period, name, args)
 		node = Node.new("Call")
-		node.node("receiver", rcvr)
-		node.token("period", period)
-		node.token("name", name) 
+		popped = popUntilNode(rcvr)
+		node.node("receiver", popped.pop)
+		node.token("period", popped.pop)
+		node.token("name", popped.pop) 
 		if args.is_a?(Array)
 			argsNode = Node.new("Arguments")
 			argsNode.node("arguments", args[0])
 			argsNode.token("commas", args[1])
 			node.node("arguments", argsNode)
-		end
-		popped = popUntilNode(rcvr)
-		popped.pop
-		popped.pop
-		popped.pop
-		if args.is_a?(Array)
 			popped.pop
 		end
 		push(node)
