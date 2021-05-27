@@ -10,6 +10,5 @@ BaselineOfGToolkit4Ruby >> baseline: spec [
 	spec
 		for: #common
 		do: [
-			spec 
-				baseline: 'GToolkit4Ruby' with: [ spec repository: 'github://feenkcom/gt4ruby/src' ] ]
+			spec package: 'GToolkit4Ruby' ]
 ]
