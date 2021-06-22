@@ -258,7 +258,10 @@ GtRubyImporter >> createTokenFrom: aLiteralArray [
 	^ SmaCCToken
 		value: aLiteralArray first
 		start: aLiteralArray last
-		ids: #()
+		ids:
+			(((GtRubyScanner keywordMap at: 1) includesKey: aLiteralArray first)
+				ifTrue: [ #(2) ]
+				ifFalse: [ #(1) ])
 ]
 
 { #category : #'generating ast node classes' }
@@ -369,13 +372,18 @@ GtRubyImporter >> loadASTAsLiteral: aFilename [
 GtRubyImporter >> parseDirectory: aString [
 	^ (aString asFileReference allFiles
 		select: [ :e | e extension = 'rb' ])
-		collect: [ :each | 
-			| literalAST node |
-			literalAST := self loadASTAsLiteral: each.
-			node := self createASTFrom: literalAST.
-			node completeSource: each contents.
-			node filename: each fullName.
-			node ]
+		collect:
+			[ :each | self parseFile: each ]
+]
+
+{ #category : #parsing }
+GtRubyImporter >> parseFile: aFileReference [
+	| literalAST node |
+	literalAST := self loadASTAsLiteral: aFileReference.
+	node := self createASTFrom: literalAST.
+	node completeSource: aFileReference contents.
+	node filename: aFileReference fullName.
+	^ node
 ]
 
 { #category : #'generating ast node classes' }
