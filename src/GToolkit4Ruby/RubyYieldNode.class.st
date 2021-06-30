@@ -6,8 +6,13 @@ Class {
 		'values',
 		'commas'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyYieldNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitYield: self
+]
 
 { #category : #generated }
 RubyYieldNode >> commas [

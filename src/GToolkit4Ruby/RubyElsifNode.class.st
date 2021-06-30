@@ -7,8 +7,13 @@ Class {
 		'elsif',
 		'else'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyElsifNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitElsif: self
+]
 
 { #category : #generated }
 RubyElsifNode >> compositeNodeVariables [

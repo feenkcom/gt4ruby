@@ -5,8 +5,13 @@ Class {
 		'value',
 		'star'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubySplatNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitSplat: self
+]
 
 { #category : #generated }
 RubySplatNode >> nodeVariables [

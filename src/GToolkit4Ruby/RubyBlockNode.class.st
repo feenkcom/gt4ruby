@@ -11,8 +11,13 @@ Class {
 		'end',
 		'semicolons'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyBlockNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitBlock: self
+]
 
 { #category : #generated }
 RubyBlockNode >> body [

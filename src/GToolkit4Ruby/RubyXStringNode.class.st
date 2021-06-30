@@ -4,8 +4,13 @@ Class {
 	#instVars : [
 		'parts'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyXStringNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitXString: self
+]
 
 { #category : #generated }
 RubyXStringNode >> compositeNodeVariables [

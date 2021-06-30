@@ -8,8 +8,13 @@ Class {
 		'leftParens',
 		'rightParens'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyAssignmentNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitAssignment: self
+]
 
 { #category : #generated }
 RubyAssignmentNode >> assignment [

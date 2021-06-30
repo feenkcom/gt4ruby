@@ -6,8 +6,13 @@ Class {
 		'period',
 		'name'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyFieldNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitField: self
+]
 
 { #category : #generated }
 RubyFieldNode >> name [

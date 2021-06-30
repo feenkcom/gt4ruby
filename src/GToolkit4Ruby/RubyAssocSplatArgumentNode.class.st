@@ -5,8 +5,13 @@ Class {
 		'argument',
 		'splat'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyAssocSplatArgumentNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitAssocSplatArgument: self
+]
 
 { #category : #generated }
 RubyAssocSplatArgumentNode >> argument [

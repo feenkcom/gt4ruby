@@ -8,8 +8,13 @@ Class {
 		'leftParens',
 		'rightParens'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyRescueModNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitRescueMod: self
+]
 
 { #category : #generated }
 RubyRescueModNode >> compositeTokenVariables [

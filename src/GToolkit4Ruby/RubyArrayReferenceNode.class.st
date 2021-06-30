@@ -10,8 +10,13 @@ Class {
 		'leftParens',
 		'rightParens'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyArrayReferenceNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitArrayReference: self
+]
 
 { #category : #generated }
 RubyArrayReferenceNode >> array [

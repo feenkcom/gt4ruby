@@ -9,8 +9,13 @@ Class {
 		'leftParens',
 		'rightParens'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyHashNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitHash: self
+]
 
 { #category : #generated }
 RubyHashNode >> associations [

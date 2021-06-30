@@ -10,8 +10,13 @@ Class {
 		'leftParens',
 		'rightParens'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubySingletonClassNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitSingletonClass: self
+]
 
 { #category : #generated }
 RubySingletonClassNode >> block [

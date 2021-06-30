@@ -12,8 +12,13 @@ Class {
 		'rightParens',
 		'semicolons'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyIfNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitIf: self
+]
 
 { #category : #generated }
 RubyIfNode >> compositeNodeVariables [

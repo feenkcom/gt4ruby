@@ -6,8 +6,13 @@ Class {
 		'to',
 		'dots'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyExcludeRangeNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitExcludeRange: self
+]
 
 { #category : #generated }
 RubyExcludeRangeNode >> dots [

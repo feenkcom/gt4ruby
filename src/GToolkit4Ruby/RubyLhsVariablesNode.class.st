@@ -7,8 +7,13 @@ Class {
 		'right',
 		'commas'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyLhsVariablesNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitLhsVariables: self
+]
 
 { #category : #generated }
 RubyLhsVariablesNode >> commas [

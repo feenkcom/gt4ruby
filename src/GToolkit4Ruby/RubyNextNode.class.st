@@ -5,8 +5,13 @@ Class {
 		'next',
 		'value'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyNextNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitNext: self
+]
 
 { #category : #generated }
 RubyNextNode >> next [

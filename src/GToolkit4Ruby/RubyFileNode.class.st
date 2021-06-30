@@ -6,8 +6,13 @@ Class {
 		'comments',
 		'embeddedDocumentItems'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyFileNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitFile: self
+]
 
 { #category : #generated }
 RubyFileNode >> compositeNodeVariables [

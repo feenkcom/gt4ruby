@@ -1,7 +1,16 @@
 Class {
 	#name : #GtRubyImporter,
 	#superclass : #Object,
-	#category : #GToolkit4Ruby
+	#traits : 'TRubyProgramNodeVisitor',
+	#classTraits : 'TRubyProgramNodeVisitor classTrait',
+	#instVars : [
+		'mooseModel',
+		'scopeStack',
+		'currentFile',
+		'files',
+		'folders'
+	],
+	#category : #'GToolkit4Ruby-Importer'
 }
 
 { #category : #'generating ast node classes' }
@@ -9,6 +18,23 @@ GtRubyImporter >> addVariablesFrom: aLiteralArray to: aClass [
 	2 to: aLiteralArray size by: 2 do: [ :i | 
 		(aClass definesVariable: (aLiteralArray at: i) asString)
 			ifFalse: [ aClass addInstanceVariable: (aLiteralArray at: i) asString ] ]
+]
+
+{ #category : #importing }
+GtRubyImporter >> assignScope: modelObject around: aBlock [
+	scopeStack addLast: modelObject.
+	^ aBlock
+		ensure: [ scopeStack removeLast ]
+]
+
+{ #category : #accessing }
+GtRubyImporter >> baseDirectory [
+	^ mooseModel rootFolder
+]
+
+{ #category : #accessing }
+GtRubyImporter >> baseDirectory: aFileReference [
+	mooseModel rootFolder: aFileReference asFileReference
 ]
 
 { #category : #'generating ast node classes' }
@@ -24,6 +50,14 @@ GtRubyImporter >> buildClassesFromDirectory: aString [
 			self updateVariableTypes: variableTypes from: literalAST in: model ].
 	self compileMethodsForVariables: variableTypes.
 	^ model
+]
+
+{ #category : #importing }
+GtRubyImporter >> classScope [
+	scopeStack size to: 1 by: -1 do: [ :i | 
+		((scopeStack at: i) isKindOf: FAMIXClass)
+			ifTrue: [ ^ scopeStack at: i ] ].
+	^ nil
 ]
 
 { #category : #'generating ast node classes' }
@@ -185,6 +219,29 @@ GtRubyImporter >> createASTFrom: aLiteralArray [
 ]
 
 { #category : #'generating ast node classes' }
+GtRubyImporter >> createAcceptVisitorMethods [
+	| model |
+	model := self createInitialRubyParseNode.
+	self createAcceptVisitorMethodsIn: model.
+	^ model
+]
+
+{ #category : #'generating ast node classes' }
+GtRubyImporter >> createAcceptVisitorMethodsIn: aModel [
+	| class |
+	class := aModel classNamed: #RubyProgramNode.
+	class withAllSubclasses
+		do: [ :cls | 
+			| name |
+			name := cls name copyFrom: 5 to: cls name size - 4.
+			cls
+				compile:
+					('acceptVisitor: aVisitor<r><t>^ aVisitor visit<1s>: self'
+						expandMacrosWith: name)
+				classified: #generated ]
+]
+
+{ #category : #'generating ast node classes' }
 GtRubyImporter >> createClassesFrom: aLiteralArray [
 	| model |
 	model := self createInitialRubyParseNode.
@@ -223,17 +280,17 @@ GtRubyImporter >> createCommentIntervalsFrom: aLiteralArray [
 
 { #category : #'generating ast node classes' }
 GtRubyImporter >> createInitialRubyParseNode [
-	| model |
-	model := RBNamespace new.
-	(model classNamed: #RubyProgramNode) isNil
-		ifTrue: [ model
+	| mdl |
+	mdl := RBNamespace new.
+	(mdl classNamed: #RubyProgramNode) isNil
+		ifTrue: [ mdl
 				defineClass:
 					'SmaCCParseNode subclass: #RubyProgramNode
 				instanceVariableNames: ''''
 				classVariableNames: ''''
 				poolDictionaries: ''''
 				package: ''GToolkit4Ruby''' ].
-	^ model
+	^ mdl
 ]
 
 { #category : #parsing }
@@ -304,6 +361,84 @@ GtRubyImporter >> createVisitorIn: aModel [
 				package: ''GToolkit4Ruby'''
 ]
 
+{ #category : #importing }
+GtRubyImporter >> ensureClassNamed: aString [
+	^ mooseModel add: (GtRubyClass new name: aString)
+]
+
+{ #category : #importing }
+GtRubyImporter >> ensureFileNamed: aFileReference [
+	| filename |
+	filename := aFileReference pathString.
+	DiskStore activeClass isCaseSensitive
+		ifFalse: [ filename := filename asUppercase ].
+	^ files
+		at: filename
+		ifAbsentPut: [ | file |
+			file := FAMIXFile new.
+			file name: aFileReference basename.
+			aFileReference exists
+				ifTrue: [ | encoding anchor |
+					encoding := [ aFileReference
+						binaryReadStreamDo: [ :in | (ZnCharacterEncoder detectEncoding: in upToEnd) identifier ] ]
+						on: Error
+						do: [ :ex | ex return: 'utf-8' ].
+					anchor := FAMIXIndexedFileEntityAnchor
+						file: file
+						startPos: 1
+						endPos:
+							(aFileReference
+								readStreamEncoded: encoding
+								do: [ :stream | stream contents size ])
+						model: mooseModel.
+					file sourceAnchor: anchor ]
+				ifFalse: [ file isStub: true ].
+			(self ensureFolderNamed: aFileReference parent)
+				ifNotNil: [ :folder | folder addChildFileSystemEntity: file ].
+			mooseModel add: file.
+			file ]
+]
+
+{ #category : #importing }
+GtRubyImporter >> ensureFolderNamed: aFileReference [
+	^ folders
+		at: aFileReference pathString
+		ifAbsentPut: [ | folder |
+			folder := FAMIXFolder new.
+			aFileReference = mooseModel rootFolder
+				ifTrue: [ folder name: '.' ]
+				ifFalse: [ folder name: aFileReference basename.
+					(self ensureFolderNamed: aFileReference parent)
+						ifNotNil: [ :outer | outer addChildFileSystemEntity: folder ] ].
+			mooseModel add: folder.
+			folder ]
+]
+
+{ #category : #importing }
+GtRubyImporter >> ensureFunctionNamed: aString [
+	^ mooseModel add: (FAMIXFunction new name: aString)
+]
+
+{ #category : #importing }
+GtRubyImporter >> ensureMethodNamed: aString [
+	^ mooseModel add: (FAMIXMethod new name: aString)
+]
+
+{ #category : #importing }
+GtRubyImporter >> ensureModuleNamed: aString [
+	^ mooseModel add: (GtRubyModule new name: aString)
+]
+
+{ #category : #importing }
+GtRubyImporter >> importAST: aNode [
+	self accept: aNode
+]
+
+{ #category : #importing }
+GtRubyImporter >> importASTs: aCollection [
+	aCollection do: [ :each | self importAST: each ]
+]
+
 { #category : #'generating ast node classes' }
 GtRubyImporter >> initialVariableTypesFrom: aModel [
 	| types |
@@ -325,6 +460,16 @@ GtRubyImporter >> initialVariableTypesFrom: aModel [
 										at: each
 										put: varTypes asSet ] ] ] ].
 	^ types
+]
+
+{ #category : #'initialize-release' }
+GtRubyImporter >> initialize [
+	super initialize.
+	mooseModel := MooseModel new.
+	mooseModel sourceLanguage: FAMIXRubySourceLanguage new.
+	scopeStack := OrderedCollection new.
+	folders := Dictionary new.
+	files := Dictionary new.
 ]
 
 { #category : #testing }
@@ -368,12 +513,17 @@ GtRubyImporter >> loadASTAsLiteral: aFilename [
 	^ (RBParser parseExpression: stream contents) value
 ]
 
+{ #category : #accessing }
+GtRubyImporter >> model [
+	^ mooseModel
+]
+
 { #category : #parsing }
 GtRubyImporter >> parseDirectory: aString [
+	self baseDirectory: aString asFileReference.
 	^ (aString asFileReference allFiles
 		select: [ :e | e extension = 'rb' ])
-		collect:
-			[ :each | self parseFile: each ]
+		collect: [ :each | self parseFile: each ]
 ]
 
 { #category : #parsing }
@@ -384,6 +534,20 @@ GtRubyImporter >> parseFile: aFileReference [
 	node completeSource: aFileReference contents.
 	node filename: aFileReference fullName.
 	^ node
+]
+
+{ #category : #importing }
+GtRubyImporter >> sourceAnchorFor: aNode [
+	^ FAMIXIndexedFileEntityAnchor
+		file: currentFile
+		startPos: aNode startPosition
+		endPos: aNode stopPosition
+		model: mooseModel
+]
+
+{ #category : #importing }
+GtRubyImporter >> storeAST: aNode into: anEntity [
+	anEntity propertyNamed: #ast put: aNode
 ]
 
 { #category : #'generating ast node classes' }
@@ -420,4 +584,53 @@ GtRubyImporter >> updateVariableTypes: variableTypes from: aLiteralArray in: aMo
 		do: [ :each | 
 			each isArray
 				ifTrue: [ self updateVariableTypes: variableTypes from: each in: aModel ] ]
+]
+
+{ #category : #visiting }
+GtRubyImporter >> visitClass: aNode [
+	| class |
+	class := self ensureClassNamed: aNode name source.
+	self storeAST: aNode into: class.
+	scopeStack first addEntity: class.
+	scopeStack size > 1
+		ifTrue: [ class container: scopeStack last ].
+	class sourceAnchor: (self sourceAnchorFor: aNode).
+	^ self
+		assignScope: class
+		around: [ self visitSmaCCParseNode: aNode ]
+]
+
+{ #category : #visiting }
+GtRubyImporter >> visitFile: aNode [
+	scopeStack := OrderedCollection new.
+	currentFile := self ensureFileNamed: aNode filename asFileReference.
+	^ self assignScope: currentFile around: [ self visitProgram: aNode ]
+]
+
+{ #category : #visiting }
+GtRubyImporter >> visitMethod: aNode [
+	| method |
+	method := self ensureMethodNamed: aNode name source.
+	self storeAST: aNode into: method.
+	scopeStack first addEntity: method.
+	scopeStack size > 1
+		ifTrue: [ method parentType: self classScope ].
+	method sourceAnchor: (self sourceAnchorFor: aNode).
+	^ self
+		assignScope: method
+		around: [ self visitSmaCCParseNode: aNode ]
+]
+
+{ #category : #visiting }
+GtRubyImporter >> visitModule: aNode [
+	| module |
+	module := self ensureModuleNamed: aNode name source.
+	self storeAST: aNode into: module.
+	scopeStack first addEntity: module.
+	scopeStack size > 1
+		ifTrue: [ module container: scopeStack last ].
+	module sourceAnchor: (self sourceAnchorFor: aNode).
+	^ self
+		assignScope: module
+		around: [ self visitSmaCCParseNode: aNode ]
 ]

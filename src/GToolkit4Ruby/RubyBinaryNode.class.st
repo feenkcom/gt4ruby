@@ -8,8 +8,13 @@ Class {
 		'leftParens',
 		'rightParens'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyBinaryNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitBinary: self
+]
 
 { #category : #generated }
 RubyBinaryNode >> compositeTokenVariables [

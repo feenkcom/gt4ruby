@@ -5,8 +5,13 @@ Class {
 		'name',
 		'amp'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyBlockArgVariableNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitBlockArgVariable: self
+]
 
 { #category : #generated }
 RubyBlockArgVariableNode >> amp [

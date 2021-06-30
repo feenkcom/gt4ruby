@@ -6,8 +6,13 @@ Class {
 		'separator',
 		'name'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyConstPathNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitConstPath: self
+]
 
 { #category : #generated }
 RubyConstPathNode >> name [

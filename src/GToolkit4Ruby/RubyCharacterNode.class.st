@@ -4,8 +4,13 @@ Class {
 	#instVars : [
 		'value'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyCharacterNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitCharacter: self
+]
 
 { #category : #generated }
 RubyCharacterNode >> tokenVariables [

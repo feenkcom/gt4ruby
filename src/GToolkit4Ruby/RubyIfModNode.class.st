@@ -8,8 +8,13 @@ Class {
 		'leftParens',
 		'rightParens'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyIfModNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitIfMod: self
+]
 
 { #category : #generated }
 RubyIfModNode >> compositeTokenVariables [

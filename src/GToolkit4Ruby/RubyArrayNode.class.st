@@ -9,8 +9,13 @@ Class {
 		'leftParens',
 		'rightParens'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyArrayNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitArray: self
+]
 
 { #category : #generated }
 RubyArrayNode >> commas [

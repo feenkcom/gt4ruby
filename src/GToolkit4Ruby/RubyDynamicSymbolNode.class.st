@@ -4,8 +4,13 @@ Class {
 	#instVars : [
 		'parts'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyDynamicSymbolNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitDynamicSymbol: self
+]
 
 { #category : #generated }
 RubyDynamicSymbolNode >> compositeNodeVariables [

@@ -8,8 +8,13 @@ Class {
 		'end',
 		'else'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyUnlessNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitUnless: self
+]
 
 { #category : #generated }
 RubyUnlessNode >> compositeNodeVariables [

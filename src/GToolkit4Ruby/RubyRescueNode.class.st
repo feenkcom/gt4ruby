@@ -8,8 +8,13 @@ Class {
 		'var',
 		'arrow'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyRescueNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitRescue: self
+]
 
 { #category : #generated }
 RubyRescueNode >> arrow [

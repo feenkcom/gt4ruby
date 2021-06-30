@@ -4,8 +4,13 @@ Class {
 	#instVars : [
 		'part'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyPartNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitPart: self
+]
 
 { #category : #generated }
 RubyPartNode >> part [

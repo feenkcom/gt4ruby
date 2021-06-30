@@ -5,8 +5,13 @@ Class {
 		'statements',
 		'else'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyElseNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitElse: self
+]
 
 { #category : #generated }
 RubyElseNode >> else [

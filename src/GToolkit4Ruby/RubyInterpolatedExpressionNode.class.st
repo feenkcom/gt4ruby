@@ -5,8 +5,13 @@ Class {
 		'left',
 		'right'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyInterpolatedExpressionNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitInterpolatedExpression: self
+]
 
 { #category : #generated }
 RubyInterpolatedExpressionNode >> left [

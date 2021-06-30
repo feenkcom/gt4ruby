@@ -7,8 +7,13 @@ Class {
 		'left',
 		'right'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyDefinedNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitDefined: self
+]
 
 { #category : #generated }
 RubyDefinedNode >> defined [

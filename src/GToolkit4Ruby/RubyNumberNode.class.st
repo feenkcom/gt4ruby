@@ -6,8 +6,13 @@ Class {
 		'leftParens',
 		'rightParens'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyNumberNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitNumber: self
+]
 
 { #category : #generated }
 RubyNumberNode >> compositeTokenVariables [

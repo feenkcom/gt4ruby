@@ -7,8 +7,13 @@ Class {
 		'leftParens',
 		'rightParens'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubySplatVariableNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitSplatVariable: self
+]
 
 { #category : #generated }
 RubySplatVariableNode >> compositeTokenVariables [

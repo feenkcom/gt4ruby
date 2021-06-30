@@ -8,8 +8,13 @@ Class {
 		'rescueElse',
 		'semicolons'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyStatementBlockNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitStatementBlock: self
+]
 
 { #category : #generated }
 RubyStatementBlockNode >> compositeNodeVariables [

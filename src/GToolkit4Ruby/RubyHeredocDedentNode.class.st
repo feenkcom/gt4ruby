@@ -8,8 +8,13 @@ Class {
 		'leftParens',
 		'rightParens'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyHeredocDedentNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitHeredocDedent: self
+]
 
 { #category : #generated }
 RubyHeredocDedentNode >> compositeTokenVariables [

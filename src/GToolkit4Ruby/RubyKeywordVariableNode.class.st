@@ -5,8 +5,13 @@ Class {
 		'label',
 		'value'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyKeywordVariableNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitKeywordVariable: self
+]
 
 { #category : #generated }
 RubyKeywordVariableNode >> label [

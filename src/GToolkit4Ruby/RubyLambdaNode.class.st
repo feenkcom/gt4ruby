@@ -8,8 +8,13 @@ Class {
 		'left',
 		'right'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyLambdaNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitLambda: self
+]
 
 { #category : #generated }
 RubyLambdaNode >> arrow [

@@ -6,8 +6,13 @@ Class {
 		'begin',
 		'end'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyBeginBlockNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitBeginBlock: self
+]
 
 { #category : #generated }
 RubyBeginBlockNode >> begin [

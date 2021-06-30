@@ -6,8 +6,13 @@ Class {
 		'name',
 		'equals'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyOptionalVariableNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitOptionalVariable: self
+]
 
 { #category : #generated }
 RubyOptionalVariableNode >> equals [

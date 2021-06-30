@@ -1,7 +1,7 @@
 Class {
 	#name : #GtRubyScanner,
 	#superclass : #SmaCCScanner,
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-Parser'
 }
 
 { #category : #'class initialization' }

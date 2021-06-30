@@ -5,8 +5,13 @@ Class {
 		'values',
 		'commas'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyValueListNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitValueList: self
+]
 
 { #category : #generated }
 RubyValueListNode >> commas [

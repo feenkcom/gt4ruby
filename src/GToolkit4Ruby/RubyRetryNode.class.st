@@ -4,8 +4,13 @@ Class {
 	#instVars : [
 		'retry'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyRetryNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitRetry: self
+]
 
 { #category : #generated }
 RubyRetryNode >> retry [

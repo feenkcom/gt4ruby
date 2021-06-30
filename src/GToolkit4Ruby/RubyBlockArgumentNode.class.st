@@ -5,8 +5,13 @@ Class {
 		'value',
 		'amp'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyBlockArgumentNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitBlockArgument: self
+]
 
 { #category : #generated }
 RubyBlockArgumentNode >> amp [

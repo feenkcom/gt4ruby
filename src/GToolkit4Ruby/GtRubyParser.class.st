@@ -1,7 +1,7 @@
 Class {
 	#name : #GtRubyParser,
 	#superclass : #SmaCCParser,
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-Parser'
 }
 
 { #category : #'file types' }

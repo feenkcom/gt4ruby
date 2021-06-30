@@ -9,8 +9,13 @@ Class {
 		'do',
 		'semicolons'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyWhileNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitWhile: self
+]
 
 { #category : #generated }
 RubyWhileNode >> compositeNodeVariables [

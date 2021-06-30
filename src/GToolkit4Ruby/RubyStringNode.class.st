@@ -7,8 +7,13 @@ Class {
 		'leftParens',
 		'rightParens'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyStringNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitString: self
+]
 
 { #category : #generated }
 RubyStringNode >> compositeNodeVariables [

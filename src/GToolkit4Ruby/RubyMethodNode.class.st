@@ -10,8 +10,13 @@ Class {
 		'name',
 		'endToken'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyMethodNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitMethod: self
+]
 
 { #category : #generated }
 RubyMethodNode >> block [

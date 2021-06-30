@@ -5,8 +5,13 @@ Class {
 		'break',
 		'value'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyBreakNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitBreak: self
+]
 
 { #category : #generated }
 RubyBreakNode >> break [

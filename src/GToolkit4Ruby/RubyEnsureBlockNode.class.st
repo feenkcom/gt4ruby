@@ -5,8 +5,13 @@ Class {
 		'statements',
 		'ensure'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyEnsureBlockNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitEnsureBlock: self
+]
 
 { #category : #generated }
 RubyEnsureBlockNode >> compositeNodeVariables [

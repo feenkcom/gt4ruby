@@ -6,8 +6,13 @@ Class {
 		'value',
 		'arrow'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyAssociationNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitAssociation: self
+]
 
 { #category : #generated }
 RubyAssociationNode >> arrow [

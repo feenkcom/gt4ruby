@@ -6,8 +6,13 @@ Class {
 		'statement',
 		'unlessToken'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyUnlessModNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitUnlessMod: self
+]
 
 { #category : #generated }
 RubyUnlessModNode >> condition [

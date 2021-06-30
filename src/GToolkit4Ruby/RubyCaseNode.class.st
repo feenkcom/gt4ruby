@@ -7,8 +7,13 @@ Class {
 		'case',
 		'end'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyCaseNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitCase: self
+]
 
 { #category : #generated }
 RubyCaseNode >> case [

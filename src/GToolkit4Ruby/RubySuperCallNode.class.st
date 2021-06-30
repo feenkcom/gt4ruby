@@ -5,8 +5,13 @@ Class {
 		'superToken',
 		'arguments'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubySuperCallNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitSuperCall: self
+]
 
 { #category : #generated }
 RubySuperCallNode >> arguments [

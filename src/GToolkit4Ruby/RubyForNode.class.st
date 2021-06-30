@@ -9,8 +9,13 @@ Class {
 		'in',
 		'end'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyForNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitFor: self
+]
 
 { #category : #generated }
 RubyForNode >> compositeNodeVariables [

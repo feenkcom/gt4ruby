@@ -2,7 +2,7 @@ Trait {
 	#name : #TRubyProgramNodeVisitor,
 	#traits : 'TSmaCCParseNodeVisitor',
 	#classTraits : 'TSmaCCParseNodeVisitor classTrait',
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
 
 { #category : #generated }

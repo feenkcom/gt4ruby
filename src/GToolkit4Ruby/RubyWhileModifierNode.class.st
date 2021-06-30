@@ -6,8 +6,13 @@ Class {
 		'statement',
 		'while'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyWhileModifierNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitWhileModifier: self
+]
 
 { #category : #generated }
 RubyWhileModifierNode >> condition [

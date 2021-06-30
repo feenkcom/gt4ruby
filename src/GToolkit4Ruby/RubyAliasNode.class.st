@@ -6,8 +6,13 @@ Class {
 		'oldName',
 		'alias'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyAliasNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitAlias: self
+]
 
 { #category : #generated }
 RubyAliasNode >> alias [

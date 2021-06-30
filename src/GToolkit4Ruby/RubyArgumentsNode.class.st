@@ -7,8 +7,13 @@ Class {
 		'right',
 		'commas'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyArgumentsNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitArguments: self
+]
 
 { #category : #generated }
 RubyArgumentsNode >> arguments [

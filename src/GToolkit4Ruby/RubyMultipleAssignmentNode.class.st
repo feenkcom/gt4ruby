@@ -7,8 +7,13 @@ Class {
 		'commas',
 		'assignment'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyMultipleAssignmentNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitMultipleAssignment: self
+]
 
 { #category : #generated }
 RubyMultipleAssignmentNode >> assignment [

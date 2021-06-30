@@ -7,8 +7,13 @@ Class {
 		'leftParens',
 		'rightParens'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubySymbolNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitSymbol: self
+]
 
 { #category : #generated }
 RubySymbolNode >> colon [

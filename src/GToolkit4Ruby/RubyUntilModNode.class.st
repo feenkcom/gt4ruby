@@ -6,8 +6,13 @@ Class {
 		'statement',
 		'untilToken'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyUntilModNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitUntilMod: self
+]
 
 { #category : #generated }
 RubyUntilModNode >> condition [

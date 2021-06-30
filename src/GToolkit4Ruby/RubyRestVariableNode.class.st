@@ -5,8 +5,13 @@ Class {
 		'name',
 		'star'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyRestVariableNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitRestVariable: self
+]
 
 { #category : #generated }
 RubyRestVariableNode >> name [

@@ -10,8 +10,13 @@ Class {
 		'leftParens',
 		'rightParens'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyCallNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitCall: self
+]
 
 { #category : #generated }
 RubyCallNode >> arguments [

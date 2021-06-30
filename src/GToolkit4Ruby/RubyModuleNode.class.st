@@ -7,8 +7,13 @@ Class {
 		'module',
 		'end'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyModuleNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitModule: self
+]
 
 { #category : #generated }
 RubyModuleNode >> block [

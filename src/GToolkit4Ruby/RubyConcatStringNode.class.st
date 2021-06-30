@@ -5,8 +5,13 @@ Class {
 		'left',
 		'right'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyConcatStringNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitConcatString: self
+]
 
 { #category : #generated }
 RubyConcatStringNode >> left [

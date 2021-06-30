@@ -8,8 +8,13 @@ Class {
 		'do',
 		'end'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyUntilNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitUntil: self
+]
 
 { #category : #generated }
 RubyUntilNode >> compositeNodeVariables [

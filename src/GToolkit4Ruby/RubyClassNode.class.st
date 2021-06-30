@@ -9,8 +9,13 @@ Class {
 		'lt',
 		'end'
 	],
-	#category : #GToolkit4Ruby
+	#category : #'GToolkit4Ruby-AST'
 }
+
+{ #category : #generated }
+RubyClassNode >> acceptVisitor: aVisitor [
+	^ aVisitor visitClass: self
+]
 
 { #category : #generated }
 RubyClassNode >> body [
