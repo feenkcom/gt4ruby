@@ -55,3 +55,8 @@ RubyOptionalVariableNode >> value: aNode [
 	value := aNode.
 	self value notNil ifTrue: [ self value parent: self ]
 ]
+
+{ #category : #accessing }
+RubyOptionalVariableNode >> variableName [
+	^ name source
+]

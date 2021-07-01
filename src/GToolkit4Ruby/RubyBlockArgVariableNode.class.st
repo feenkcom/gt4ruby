@@ -37,3 +37,8 @@ RubyBlockArgVariableNode >> name: aToken [
 RubyBlockArgVariableNode >> tokenVariables [
 	^ #(amp name)
 ]
+
+{ #category : #accessing }
+RubyBlockArgVariableNode >> variableName [
+	^ name ifNil: [ '&' ] ifNotNil: [ '&' , name source ]
+]

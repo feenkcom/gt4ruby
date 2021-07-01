@@ -62,3 +62,8 @@ RubyVariableNode >> rightParens [
 RubyVariableNode >> rightParens: anOrderedCollection [
 	rightParens := anOrderedCollection
 ]
+
+{ #category : #accessing }
+RubyVariableNode >> variableName [
+	^ name source
+]

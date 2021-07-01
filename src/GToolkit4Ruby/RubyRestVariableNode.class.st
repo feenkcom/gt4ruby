@@ -37,3 +37,8 @@ RubyRestVariableNode >> star: aToken [
 RubyRestVariableNode >> tokenVariables [
 	^ #(name star)
 ]
+
+{ #category : #accessing }
+RubyRestVariableNode >> variableName [
+	^ name ifNil: [ '*' ] ifNotNil: [ '*' , name source ]
+]

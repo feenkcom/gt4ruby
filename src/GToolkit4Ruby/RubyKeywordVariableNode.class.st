@@ -41,3 +41,8 @@ RubyKeywordVariableNode >> value: aNode [
 	value := aNode.
 	self value notNil ifTrue: [ self value parent: self ]
 ]
+
+{ #category : #accessing }
+RubyKeywordVariableNode >> variableName [
+	^ value ifNil: [ label source allButLast ] ifNotNil: [ value source ]
+]
