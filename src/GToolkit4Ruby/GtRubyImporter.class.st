@@ -9,7 +9,8 @@ Class {
 		'currentFile',
 		'files',
 		'folders',
-		'classesAndModules'
+		'classesAndModules',
+		'superclasses'
 	],
 	#category : #'GToolkit4Ruby-Importer'
 }
@@ -42,6 +43,26 @@ GtRubyImporter >> assignScope: modelObject around: aBlock [
 	scopeStack addLast: modelObject.
 	^ aBlock
 		ensure: [ scopeStack removeLast ]
+]
+
+{ #category : #importing }
+GtRubyImporter >> assignSuperclass: superclassName to: rubyClass [
+	| inheritance superclass |
+	classesAndModules
+		at: superclassName
+		ifPresent: [ :each | 
+			superclass := each.
+			(each isKindOf: GtRubyModule)
+				ifTrue: [ superclass := self ensureClassNamed: superclassName , ' '.
+					superclass name: superclass name trim.
+					superclass isStub: true ] ]
+		ifAbsent: [ superclass := self ensureClassNamed: superclassName.
+			superclass isStub: true ].
+	inheritance := FAMIXInheritance new
+		subclass: rubyClass;
+		superclass: superclass.
+	mooseModel add: inheritance.
+	rubyClass addSuperInheritance: inheritance
 ]
 
 { #category : #accessing }
@@ -499,7 +520,10 @@ GtRubyImporter >> importAST: aNode [
 
 { #category : #importing }
 GtRubyImporter >> importASTs: aCollection [
-	aCollection do: [ :each | self importAST: each ]
+	superclasses := OrderedCollection new.
+	aCollection do: [ :each | self importAST: each ].
+	superclasses
+		do: [ :each | self assignSuperclass: each last to: each first ]
 ]
 
 { #category : #'generating ast node classes' }
@@ -657,6 +681,12 @@ GtRubyImporter >> updateVariableTypes: variableTypes from: aLiteralArray in: aMo
 GtRubyImporter >> visitClass: aNode [
 	| class |
 	class := self ensureClassNamed: (self fullNameFor: aNode name source).
+	aNode superclass
+		ifNotNil: [ :spr | 
+			superclasses
+				add:
+					{class.
+					spr source} ].
 	self storeAST: aNode into: class.
 	currentFile addEntity: class.
 	self addSourceFor: aNode to: class.
