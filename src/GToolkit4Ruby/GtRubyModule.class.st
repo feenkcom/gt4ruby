@@ -1,5 +1,12 @@
 Class {
 	#name : #GtRubyModule,
-	#superclass : #FAMIXClass,
+	#superclass : #FAMIXNamespace,
 	#category : #'GToolkit4Ruby-Model'
 }
+
+{ #category : #'as yet unclassified' }
+GtRubyModule >> rubyContainer: aContainerEntity [
+	(aContainerEntity isKindOf: GtRubyModule)
+		ifTrue: [ self parentScope: aContainerEntity ].
+	^ super rubyContainer: aContainerEntity
+]

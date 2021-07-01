@@ -52,14 +52,6 @@ GtRubyImporter >> buildClassesFromDirectory: aString [
 	^ model
 ]
 
-{ #category : #importing }
-GtRubyImporter >> classScope [
-	scopeStack size to: 1 by: -1 do: [ :i | 
-		((scopeStack at: i) isKindOf: FAMIXClass)
-			ifTrue: [ ^ scopeStack at: i ] ].
-	^ nil
-]
-
 { #category : #'generating ast node classes' }
 GtRubyImporter >> compileCompositeNodeMethodFor: name in: cls [
 	cls
@@ -206,6 +198,14 @@ GtRubyImporter >> compileVariableMethodNamed: selector for: names in: cls [
 						separatedBy: [ stream space ].
 					stream nextPut: $) ])
 		classified: #generated
+]
+
+{ #category : #importing }
+GtRubyImporter >> containerScope [
+	scopeStack size to: 1 by: -1 do: [ :i | 
+		((scopeStack at: i) isKindOf: FAMIXContainerEntity)
+			ifTrue: [ ^ scopeStack at: i ] ].
+	^ nil
 ]
 
 { #category : #parsing }
@@ -593,7 +593,7 @@ GtRubyImporter >> visitClass: aNode [
 	self storeAST: aNode into: class.
 	scopeStack first addEntity: class.
 	scopeStack size > 1
-		ifTrue: [ class container: scopeStack last ].
+		ifTrue: [ class rubyContainer: scopeStack last ].
 	class sourceAnchor: (self sourceAnchorFor: aNode).
 	^ self
 		assignScope: class
@@ -604,17 +604,22 @@ GtRubyImporter >> visitClass: aNode [
 GtRubyImporter >> visitFile: aNode [
 	scopeStack := OrderedCollection new.
 	currentFile := self ensureFileNamed: aNode filename asFileReference.
+	self storeAST: aNode into: currentFile.
 	^ self assignScope: currentFile around: [ self visitProgram: aNode ]
 ]
 
 { #category : #visiting }
 GtRubyImporter >> visitMethod: aNode [
-	| method |
-	method := self ensureMethodNamed: aNode name source.
+	| method container |
+	container := self containerScope.
+	method := (container isKindOf: FAMIXClass)
+		ifTrue: [ self ensureMethodNamed: aNode name source ]
+		ifFalse: [ self ensureFunctionNamed: aNode name source ].
 	self storeAST: aNode into: method.
 	scopeStack first addEntity: method.
-	scopeStack size > 1
-		ifTrue: [ method parentType: self classScope ].
+	(container isKindOf: FAMIXClass)
+		ifTrue: [ method parentType: container ]
+		ifFalse: [ method container: container ].
 	method sourceAnchor: (self sourceAnchorFor: aNode).
 	^ self
 		assignScope: method
@@ -628,7 +633,7 @@ GtRubyImporter >> visitModule: aNode [
 	self storeAST: aNode into: module.
 	scopeStack first addEntity: module.
 	scopeStack size > 1
-		ifTrue: [ module container: scopeStack last ].
+		ifTrue: [ module rubyContainer: scopeStack last ].
 	module sourceAnchor: (self sourceAnchorFor: aNode).
 	^ self
 		assignScope: module
