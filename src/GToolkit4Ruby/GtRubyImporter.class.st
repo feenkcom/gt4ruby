@@ -16,6 +16,21 @@ Class {
 }
 
 { #category : #importing }
+GtRubyImporter >> addReferenceTo: attribute from: aNode [
+	| access |
+	access := FAMIXAccess new
+		from: self methodScope;
+		to: attribute;
+		isWrite:
+			((aNode parent isKindOf: RubyAssignmentNode)
+				and: [ aNode parent lhs == aNode ]);
+		sourceAnchor: (self sourceAnchorFor: aNode).
+	mooseModel add: access.
+	self storeAST: aNode into: access.
+	currentFile addEntity: access
+]
+
+{ #category : #importing }
 GtRubyImporter >> addSourceFor: aNode to: anEntity [
 	| anchor |
 	anchor := self sourceAnchorFor: aNode.
@@ -88,6 +103,14 @@ GtRubyImporter >> buildClassesFromDirectory: aString [
 			self updateVariableTypes: variableTypes from: literalAST in: model ].
 	self compileMethodsForVariables: variableTypes.
 	^ model
+]
+
+{ #category : #importing }
+GtRubyImporter >> classScope [
+	scopeStack size to: 1 by: -1 do: [ :i | 
+		((scopeStack at: i) isKindOf: GtRubyClass)
+			ifTrue: [ ^ scopeStack at: i ] ].
+	^ nil
 ]
 
 { #category : #'generating ast node classes' }
@@ -279,6 +302,30 @@ GtRubyImporter >> createAcceptVisitorMethodsIn: aModel [
 				classified: #generated ]
 ]
 
+{ #category : #importing }
+GtRubyImporter >> createClassVariable: aString in: aClass [
+	| attribute |
+	attribute := FAMIXAttribute new.
+	attribute name: aString.
+	attribute beSharedVariable.
+	aClass addAttribute: attribute.
+	mooseModel add: attribute.
+	^ attribute
+]
+
+{ #category : #importing }
+GtRubyImporter >> createClassVariableReferenceFrom: aNode [
+	| class name attribute |
+	class := self classScope.
+	class isNil
+		ifTrue: [ ^ self ].
+	name := aNode name source.
+	attribute := class attributes
+		detect: [ :each | each name = name ]
+		ifNone: [ self createClassVariable: name in: class ].
+	self addReferenceTo: attribute from: aNode
+]
+
 { #category : #'generating ast node classes' }
 GtRubyImporter >> createClassesFrom: aLiteralArray [
 	| model |
@@ -329,6 +376,29 @@ GtRubyImporter >> createInitialRubyParseNode [
 				poolDictionaries: ''''
 				package: ''GToolkit4Ruby''' ].
 	^ mdl
+]
+
+{ #category : #importing }
+GtRubyImporter >> createInstanceVariable: aString in: aClass [
+	| attribute |
+	attribute := FAMIXAttribute new.
+	attribute name: aString.
+	aClass addAttribute: attribute.
+	mooseModel add: attribute.
+	^ attribute
+]
+
+{ #category : #importing }
+GtRubyImporter >> createInstanceVariableReferenceFrom: aNode [
+	| class name attribute |
+	class := self classScope.
+	class isNil
+		ifTrue: [ ^ self ].
+	name := aNode name source.
+	attribute := class attributes
+		detect: [ :each | each name = name ]
+		ifNone: [ self createInstanceVariable: name in: class ].
+	self addReferenceTo: attribute from: aNode
 ]
 
 { #category : #parsing }
@@ -601,6 +671,14 @@ GtRubyImporter >> loadASTAsLiteral: aFilename [
 	^ (RBParser parseExpression: stream contents) value
 ]
 
+{ #category : #importing }
+GtRubyImporter >> methodScope [
+	scopeStack size to: 1 by: -1 do: [ :i | 
+		((scopeStack at: i) isKindOf: FAMIXMethod)
+			ifTrue: [ ^ scopeStack at: i ] ].
+	^ nil
+]
+
 { #category : #accessing }
 GtRubyImporter >> model [
 	^ mooseModel
@@ -742,4 +820,15 @@ GtRubyImporter >> visitModule: aNode [
 	^ self
 		assignScope: module
 		around: [ self visitSmaCCParseNode: aNode ]
+]
+
+{ #category : #visiting }
+GtRubyImporter >> visitVariable: aNode [
+	| name |
+	name := aNode name source.
+	(name beginsWith: '@@')
+		ifTrue: [ self createClassVariableReferenceFrom: aNode ]
+		ifFalse: [ (name beginsWith: '@')
+				ifTrue: [ self createInstanceVariableReferenceFrom: aNode ] ].
+	^ self visitProgram: aNode
 ]
