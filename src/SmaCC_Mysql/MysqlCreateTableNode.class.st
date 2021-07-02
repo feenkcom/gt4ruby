@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'createToken',
 		'tableToken',
-		'tableNames',
+		'tableName',
 		'leftParens',
 		'definitions',
 		'commas',
@@ -38,7 +38,8 @@ Class {
 		'replaceToken',
 		'asToken',
 		'query',
-		'likeToken'
+		'likeToken',
+		'likeTableName'
 	],
 	#category : #'SmaCC_Mysql'
 }
@@ -129,7 +130,7 @@ MysqlCreateTableNode >> compositeNodeVariables [
 
 { #category : #generated }
 MysqlCreateTableNode >> compositeTokenVariables [
-	^ #(#tableNames #leftParens #commas #rightParens #byTokens #columnNames)
+	^ #(#leftParens #commas #rightParens #byTokens #columnNames)
 ]
 
 { #category : #generated }
@@ -207,7 +208,6 @@ MysqlCreateTableNode >> ignoreToken: aSmaCCToken [
 { #category : #'generated-initialize-release' }
 MysqlCreateTableNode >> initialize [
 	super initialize.
-	tableNames := OrderedCollection new: 2.
 	leftParens := OrderedCollection new: 2.
 	definitions := OrderedCollection new: 2.
 	commas := OrderedCollection new: 2.
@@ -235,6 +235,16 @@ MysqlCreateTableNode >> leftParens [
 { #category : #generated }
 MysqlCreateTableNode >> leftParens: anOrderedCollection [
 	leftParens := anOrderedCollection
+]
+
+{ #category : #generated }
+MysqlCreateTableNode >> likeTableName [
+	^ likeTableName
+]
+
+{ #category : #generated }
+MysqlCreateTableNode >> likeTableName: aSmaCCToken [
+	likeTableName := aSmaCCToken
 ]
 
 { #category : #generated }
@@ -427,13 +437,13 @@ MysqlCreateTableNode >> subpartitionsToken: aSmaCCToken [
 ]
 
 { #category : #generated }
-MysqlCreateTableNode >> tableNames [
-	^ tableNames
+MysqlCreateTableNode >> tableName [
+	^ tableName
 ]
 
 { #category : #generated }
-MysqlCreateTableNode >> tableNames: anOrderedCollection [
-	tableNames := anOrderedCollection
+MysqlCreateTableNode >> tableName: aSmaCCToken [
+	tableName := aSmaCCToken
 ]
 
 { #category : #generated }
@@ -458,7 +468,7 @@ MysqlCreateTableNode >> temporaryToken: aSmaCCToken [
 
 { #category : #generated }
 MysqlCreateTableNode >> tokenVariables [
-	^ #(#createToken #tableToken #partitionToken #hashToken #linearToken #keyToken #algorithmToken #equals #value #rangeToken #columnsToken #listToken #partitionsToken #partitions #subpartitionToken #subpartitionsToken #subpartitions #ifToken #notToken #existsToken #temporaryToken #ignoreToken #replaceToken #asToken #likeToken)
+	^ #(#createToken #tableToken #tableName #partitionToken #hashToken #linearToken #keyToken #algorithmToken #equals #value #rangeToken #columnsToken #listToken #partitionsToken #partitions #subpartitionToken #subpartitionsToken #subpartitions #ifToken #notToken #existsToken #temporaryToken #ignoreToken #replaceToken #asToken #likeToken #likeTableName)
 ]
 
 { #category : #generated }

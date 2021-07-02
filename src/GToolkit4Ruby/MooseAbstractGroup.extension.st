@@ -11,3 +11,9 @@ MooseAbstractGroup >> allRubyModules [
 	<navigation: 'All Ruby modules'>
 	^ self allWithType: GtRubyModule
 ]
+
+{ #category : #'*GToolkit4Ruby' }
+MooseAbstractGroup >> allTables [
+	<navigation: 'All database tables'>
+	^ self allWithType: GtTable
+]

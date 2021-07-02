@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'indexToken',
 		'leftParens',
-		'columnNames',
+		'refColumnNames',
 		'directions',
 		'lengths',
 		'rightParens',
@@ -38,16 +38,6 @@ MysqlIndexDefinitionNode >> btreeToken: aSmaCCToken [
 ]
 
 { #category : #generated }
-MysqlIndexDefinitionNode >> columnNames [
-	^ columnNames
-]
-
-{ #category : #generated }
-MysqlIndexDefinitionNode >> columnNames: anOrderedCollection [
-	columnNames := anOrderedCollection
-]
-
-{ #category : #generated }
 MysqlIndexDefinitionNode >> commas [
 	^ commas
 ]
@@ -64,7 +54,7 @@ MysqlIndexDefinitionNode >> compositeNodeVariables [
 
 { #category : #generated }
 MysqlIndexDefinitionNode >> compositeTokenVariables [
-	^ #(#leftParens #columnNames #directions #lengths #rightParens #commas)
+	^ #(#leftParens #refColumnNames #directions #lengths #rightParens #commas)
 ]
 
 { #category : #generated }
@@ -133,7 +123,7 @@ MysqlIndexDefinitionNode >> indexToken: aSmaCCToken [
 MysqlIndexDefinitionNode >> initialize [
 	super initialize.
 	leftParens := OrderedCollection new: 2.
-	columnNames := OrderedCollection new: 2.
+	refColumnNames := OrderedCollection new: 2.
 	directions := OrderedCollection new: 2.
 	lengths := OrderedCollection new: 2.
 	rightParens := OrderedCollection new: 2.
@@ -188,6 +178,16 @@ MysqlIndexDefinitionNode >> option: aMysqlIndexOptionNode [
 	option := aMysqlIndexOptionNode.
 	self option notNil
 		ifTrue: [ self option parent: self ]
+]
+
+{ #category : #generated }
+MysqlIndexDefinitionNode >> refColumnNames [
+	^ refColumnNames
+]
+
+{ #category : #generated }
+MysqlIndexDefinitionNode >> refColumnNames: anOrderedCollection [
+	refColumnNames := anOrderedCollection
 ]
 
 { #category : #generated }

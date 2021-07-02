@@ -1,8 +1,8 @@
 Class {
 	#name : #GtRubyImporter,
 	#superclass : #Object,
-	#traits : 'TRubyProgramNodeVisitor',
-	#classTraits : 'TRubyProgramNodeVisitor classTrait',
+	#traits : 'TRubyProgramNodeVisitor + (TMysqlProgramNodeVisitor - {#visitProgram:})',
+	#classTraits : 'TRubyProgramNodeVisitor classTrait + TMysqlProgramNodeVisitor classTrait',
 	#instVars : [
 		'mooseModel',
 		'scopeStack',
@@ -10,7 +10,8 @@ Class {
 		'files',
 		'folders',
 		'classesAndModules',
-		'superclasses'
+		'superclasses',
+		'tables'
 	],
 	#category : #'GToolkit4Ruby-Importer'
 }
@@ -303,6 +304,23 @@ GtRubyImporter >> createAcceptVisitorMethodsIn: aModel [
 ]
 
 { #category : #importing }
+GtRubyImporter >> createActiveRecordAttributes [
+	(mooseModel allClasses entityNamed: 'ActiveRecord::Base')
+		ifNotNil: [ :cls | 
+			cls
+				allSubclassesDo: [ :each | 
+					(self findTableForClass: each)
+						ifNotNil: [ :table | 
+							table attributes
+								do: [ :col | 
+									| attr |
+									attr := GtRubyActiveRecordAttribute new.
+									attr name: col name.
+									mooseModel add: attr.
+									each addAttribute: attr ] ] ] ]
+]
+
+{ #category : #importing }
 GtRubyImporter >> createClassVariable: aString in: aClass [
 	| attribute |
 	attribute := FAMIXAttribute new.
@@ -562,6 +580,33 @@ GtRubyImporter >> ensureModuleNamed: aString [
 ]
 
 { #category : #importing }
+GtRubyImporter >> findTableForClass: aClass [
+	| tableName |
+	tableName := SmaCCVariableDefinition
+		pluralNameFor:
+			(String
+				streamContents: [ :stream | 
+					aClass name
+						keysAndValuesDo: [ :i :each | 
+							i == 1
+								ifFalse: [ each isUppercase
+										ifTrue: [ stream nextPut: $_ ] ].
+							stream nextPut: each asLowercase ] ]).
+	^ tables
+		at: tableName
+		ifAbsent: [ (aClass propertyNamed: #ast)
+				ifNotNil: [ :node | 
+					node body statements
+						do: [ :each | 
+							((each isKindOf: RubyAssignmentNode)
+								and: [ each lhs source = 'self.table_name' ])
+								ifTrue: [ ^ tables
+										at: (self stripQuotesFrom: each value source)
+										ifAbsent: [  ] ] ] ].
+			nil ]
+]
+
+{ #category : #importing }
 GtRubyImporter >> fullNameFor: aString [
 	| name |
 	name := aString first = $:
@@ -592,8 +637,14 @@ GtRubyImporter >> importAST: aNode [
 GtRubyImporter >> importASTs: aCollection [
 	superclasses := OrderedCollection new.
 	aCollection do: [ :each | self importAST: each ].
-	superclasses
+	superclasses asSet
 		do: [ :each | self assignSuperclass: each last to: each first ]
+]
+
+{ #category : #importing }
+GtRubyImporter >> importTables: aMysqlFileNode [
+	scopeStack := OrderedCollection new.
+	self accept: aMysqlFileNode
 ]
 
 { #category : #'generating ast node classes' }
@@ -627,7 +678,8 @@ GtRubyImporter >> initialize [
 	scopeStack := OrderedCollection new.
 	folders := Dictionary new.
 	files := Dictionary new.
-	classesAndModules := Dictionary new
+	classesAndModules := Dictionary new.
+	tables := Dictionary new
 ]
 
 { #category : #testing }
@@ -684,6 +736,11 @@ GtRubyImporter >> model [
 	^ mooseModel
 ]
 
+{ #category : #accessing }
+GtRubyImporter >> model: aModel [
+	mooseModel := aModel
+]
+
 { #category : #parsing }
 GtRubyImporter >> parseDirectory: aString [
 	self baseDirectory: aString asFileReference.
@@ -717,6 +774,11 @@ GtRubyImporter >> sourceAnchorFor: aNode [
 { #category : #importing }
 GtRubyImporter >> storeAST: aNode into: anEntity [
 	anEntity propertyNamed: #ast put: aNode
+]
+
+{ #category : #importing }
+GtRubyImporter >> stripQuotesFrom: aString [
+	^ aString copyFrom: 2 to: aString size - 1
 ]
 
 { #category : #'generating ast node classes' }
@@ -772,11 +834,37 @@ GtRubyImporter >> visitClass: aNode [
 ]
 
 { #category : #visiting }
+GtRubyImporter >> visitColumnDefinition: aNode [
+	| column |
+	column := GtTableColumn new
+		name: (self stripQuotesFrom: aNode columnName source).
+	mooseModel add: column.
+	self storeAST: aNode into: column.
+	currentFile addEntity: column.
+	self addSourceFor: aNode to: column.
+	scopeStack last addAttribute: column.
+	^ self visitSmaCCParseNode: aNode
+]
+
+{ #category : #visiting }
+GtRubyImporter >> visitCreateTable: aNode [
+	| table name |
+	name := self stripQuotesFrom: aNode tableName source.
+	table := GtTable new name: name.
+	mooseModel add: table.
+	self storeAST: aNode into: table.
+	currentFile addEntity: table.
+	self addSourceFor: aNode to: table.
+	tables at: name put: table.
+	^ self assignScope: table around: [ self visitSmaCCParseNode: aNode ]
+]
+
+{ #category : #visiting }
 GtRubyImporter >> visitFile: aNode [
 	scopeStack := OrderedCollection new.
 	currentFile := self ensureFileNamed: aNode filename asFileReference.
 	self storeAST: aNode into: currentFile.
-	^ self visitProgram: aNode
+	^ self visitSmaCCParseNode: aNode
 ]
 
 { #category : #visiting }

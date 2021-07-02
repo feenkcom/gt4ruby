@@ -15,7 +15,7 @@ MysqlParser class >> ambiguousTransitions [
 
 { #category : #'generated-accessing' }
 MysqlParser class >> cacheId [
-	^'2021-06-30T12:51:30.41886-05:00'
+	^'2021-07-02T14:21:49.994127-05:00'
 ]
 
 { #category : #generated }
@@ -68,7 +68,7 @@ CreateTable
 		(""IGNORE"" 'ignoreToken' | ""REPLACE"" 'replaceToken')?
 		""AS"" 'asToken'? query_expression 'query' {{}}
 	| ""CREATE"" 'createToken' ""TEMPORARY"" 'temporaryToken'? ""TABLE"" 'tableToken' (""IF"" 'ifToken' ""NOT"" 'notToken' ""EXISTS"" 'existsToken')? tbl_name 'tableName'
-    	(""LIKE"" 'likeToken' tbl_name 'tableName' | ""("" 'leftParen' ""LIKE"" 'likeToken' tbl_name 'tableName' "")"" 'rightParen') {{}}
+    	(""LIKE"" 'likeToken' tbl_name 'likeTableName' | ""("" 'leftParen' ""LIKE"" 'likeToken' tbl_name 'likeTableName' "")"" 'rightParen') {{}}
 	;
 create_definition
 	: col_name 'columnName' column_definition {{ColumnDefinition}}
@@ -135,7 +135,7 @@ data_type
 	| ""VARCHAR""
 	;
 key_part
-	: (col_name 'columnName' (""("" 'leftParen' length 'length' "")"" 'rightParen')? | ""("" 'leftParen' expr 'expr' "")"" 'rightParen') (""ASC"" 'direction' | ""DESC"" 'direction')?
+	: (col_name 'refColumnName' (""("" 'leftParen' length 'length' "")"" 'rightParen')? | ""("" 'leftParen' expr 'expr' "")"" 'rightParen') (""ASC"" 'direction' | ""DESC"" 'direction')?
 	;
 index_type
 	: ""USING"" 'usingToken' (""BTREE"" 'btreeToken' | ""HASH"" 'hashToken')
@@ -310,221 +310,221 @@ MysqlParser class >> reduceTable [
 	#(148 2 #reduceActionForStatements1: 334849 false ) 
 	#(151 1 #liftFirstValue: 425986 false ) 
 	#(149 2 #reduceActionFor_Statement__statement_______semicolon__1: 349185 false ) 
-	#(236 1 #liftFirstValue: 12270593 false ) 
+	#(236 1 #liftFirstValue: 12281857 false ) 
 	#(155 0 #reduceActionForpartition_options_1: 1085441 false ) 
 	#(157 0 #reduceActionFor__IGNORE___ignoreToken_____REPLACE___replaceToken___1: 1106945 false ) 
-	#(202 0 #reduceActionFor_Statement__statement_______semicolon___1: 6678529 false ) 
+	#(202 0 #reduceActionFor_Statement__statement_______semicolon___1: 6689793 false ) 
 	#(155 1 #reduceActionForFile1: 1085442 false ) 
-	#(163 0 #nil 2396161 false ) 
-	#(237 1 #liftFirstValue: 12293121 false ) 
+	#(163 0 #nil 2404353 false ) 
+	#(237 1 #liftFirstValue: 12304385 false ) 
 	#(154 0 #reduceActionFor_Statement__statement_______semicolon___1: 679937 false ) 
-	#(159 1 #reduceActionForcreate_definition57: 1503289 false ) 
-	#(238 1 #liftFirstValue: 12315652 false ) 
-	#(238 1 #liftFirstValue: 12315649 false ) 
-	#(238 1 #liftFirstValue: 12315650 false ) 
-	#(238 1 #liftFirstValue: 12315651 false ) 
-	#(256 1 #liftFirstValue: 13001729 false ) 
-	#(203 2 #reduceActionFortable_option1: 6720513 false ) 
-	#(256 1 #liftFirstValue: 13001730 false ) 
-	#(203 2 #reduceActionFortable_option3: 6720515 false ) 
-	#(203 2 #reduceActionFortable_option5: 6720517 false ) 
-	#(241 1 #liftFirstValue: 12462081 false ) 
-	#(203 2 #reduceActionFortable_option9: 6720521 false ) 
-	#(203 2 #reduceActionFortable_option15: 6720527 false ) 
-	#(203 2 #reduceActionFortable_option15: 6720528 false ) 
-	#(243 1 #liftFirstValue: 12519425 false ) 
-	#(203 2 #reduceActionFortable_option19: 6720531 false ) 
-	#(203 2 #reduceActionFortable_option23: 6720535 false ) 
-	#(203 2 #reduceActionFortable_option26: 6720538 false ) 
-	#(203 2 #reduceActionFortable_option26: 6720539 false ) 
-	#(203 2 #reduceActionFortable_option26: 6720537 false ) 
-	#(203 2 #reduceActionFortable_option31: 6720543 false ) 
-	#(203 2 #reduceActionFortable_option37: 6720549 false ) 
-	#(203 2 #reduceActionFortable_option37: 6720550 false ) 
-	#(203 2 #reduceActionFortable_option42: 6720554 false ) 
-	#(203 2 #reduceActionFortable_option42: 6720553 false ) 
-	#(240 1 #liftFirstValue: 12427265 false ) 
-	#(203 2 #reduceActionFortable_option45: 6720557 false ) 
-	#(203 2 #reduceActionFortable_option47: 6720559 false ) 
-	#(203 2 #reduceActionFortable_option50: 6720562 false ) 
-	#(203 2 #reduceActionFortable_option50: 6720563 false ) 
-	#(203 2 #reduceActionFortable_option50: 6720561 false ) 
-	#(203 2 #reduceActionFortable_option55: 6720567 false ) 
+	#(159 1 #reduceActionForcreate_definition57: 1511481 false ) 
+	#(238 1 #liftFirstValue: 12326916 false ) 
+	#(238 1 #liftFirstValue: 12326913 false ) 
+	#(238 1 #liftFirstValue: 12326914 false ) 
+	#(238 1 #liftFirstValue: 12326915 false ) 
+	#(256 1 #liftFirstValue: 13012993 false ) 
+	#(203 2 #reduceActionFortable_option1: 6731777 false ) 
+	#(256 1 #liftFirstValue: 13012994 false ) 
+	#(203 2 #reduceActionFortable_option3: 6731779 false ) 
+	#(203 2 #reduceActionFortable_option5: 6731781 false ) 
+	#(241 1 #liftFirstValue: 12473345 false ) 
+	#(203 2 #reduceActionFortable_option9: 6731785 false ) 
+	#(203 2 #reduceActionFortable_option15: 6731791 false ) 
+	#(203 2 #reduceActionFortable_option15: 6731792 false ) 
+	#(243 1 #liftFirstValue: 12530689 false ) 
+	#(203 2 #reduceActionFortable_option19: 6731795 false ) 
+	#(203 2 #reduceActionFortable_option23: 6731799 false ) 
+	#(203 2 #reduceActionFortable_option26: 6731802 false ) 
+	#(203 2 #reduceActionFortable_option26: 6731803 false ) 
+	#(203 2 #reduceActionFortable_option26: 6731801 false ) 
+	#(203 2 #reduceActionFortable_option31: 6731807 false ) 
+	#(203 2 #reduceActionFortable_option37: 6731813 false ) 
+	#(203 2 #reduceActionFortable_option37: 6731814 false ) 
+	#(203 2 #reduceActionFortable_option42: 6731818 false ) 
+	#(203 2 #reduceActionFortable_option42: 6731817 false ) 
+	#(240 1 #liftFirstValue: 12438529 false ) 
+	#(203 2 #reduceActionFortable_option45: 6731821 false ) 
+	#(203 2 #reduceActionFortable_option47: 6731823 false ) 
+	#(203 2 #reduceActionFortable_option50: 6731826 false ) 
+	#(203 2 #reduceActionFortable_option50: 6731827 false ) 
+	#(203 2 #reduceActionFortable_option50: 6731825 false ) 
+	#(203 2 #reduceActionFortable_option55: 6731831 false ) 
 	#(152 5 #reduceActionForCreateTable33: 457761 false ) 
-	#(203 2 #reduceActionFortable_option57: 6720569 false ) 
-	#(203 2 #reduceActionFortable_option59: 6720571 false ) 
-	#(203 2 #reduceActionFortable_option61: 6720573 false ) 
-	#(203 2 #reduceActionFortable_option61: 6720574 false ) 
-	#(203 2 #reduceActionFortable_option61: 6720575 false ) 
-	#(206 2 #reduceActionForpartition_options1: 9298945 false ) 
-	#(207 0 #nil 9465857 false ) 
-	#(203 2 #reduceActionFortable_option67: 6720579 false ) 
-	#(203 2 #reduceActionFortable_option74: 6720586 false ) 
-	#(203 2 #reduceActionFortable_option74: 6720584 false ) 
-	#(203 2 #reduceActionFortable_option74: 6720581 false ) 
-	#(203 2 #reduceActionFortable_option74: 6720582 false ) 
-	#(203 2 #reduceActionFortable_option74: 6720583 false ) 
-	#(203 2 #reduceActionFortable_option74: 6720585 false ) 
-	#(203 2 #reduceActionFortable_option81: 6720593 false ) 
-	#(203 2 #reduceActionFortable_option84: 6720596 false ) 
-	#(203 2 #reduceActionFortable_option84: 6720597 false ) 
-	#(203 2 #reduceActionFortable_option84: 6720595 false ) 
-	#(203 2 #reduceActionFortable_option84: 6720602 false ) 
-	#(203 2 #reduceActionFortable_option84: 6720603 false ) 
-	#(203 2 #reduceActionFortable_option84: 6720601 false ) 
-	#(203 2 #reduceActionFortable_option84: 6720607 false ) 
-	#(203 2 #reduceActionFortable_option97: 6720609 false ) 
-	#(252 1 #liftFirstValue: 12847105 false ) 
+	#(203 2 #reduceActionFortable_option57: 6731833 false ) 
+	#(203 2 #reduceActionFortable_option59: 6731835 false ) 
+	#(203 2 #reduceActionFortable_option61: 6731837 false ) 
+	#(203 2 #reduceActionFortable_option61: 6731838 false ) 
+	#(203 2 #reduceActionFortable_option61: 6731839 false ) 
+	#(206 2 #reduceActionForpartition_options1: 9310209 false ) 
+	#(207 0 #nil 9477121 false ) 
+	#(203 2 #reduceActionFortable_option67: 6731843 false ) 
+	#(203 2 #reduceActionFortable_option74: 6731850 false ) 
+	#(203 2 #reduceActionFortable_option74: 6731848 false ) 
+	#(203 2 #reduceActionFortable_option74: 6731845 false ) 
+	#(203 2 #reduceActionFortable_option74: 6731846 false ) 
+	#(203 2 #reduceActionFortable_option74: 6731847 false ) 
+	#(203 2 #reduceActionFortable_option74: 6731849 false ) 
+	#(203 2 #reduceActionFortable_option81: 6731857 false ) 
+	#(203 2 #reduceActionFortable_option84: 6731860 false ) 
+	#(203 2 #reduceActionFortable_option84: 6731861 false ) 
+	#(203 2 #reduceActionFortable_option84: 6731859 false ) 
+	#(203 2 #reduceActionFortable_option84: 6731866 false ) 
+	#(203 2 #reduceActionFortable_option84: 6731867 false ) 
+	#(203 2 #reduceActionFortable_option84: 6731865 false ) 
+	#(203 2 #reduceActionFortable_option84: 6731871 false ) 
+	#(203 2 #reduceActionFortable_option97: 6731873 false ) 
+	#(252 1 #liftFirstValue: 12858369 false ) 
 	#(156 1 #reduceActionFor__IGNORE___ignoreToken_____REPLACE___replaceToken__1: 1106945 false ) 
 	#(156 1 #reduceActionFor__IGNORE___ignoreToken_____REPLACE___replaceToken__2: 1106946 false ) 
 	#(157 1 #reduceActionForFile1: 1106946 false ) 
 	#(158 0 #nil 1163265 false ) 
-	#(200 2 #reduceActionFortable_options1: 6638593 false ) 
-	#(250 1 #liftFirstValue: 12777473 false ) 
-	#(239 1 #liftFirstValue: 12402689 false ) 
-	#(164 0 #reduceActionForindex_type_1: 2420737 false ) 
-	#(163 1 #liftFirstValue: 2396162 false ) 
-	#(191 1 #liftFirstValue: 4789249 false ) 
-	#(191 1 #liftFirstValue: 4789250 false ) 
-	#(191 1 #liftFirstValue: 4789251 false ) 
-	#(191 1 #liftFirstValue: 4789252 false ) 
-	#(191 1 #liftFirstValue: 4789253 false ) 
-	#(191 1 #liftFirstValue: 4789254 false ) 
-	#(191 1 #liftFirstValue: 4789255 false ) 
-	#(191 1 #liftFirstValue: 4789256 false ) 
-	#(191 1 #liftFirstValue: 4789257 false ) 
-	#(191 1 #liftFirstValue: 4789258 false ) 
-	#(191 1 #liftFirstValue: 4789259 false ) 
-	#(191 1 #liftFirstValue: 4789260 false ) 
-	#(191 1 #liftFirstValue: 4789261 false ) 
-	#(191 1 #liftFirstValue: 4789262 false ) 
-	#(191 1 #liftFirstValue: 4789263 false ) 
-	#(191 1 #liftFirstValue: 4789264 false ) 
-	#(191 1 #liftFirstValue: 4789265 false ) 
-	#(191 1 #liftFirstValue: 4789266 false ) 
-	#(191 1 #liftFirstValue: 4789267 false ) 
-	#(191 1 #liftFirstValue: 4789268 false ) 
-	#(159 2 #reduceActionForcreate_definition1: 1503233 false ) 
-	#(169 0 #reduceActionFor__IGNORE___ignoreToken_____REPLACE___replaceToken___1: 3090433 false ) 
-	#(189 1 #reduceActionFordata_type1: 4424705 false ) 
-	#(203 3 #reduceActionFortable_option2: 6720514 false ) 
-	#(203 3 #reduceActionFortable_option4: 6720516 false ) 
-	#(203 3 #reduceActionFortable_option6: 6720518 false ) 
-	#(203 3 #reduceActionFortable_option7: 6720519 false ) 
-	#(203 3 #reduceActionFortable_option10: 6720522 false ) 
-	#(203 3 #reduceActionFortable_option17: 6720529 false ) 
-	#(203 3 #reduceActionFortable_option17: 6720530 false ) 
-	#(203 3 #reduceActionFortable_option20: 6720532 false ) 
-	#(203 3 #reduceActionFortable_option24: 6720536 false ) 
-	#(203 3 #reduceActionFortable_option29: 6720541 false ) 
-	#(203 3 #reduceActionFortable_option29: 6720542 false ) 
-	#(203 3 #reduceActionFortable_option29: 6720540 false ) 
-	#(203 3 #reduceActionFortable_option32: 6720544 false ) 
-	#(203 3 #reduceActionFortable_option33: 6720545 false ) 
-	#(203 3 #reduceActionFortable_option13: 6720525 false ) 
-	#(203 3 #reduceActionFortable_option21: 6720533 false ) 
-	#(203 3 #reduceActionFortable_option39: 6720551 false ) 
-	#(203 3 #reduceActionFortable_option39: 6720552 false ) 
-	#(203 3 #reduceActionFortable_option44: 6720556 false ) 
-	#(203 3 #reduceActionFortable_option44: 6720555 false ) 
-	#(203 3 #reduceActionFortable_option46: 6720558 false ) 
-	#(203 3 #reduceActionFortable_option48: 6720560 false ) 
-	#(203 3 #reduceActionFortable_option35: 6720547 false ) 
-	#(203 3 #reduceActionFortable_option53: 6720565 false ) 
-	#(203 3 #reduceActionFortable_option53: 6720566 false ) 
-	#(203 3 #reduceActionFortable_option53: 6720564 false ) 
-	#(203 3 #reduceActionFortable_option56: 6720568 false ) 
-	#(203 3 #reduceActionFortable_option58: 6720570 false ) 
-	#(203 3 #reduceActionFortable_option60: 6720572 false ) 
-	#(203 3 #reduceActionFortable_option64: 6720576 false ) 
-	#(203 3 #reduceActionFortable_option64: 6720577 false ) 
-	#(203 3 #reduceActionFortable_option64: 6720578 false ) 
-	#(207 1 #liftFirstValue: 9465858 false ) 
-	#(203 3 #reduceActionFortable_option68: 6720580 false ) 
-	#(203 3 #reduceActionFortable_option80: 6720592 false ) 
-	#(203 3 #reduceActionFortable_option80: 6720590 false ) 
-	#(203 3 #reduceActionFortable_option80: 6720587 false ) 
-	#(203 3 #reduceActionFortable_option80: 6720588 false ) 
-	#(203 3 #reduceActionFortable_option80: 6720589 false ) 
-	#(203 3 #reduceActionFortable_option80: 6720591 false ) 
-	#(203 3 #reduceActionFortable_option82: 6720594 false ) 
-	#(203 3 #reduceActionFortable_option87: 6720599 false ) 
-	#(203 3 #reduceActionFortable_option87: 6720600 false ) 
-	#(203 3 #reduceActionFortable_option87: 6720598 false ) 
-	#(203 3 #reduceActionFortable_option87: 6720605 false ) 
-	#(203 3 #reduceActionFortable_option87: 6720606 false ) 
-	#(203 3 #reduceActionFortable_option87: 6720604 false ) 
-	#(203 3 #reduceActionFortable_option87: 6720608 false ) 
-	#(205 0 #reduceActionFor_Statement__statement_______semicolon___1: 9236481 false ) 
+	#(200 2 #reduceActionFortable_options1: 6649857 false ) 
+	#(250 1 #liftFirstValue: 12788737 false ) 
+	#(239 1 #liftFirstValue: 12413953 false ) 
+	#(164 0 #reduceActionForindex_type_1: 2428929 false ) 
+	#(163 1 #liftFirstValue: 2404354 false ) 
+	#(191 1 #liftFirstValue: 4797441 false ) 
+	#(191 1 #liftFirstValue: 4797442 false ) 
+	#(191 1 #liftFirstValue: 4797443 false ) 
+	#(191 1 #liftFirstValue: 4797444 false ) 
+	#(191 1 #liftFirstValue: 4797445 false ) 
+	#(191 1 #liftFirstValue: 4797446 false ) 
+	#(191 1 #liftFirstValue: 4797447 false ) 
+	#(191 1 #liftFirstValue: 4797448 false ) 
+	#(191 1 #liftFirstValue: 4797449 false ) 
+	#(191 1 #liftFirstValue: 4797450 false ) 
+	#(191 1 #liftFirstValue: 4797451 false ) 
+	#(191 1 #liftFirstValue: 4797452 false ) 
+	#(191 1 #liftFirstValue: 4797453 false ) 
+	#(191 1 #liftFirstValue: 4797454 false ) 
+	#(191 1 #liftFirstValue: 4797455 false ) 
+	#(191 1 #liftFirstValue: 4797456 false ) 
+	#(191 1 #liftFirstValue: 4797457 false ) 
+	#(191 1 #liftFirstValue: 4797458 false ) 
+	#(191 1 #liftFirstValue: 4797459 false ) 
+	#(191 1 #liftFirstValue: 4797460 false ) 
+	#(159 2 #reduceActionForcreate_definition1: 1511425 false ) 
+	#(169 0 #reduceActionFor__IGNORE___ignoreToken_____REPLACE___replaceToken___1: 3098625 false ) 
+	#(189 1 #reduceActionFordata_type1: 4432897 false ) 
+	#(203 3 #reduceActionFortable_option2: 6731778 false ) 
+	#(203 3 #reduceActionFortable_option4: 6731780 false ) 
+	#(203 3 #reduceActionFortable_option6: 6731782 false ) 
+	#(203 3 #reduceActionFortable_option7: 6731783 false ) 
+	#(203 3 #reduceActionFortable_option10: 6731786 false ) 
+	#(203 3 #reduceActionFortable_option17: 6731793 false ) 
+	#(203 3 #reduceActionFortable_option17: 6731794 false ) 
+	#(203 3 #reduceActionFortable_option20: 6731796 false ) 
+	#(203 3 #reduceActionFortable_option24: 6731800 false ) 
+	#(203 3 #reduceActionFortable_option29: 6731805 false ) 
+	#(203 3 #reduceActionFortable_option29: 6731806 false ) 
+	#(203 3 #reduceActionFortable_option29: 6731804 false ) 
+	#(203 3 #reduceActionFortable_option32: 6731808 false ) 
+	#(203 3 #reduceActionFortable_option33: 6731809 false ) 
+	#(203 3 #reduceActionFortable_option13: 6731789 false ) 
+	#(203 3 #reduceActionFortable_option21: 6731797 false ) 
+	#(203 3 #reduceActionFortable_option39: 6731815 false ) 
+	#(203 3 #reduceActionFortable_option39: 6731816 false ) 
+	#(203 3 #reduceActionFortable_option44: 6731820 false ) 
+	#(203 3 #reduceActionFortable_option44: 6731819 false ) 
+	#(203 3 #reduceActionFortable_option46: 6731822 false ) 
+	#(203 3 #reduceActionFortable_option48: 6731824 false ) 
+	#(203 3 #reduceActionFortable_option35: 6731811 false ) 
+	#(203 3 #reduceActionFortable_option53: 6731829 false ) 
+	#(203 3 #reduceActionFortable_option53: 6731830 false ) 
+	#(203 3 #reduceActionFortable_option53: 6731828 false ) 
+	#(203 3 #reduceActionFortable_option56: 6731832 false ) 
+	#(203 3 #reduceActionFortable_option58: 6731834 false ) 
+	#(203 3 #reduceActionFortable_option60: 6731836 false ) 
+	#(203 3 #reduceActionFortable_option64: 6731840 false ) 
+	#(203 3 #reduceActionFortable_option64: 6731841 false ) 
+	#(203 3 #reduceActionFortable_option64: 6731842 false ) 
+	#(207 1 #liftFirstValue: 9477122 false ) 
+	#(203 3 #reduceActionFortable_option68: 6731844 false ) 
+	#(203 3 #reduceActionFortable_option80: 6731856 false ) 
+	#(203 3 #reduceActionFortable_option80: 6731854 false ) 
+	#(203 3 #reduceActionFortable_option80: 6731851 false ) 
+	#(203 3 #reduceActionFortable_option80: 6731852 false ) 
+	#(203 3 #reduceActionFortable_option80: 6731853 false ) 
+	#(203 3 #reduceActionFortable_option80: 6731855 false ) 
+	#(203 3 #reduceActionFortable_option82: 6731858 false ) 
+	#(203 3 #reduceActionFortable_option87: 6731863 false ) 
+	#(203 3 #reduceActionFortable_option87: 6731864 false ) 
+	#(203 3 #reduceActionFortable_option87: 6731862 false ) 
+	#(203 3 #reduceActionFortable_option87: 6731869 false ) 
+	#(203 3 #reduceActionFortable_option87: 6731870 false ) 
+	#(203 3 #reduceActionFortable_option87: 6731868 false ) 
+	#(203 3 #reduceActionFortable_option87: 6731872 false ) 
+	#(205 0 #reduceActionFor_Statement__statement_______semicolon___1: 9247745 false ) 
 	#(158 1 #liftFirstValue: 1163266 false ) 
-	#(202 2 #reduceActionFor_Statement__statement_______semicolon___2: 6678530 false ) 
-	#(201 1 #reduceActionFor__IGNORE___ignoreToken_____REPLACE___replaceToken__1: 6678529 false ) 
+	#(202 2 #reduceActionFor_Statement__statement_______semicolon___2: 6689794 false ) 
+	#(201 1 #reduceActionFor__IGNORE___ignoreToken_____REPLACE___replaceToken__1: 6689793 false ) 
 	#(152 6 #reduceActionForCreateTable37: 457765 false ) 
-	#(245 1 #liftFirstValue: 12602369 false ) 
-	#(161 0 #reduceActionFor______comma__key_part__1: 1695745 false ) 
-	#(192 1 #reduceActionForkey_part1: 5068801 false ) 
-	#(193 2 #reduceActionForindex_type1: 5253121 false ) 
-	#(193 2 #reduceActionForindex_type2: 5253122 false ) 
+	#(245 1 #liftFirstValue: 12613633 false ) 
+	#(161 0 #reduceActionFor______comma__key_part__1: 1703937 false ) 
+	#(192 1 #reduceActionForkey_part1: 5076993 false ) 
+	#(193 2 #reduceActionForindex_type1: 5264385 false ) 
+	#(193 2 #reduceActionForindex_type2: 5264386 false ) 
 	#(152 7 #reduceActionForCreateTable34: 457762 false ) 
-	#(164 1 #reduceActionForFile1: 2420738 false ) 
+	#(164 1 #reduceActionForFile1: 2428930 false ) 
 	#(152 7 #reduceActionForCreateTable1: 457729 false ) 
 	#(154 2 #reduceActionFor_Statement__statement_______semicolon___2: 679938 false ) 
-	#(168 1 #reduceActionFor__IGNORE___ignoreToken_____REPLACE___replaceToken__2: 3090434 false ) 
-	#(168 1 #reduceActionFor__IGNORE___ignoreToken_____REPLACE___replaceToken__1: 3090433 false ) 
-	#(169 1 #reduceActionForFile1: 3090434 false ) 
-	#(170 0 #nil 3152897 false ) 
-	#(190 0 #nil 4666369 false ) 
-	#(189 2 #reduceActionFordata_type4: 4424708 false ) 
-	#(203 4 #reduceActionFortable_option8: 6720520 false ) 
-	#(203 4 #reduceActionFortable_option34: 6720546 false ) 
-	#(203 4 #reduceActionFortable_option11: 6720523 false ) 
-	#(203 4 #reduceActionFortable_option14: 6720526 false ) 
-	#(203 4 #reduceActionFortable_option22: 6720534 false ) 
-	#(203 4 #reduceActionFortable_option36: 6720548 false ) 
-	#(209 0 #reduceActionForindex_type_1: 9507841 false ) 
-	#(203 4 #reduceActionFortable_option98: 6720610 false ) 
-	#(203 4 #reduceActionFortable_option99: 6720611 false ) 
+	#(168 1 #reduceActionFor__IGNORE___ignoreToken_____REPLACE___replaceToken__2: 3098626 false ) 
+	#(168 1 #reduceActionFor__IGNORE___ignoreToken_____REPLACE___replaceToken__1: 3098625 false ) 
+	#(169 1 #reduceActionForFile1: 3098626 false ) 
+	#(170 0 #nil 3161089 false ) 
+	#(190 0 #nil 4674561 false ) 
+	#(189 2 #reduceActionFordata_type4: 4432900 false ) 
+	#(203 4 #reduceActionFortable_option8: 6731784 false ) 
+	#(203 4 #reduceActionFortable_option34: 6731810 false ) 
+	#(203 4 #reduceActionFortable_option11: 6731787 false ) 
+	#(203 4 #reduceActionFortable_option14: 6731790 false ) 
+	#(203 4 #reduceActionFortable_option22: 6731798 false ) 
+	#(203 4 #reduceActionFortable_option36: 6731812 false ) 
+	#(209 0 #reduceActionForindex_type_1: 9519105 false ) 
+	#(203 4 #reduceActionFortable_option98: 6731874 false ) 
+	#(203 4 #reduceActionFortable_option99: 6731875 false ) 
 	#(152 7 #reduceActionForCreateTable17: 457745 false ) 
-	#(244 1 #liftFirstValue: 12555265 false ) 
-	#(201 2 #reduceActionFor______comma___table_option__option__2: 6678530 false ) 
+	#(244 1 #liftFirstValue: 12566529 false ) 
+	#(201 2 #reduceActionFor______comma___table_option__option__2: 6689794 false ) 
 	#(152 8 #reduceActionForCreateTable35: 457763 false ) 
-	#(195 4 #reduceActionForcheck_constraint_definition1: 5808129 false ) 
-	#(166 0 #reduceActionFor_Statement__statement_______semicolon___1: 2722817 false ) 
-	#(192 2 #reduceActionForkey_part2: 5068802 false ) 
-	#(192 2 #reduceActionForkey_part2: 5068803 false ) 
+	#(195 4 #reduceActionForcheck_constraint_definition1: 5819393 false ) 
+	#(166 0 #reduceActionFor_Statement__statement_______semicolon___1: 2731009 false ) 
+	#(192 2 #reduceActionForkey_part2: 5076994 false ) 
+	#(192 2 #reduceActionForkey_part2: 5076995 false ) 
 	#(152 8 #reduceActionForCreateTable3: 457731 false ) 
 	#(152 8 #reduceActionForCreateTable2: 457730 false ) 
 	#(153 2 #reduceActionFor_Statement__statement_______semicolon__1: 679937 false ) 
-	#(170 1 #liftFirstValue: 3152898 false ) 
-	#(172 0 #reduceActionFor__IGNORE___ignoreToken_____REPLACE___replaceToken___1: 3192833 false ) 
-	#(190 1 #liftFirstValue: 4666370 false ) 
-	#(203 5 #reduceActionFortable_option12: 6720524 false ) 
-	#(209 1 #reduceActionForFile1: 9507842 false ) 
-	#(203 5 #reduceActionFortable_option100: 6720612 false ) 
-	#(205 2 #reduceActionFor_Statement__statement_______semicolon___2: 9236482 false ) 
+	#(170 1 #liftFirstValue: 3161090 false ) 
+	#(172 0 #reduceActionFor__IGNORE___ignoreToken_____REPLACE___replaceToken___1: 3201025 false ) 
+	#(190 1 #liftFirstValue: 4674562 false ) 
+	#(203 5 #reduceActionFortable_option12: 6731788 false ) 
+	#(209 1 #reduceActionForFile1: 9519106 false ) 
+	#(203 5 #reduceActionFortable_option100: 6731876 false ) 
+	#(205 2 #reduceActionFor_Statement__statement_______semicolon___2: 9247746 false ) 
 	#(152 8 #reduceActionForCreateTable18: 457746 false ) 
 	#(152 8 #reduceActionForCreateTable38: 457766 false ) 
 	#(152 8 #reduceActionForCreateTable9: 457737 false ) 
 	#(152 8 #reduceActionForCreateTable25: 457753 false ) 
-	#(195 5 #reduceActionForcheck_constraint_definition2: 5808130 false ) 
-	#(195 5 #reduceActionForcheck_constraint_definition4: 5808132 false ) 
-	#(192 3 #reduceActionForkey_part7: 5068807 false ) 
-	#(162 0 #nil 1980417 false ) 
-	#(161 2 #reduceActionFor______comma__key_part__2: 1695746 false ) 
-	#(242 1 #liftFirstValue: 12495873 false ) 
-	#(159 5 #reduceActionForcreate_definition2: 1503234 false ) 
-	#(159 5 #reduceActionForcreate_definition10: 1503242 false ) 
+	#(195 5 #reduceActionForcheck_constraint_definition2: 5819394 false ) 
+	#(195 5 #reduceActionForcheck_constraint_definition4: 5819396 false ) 
+	#(192 3 #reduceActionForkey_part7: 5076999 false ) 
+	#(162 0 #nil 1988609 false ) 
+	#(161 2 #reduceActionFor______comma__key_part__2: 1703938 false ) 
+	#(242 1 #liftFirstValue: 12507137 false ) 
+	#(159 5 #reduceActionForcreate_definition2: 1511426 false ) 
+	#(159 5 #reduceActionForcreate_definition10: 1511434 false ) 
 	#(152 9 #reduceActionForCreateTable4: 457732 false ) 
-	#(171 1 #reduceActionFor__IGNORE___ignoreToken_____REPLACE___replaceToken__1: 3192833 false ) 
-	#(172 1 #reduceActionForFile1: 3192834 false ) 
-	#(174 0 #reduceActionFor__IGNORE___ignoreToken_____REPLACE___replaceToken___1: 3237889 false ) 
-	#(189 4 #reduceActionFordata_type7: 4424711 false ) 
-	#(178 0 #reduceActionFor__IGNORE___ignoreToken_____REPLACE___replaceToken___1: 3329025 false ) 
-	#(206 6 #reduceActionForpartition_options2: 9298946 false ) 
-	#(211 0 #reduceActionFor__IGNORE___ignoreToken_____REPLACE___replaceToken___1: 9928705 false ) 
-	#(206 6 #reduceActionForpartition_options5: 9298949 false ) 
-	#(204 2 #reduceActionFor_Statement__statement_______semicolon__1: 9236481 false ) 
-	#(203 6 #reduceActionFortable_option101: 6720613 false ) 
+	#(171 1 #reduceActionFor__IGNORE___ignoreToken_____REPLACE___replaceToken__1: 3201025 false ) 
+	#(172 1 #reduceActionForFile1: 3201026 false ) 
+	#(174 0 #reduceActionFor__IGNORE___ignoreToken_____REPLACE___replaceToken___1: 3246081 false ) 
+	#(189 4 #reduceActionFordata_type7: 4432903 false ) 
+	#(178 0 #reduceActionFor__IGNORE___ignoreToken_____REPLACE___replaceToken___1: 3337217 false ) 
+	#(206 6 #reduceActionForpartition_options2: 9310210 false ) 
+	#(211 0 #reduceActionFor__IGNORE___ignoreToken_____REPLACE___replaceToken___1: 9939969 false ) 
+	#(206 6 #reduceActionForpartition_options5: 9310213 false ) 
+	#(204 2 #reduceActionFor_Statement__statement_______semicolon__1: 9247745 false ) 
+	#(203 6 #reduceActionFortable_option101: 6731877 false ) 
 	#(152 9 #reduceActionForCreateTable39: 457767 false ) 
 	#(152 9 #reduceActionForCreateTable11: 457739 false ) 
 	#(152 9 #reduceActionForCreateTable10: 457738 false ) 
@@ -532,277 +532,277 @@ MysqlParser class >> reduceTable [
 	#(152 10 #reduceActionForCreateTable36: 457764 false ) 
 	#(152 10 #reduceActionForCreateTable5: 457733 false ) 
 	#(152 10 #reduceActionForCreateTable21: 457749 false ) 
-	#(195 6 #reduceActionForcheck_constraint_definition3: 5808131 false ) 
-	#(195 6 #reduceActionForcheck_constraint_definition5: 5808133 false ) 
-	#(195 6 #reduceActionForcheck_constraint_definition7: 5808135 false ) 
-	#(166 2 #reduceActionFor_Statement__statement_______semicolon___2: 2722818 false ) 
-	#(192 4 #reduceActionForkey_part8: 5068808 false ) 
-	#(192 4 #reduceActionForkey_part8: 5068809 false ) 
-	#(194 1 #reduceActionForindex_option7: 5337095 false ) 
-	#(194 1 #reduceActionForindex_option6: 5337094 false ) 
-	#(159 6 #reduceActionForcreate_definition18: 1503250 false ) 
-	#(194 1 #reduceActionForindex_option3: 5337091 false ) 
-	#(162 1 #liftFirstValue: 1980418 false ) 
-	#(160 2 #reduceActionFor______comma__key_part_1: 1695745 false ) 
-	#(192 4 #reduceActionForkey_part4: 5068804 false ) 
-	#(159 6 #reduceActionForcreate_definition3: 1503235 false ) 
-	#(159 6 #reduceActionForcreate_definition4: 1503236 false ) 
-	#(159 6 #reduceActionForcreate_definition6: 1503238 false ) 
-	#(159 6 #reduceActionForcreate_definition11: 1503243 false ) 
-	#(159 6 #reduceActionForcreate_definition12: 1503244 false ) 
-	#(159 6 #reduceActionForcreate_definition14: 1503246 false ) 
-	#(159 6 #reduceActionForcreate_definition30: 1503262 false ) 
-	#(159 6 #reduceActionForcreate_definition24: 1503256 false ) 
-	#(171 2 #reduceActionFor_Statement__statement_______semicolon__1: 3192834 false ) 
-	#(173 1 #reduceActionFor__IGNORE___ignoreToken_____REPLACE___replaceToken__1: 3237889 false ) 
-	#(174 1 #reduceActionForFile1: 3237890 false ) 
-	#(176 0 #nil 3287041 false ) 
-	#(189 5 #reduceActionFordata_type10: 4424714 false ) 
-	#(178 1 #reduceActionForFile1: 3329026 false ) 
-	#(189 5 #reduceActionFordata_type3: 4424707 false ) 
-	#(206 7 #reduceActionForpartition_options3: 9298947 false ) 
-	#(211 1 #reduceActionForFile1: 9928706 false ) 
-	#(206 7 #reduceActionForpartition_options6: 9298950 false ) 
-	#(208 3 #reduceActionFor__ALGORITHM___algorithmToken_______equals____1___value_____2___value___1: 9507841 false ) 
-	#(208 3 #reduceActionFor__ALGORITHM___algorithmToken_______equals____1___value_____2___value___1: 9507842 false ) 
+	#(195 6 #reduceActionForcheck_constraint_definition3: 5819395 false ) 
+	#(195 6 #reduceActionForcheck_constraint_definition5: 5819397 false ) 
+	#(195 6 #reduceActionForcheck_constraint_definition7: 5819399 false ) 
+	#(166 2 #reduceActionFor_Statement__statement_______semicolon___2: 2731010 false ) 
+	#(192 4 #reduceActionForkey_part8: 5077000 false ) 
+	#(192 4 #reduceActionForkey_part8: 5077001 false ) 
+	#(194 1 #reduceActionForindex_option7: 5348359 false ) 
+	#(194 1 #reduceActionForindex_option6: 5348358 false ) 
+	#(159 6 #reduceActionForcreate_definition18: 1511442 false ) 
+	#(194 1 #reduceActionForindex_option3: 5348355 false ) 
+	#(162 1 #liftFirstValue: 1988610 false ) 
+	#(160 2 #reduceActionFor______comma__key_part_1: 1703937 false ) 
+	#(192 4 #reduceActionForkey_part4: 5076996 false ) 
+	#(159 6 #reduceActionForcreate_definition3: 1511427 false ) 
+	#(159 6 #reduceActionForcreate_definition4: 1511428 false ) 
+	#(159 6 #reduceActionForcreate_definition6: 1511430 false ) 
+	#(159 6 #reduceActionForcreate_definition11: 1511435 false ) 
+	#(159 6 #reduceActionForcreate_definition12: 1511436 false ) 
+	#(159 6 #reduceActionForcreate_definition14: 1511438 false ) 
+	#(159 6 #reduceActionForcreate_definition30: 1511454 false ) 
+	#(159 6 #reduceActionForcreate_definition24: 1511448 false ) 
+	#(171 2 #reduceActionFor_Statement__statement_______semicolon__1: 3201026 false ) 
+	#(173 1 #reduceActionFor__IGNORE___ignoreToken_____REPLACE___replaceToken__1: 3246081 false ) 
+	#(174 1 #reduceActionForFile1: 3246082 false ) 
+	#(176 0 #nil 3295233 false ) 
+	#(189 5 #reduceActionFordata_type10: 4432906 false ) 
+	#(178 1 #reduceActionForFile1: 3337218 false ) 
+	#(189 5 #reduceActionFordata_type3: 4432899 false ) 
+	#(206 7 #reduceActionForpartition_options3: 9310211 false ) 
+	#(211 1 #reduceActionForFile1: 9939970 false ) 
+	#(206 7 #reduceActionForpartition_options6: 9310214 false ) 
+	#(208 3 #reduceActionFor__ALGORITHM___algorithmToken_______equals____1___value_____2___value___1: 9519105 false ) 
+	#(208 3 #reduceActionFor__ALGORITHM___algorithmToken_______equals____1___value_____2___value___1: 9519106 false ) 
 	#(152 10 #reduceActionForCreateTable12: 457740 false ) 
 	#(152 11 #reduceActionForCreateTable7: 457735 false ) 
 	#(152 11 #reduceActionForCreateTable6: 457734 false ) 
 	#(152 11 #reduceActionForCreateTable22: 457750 false ) 
-	#(195 7 #reduceActionForcheck_constraint_definition6: 5808134 false ) 
-	#(159 7 #reduceActionForcreate_definition34: 1503266 false ) 
-	#(195 7 #reduceActionForcheck_constraint_definition8: 5808136 false ) 
-	#(159 7 #reduceActionForcreate_definition51: 1503283 false ) 
-	#(165 2 #reduceActionFor_Statement__statement_______semicolon__1: 2722817 false ) 
-	#(194 2 #reduceActionForindex_option5: 5337093 false ) 
-	#(194 2 #reduceActionForindex_option8: 5337096 false ) 
-	#(194 2 #reduceActionForindex_option1: 5337089 false ) 
-	#(194 2 #reduceActionForindex_option10: 5337098 false ) 
-	#(192 5 #reduceActionForkey_part5: 5068805 false ) 
-	#(192 5 #reduceActionForkey_part5: 5068806 false ) 
-	#(159 7 #reduceActionForcreate_definition20: 1503252 false ) 
-	#(159 7 #reduceActionForcreate_definition22: 1503254 false ) 
-	#(159 7 #reduceActionForcreate_definition19: 1503251 false ) 
-	#(159 7 #reduceActionForcreate_definition5: 1503237 false ) 
-	#(159 7 #reduceActionForcreate_definition7: 1503239 false ) 
-	#(159 7 #reduceActionForcreate_definition8: 1503240 false ) 
-	#(159 7 #reduceActionForcreate_definition13: 1503245 false ) 
-	#(159 7 #reduceActionForcreate_definition15: 1503247 false ) 
-	#(159 7 #reduceActionForcreate_definition16: 1503248 false ) 
-	#(159 7 #reduceActionForcreate_definition31: 1503263 false ) 
-	#(159 7 #reduceActionForcreate_definition32: 1503264 false ) 
-	#(159 7 #reduceActionForcreate_definition26: 1503258 false ) 
-	#(159 7 #reduceActionForcreate_definition28: 1503260 false ) 
-	#(159 7 #reduceActionForcreate_definition25: 1503257 false ) 
+	#(195 7 #reduceActionForcheck_constraint_definition6: 5819398 false ) 
+	#(159 7 #reduceActionForcreate_definition34: 1511458 false ) 
+	#(195 7 #reduceActionForcheck_constraint_definition8: 5819400 false ) 
+	#(159 7 #reduceActionForcreate_definition51: 1511475 false ) 
+	#(165 2 #reduceActionFor_Statement__statement_______semicolon__1: 2731009 false ) 
+	#(194 2 #reduceActionForindex_option5: 5348357 false ) 
+	#(194 2 #reduceActionForindex_option8: 5348360 false ) 
+	#(194 2 #reduceActionForindex_option1: 5348353 false ) 
+	#(194 2 #reduceActionForindex_option10: 5348362 false ) 
+	#(192 5 #reduceActionForkey_part5: 5076997 false ) 
+	#(192 5 #reduceActionForkey_part5: 5076998 false ) 
+	#(159 7 #reduceActionForcreate_definition20: 1511444 false ) 
+	#(159 7 #reduceActionForcreate_definition22: 1511446 false ) 
+	#(159 7 #reduceActionForcreate_definition19: 1511443 false ) 
+	#(159 7 #reduceActionForcreate_definition5: 1511429 false ) 
+	#(159 7 #reduceActionForcreate_definition7: 1511431 false ) 
+	#(159 7 #reduceActionForcreate_definition8: 1511432 false ) 
+	#(159 7 #reduceActionForcreate_definition13: 1511437 false ) 
+	#(159 7 #reduceActionForcreate_definition15: 1511439 false ) 
+	#(159 7 #reduceActionForcreate_definition16: 1511440 false ) 
+	#(159 7 #reduceActionForcreate_definition31: 1511455 false ) 
+	#(159 7 #reduceActionForcreate_definition32: 1511456 false ) 
+	#(159 7 #reduceActionForcreate_definition26: 1511450 false ) 
+	#(159 7 #reduceActionForcreate_definition28: 1511452 false ) 
+	#(159 7 #reduceActionForcreate_definition25: 1511449 false ) 
 	#(152 11 #reduceActionForCreateTable19: 457747 false ) 
-	#(173 2 #reduceActionFor______comma___table_option__option__2: 3237890 false ) 
-	#(176 1 #liftFirstValue: 3287042 false ) 
-	#(189 6 #reduceActionFordata_type13: 4424717 false ) 
-	#(189 6 #reduceActionFordata_type2: 4424706 false ) 
-	#(177 2 #reduceActionFor_Statement__statement_______semicolon__1: 3329025 false ) 
-	#(189 6 #reduceActionFordata_type6: 4424710 false ) 
-	#(253 1 #liftFirstValue: 12893185 false ) 
-	#(210 2 #reduceActionFor_Statement__statement_______semicolon__1: 9928705 false ) 
-	#(249 3 #reduceActionForcolumn_list1: 12699649 false ) 
-	#(206 8 #reduceActionForpartition_options4: 9298948 false ) 
+	#(173 2 #reduceActionFor______comma___table_option__option__2: 3246082 false ) 
+	#(176 1 #liftFirstValue: 3295234 false ) 
+	#(189 6 #reduceActionFordata_type13: 4432909 false ) 
+	#(189 6 #reduceActionFordata_type2: 4432898 false ) 
+	#(177 2 #reduceActionFor_Statement__statement_______semicolon__1: 3337217 false ) 
+	#(189 6 #reduceActionFordata_type6: 4432902 false ) 
+	#(253 1 #liftFirstValue: 12904449 false ) 
+	#(210 2 #reduceActionFor_Statement__statement_______semicolon__1: 9939969 false ) 
+	#(249 3 #reduceActionForcolumn_list1: 12710913 false ) 
+	#(206 8 #reduceActionForpartition_options4: 9310212 false ) 
 	#(152 11 #reduceActionForCreateTable40: 457768 false ) 
 	#(152 11 #reduceActionForCreateTable13: 457741 false ) 
 	#(152 11 #reduceActionForCreateTable29: 457757 false ) 
 	#(152 12 #reduceActionForCreateTable8: 457736 false ) 
-	#(159 8 #reduceActionForcreate_definition53: 1503285 false ) 
-	#(159 8 #reduceActionForcreate_definition35: 1503267 false ) 
-	#(159 8 #reduceActionForcreate_definition36: 1503268 false ) 
-	#(195 8 #reduceActionForcheck_constraint_definition9: 5808137 false ) 
-	#(159 8 #reduceActionForcreate_definition38: 1503270 false ) 
-	#(159 8 #reduceActionForcreate_definition52: 1503284 false ) 
-	#(194 3 #reduceActionForindex_option9: 5337097 false ) 
-	#(194 3 #reduceActionForindex_option2: 5337090 false ) 
-	#(194 3 #reduceActionForindex_option11: 5337099 false ) 
-	#(251 1 #liftFirstValue: 12814337 false ) 
-	#(194 3 #reduceActionForindex_option4: 5337092 false ) 
-	#(159 8 #reduceActionForcreate_definition21: 1503253 false ) 
-	#(159 8 #reduceActionForcreate_definition23: 1503255 false ) 
-	#(159 8 #reduceActionForcreate_definition9: 1503241 false ) 
-	#(159 8 #reduceActionForcreate_definition17: 1503249 false ) 
-	#(159 8 #reduceActionForcreate_definition33: 1503265 false ) 
-	#(159 8 #reduceActionForcreate_definition27: 1503259 false ) 
-	#(159 8 #reduceActionForcreate_definition29: 1503261 false ) 
-	#(159 8 #reduceActionForcreate_definition42: 1503274 false ) 
+	#(159 8 #reduceActionForcreate_definition53: 1511477 false ) 
+	#(159 8 #reduceActionForcreate_definition35: 1511459 false ) 
+	#(159 8 #reduceActionForcreate_definition36: 1511460 false ) 
+	#(195 8 #reduceActionForcheck_constraint_definition9: 5819401 false ) 
+	#(159 8 #reduceActionForcreate_definition38: 1511462 false ) 
+	#(159 8 #reduceActionForcreate_definition52: 1511476 false ) 
+	#(194 3 #reduceActionForindex_option9: 5348361 false ) 
+	#(194 3 #reduceActionForindex_option2: 5348354 false ) 
+	#(194 3 #reduceActionForindex_option11: 5348363 false ) 
+	#(251 1 #liftFirstValue: 12825601 false ) 
+	#(194 3 #reduceActionForindex_option4: 5348356 false ) 
+	#(159 8 #reduceActionForcreate_definition21: 1511445 false ) 
+	#(159 8 #reduceActionForcreate_definition23: 1511447 false ) 
+	#(159 8 #reduceActionForcreate_definition9: 1511433 false ) 
+	#(159 8 #reduceActionForcreate_definition17: 1511441 false ) 
+	#(159 8 #reduceActionForcreate_definition33: 1511457 false ) 
+	#(159 8 #reduceActionForcreate_definition27: 1511451 false ) 
+	#(159 8 #reduceActionForcreate_definition29: 1511453 false ) 
+	#(159 8 #reduceActionForcreate_definition42: 1511466 false ) 
 	#(152 12 #reduceActionForCreateTable20: 457748 false ) 
-	#(175 2 #liftFirstValue: 3287041 false ) 
-	#(180 0 #reduceActionFor__IGNORE___ignoreToken_____REPLACE___replaceToken___1: 3391489 false ) 
-	#(189 7 #reduceActionFordata_type16: 4424720 false ) 
-	#(189 7 #reduceActionFordata_type5: 4424709 false ) 
+	#(175 2 #liftFirstValue: 3295233 false ) 
+	#(180 0 #reduceActionFor__IGNORE___ignoreToken_____REPLACE___replaceToken___1: 3399681 false ) 
+	#(189 7 #reduceActionFordata_type16: 4432912 false ) 
+	#(189 7 #reduceActionFordata_type5: 4432901 false ) 
 	#(152 12 #reduceActionForCreateTable15: 457743 false ) 
 	#(152 12 #reduceActionForCreateTable14: 457742 false ) 
 	#(152 12 #reduceActionForCreateTable30: 457758 false ) 
 	#(152 12 #reduceActionForCreateTable27: 457755 false ) 
-	#(159 9 #reduceActionForcreate_definition54: 1503286 false ) 
-	#(159 9 #reduceActionForcreate_definition37: 1503269 false ) 
-	#(159 9 #reduceActionForcreate_definition45: 1503277 false ) 
-	#(159 9 #reduceActionForcreate_definition55: 1503287 false ) 
-	#(159 9 #reduceActionForcreate_definition39: 1503271 false ) 
-	#(159 9 #reduceActionForcreate_definition40: 1503272 false ) 
-	#(159 9 #reduceActionForcreate_definition43: 1503275 false ) 
-	#(159 9 #reduceActionForcreate_definition44: 1503276 false ) 
-	#(180 1 #reduceActionForFile1: 3391490 false ) 
-	#(182 0 #reduceActionForindex_type_1: 3514369 false ) 
-	#(189 8 #reduceActionFordata_type9: 4424713 false ) 
+	#(159 9 #reduceActionForcreate_definition54: 1511478 false ) 
+	#(159 9 #reduceActionForcreate_definition37: 1511461 false ) 
+	#(159 9 #reduceActionForcreate_definition45: 1511469 false ) 
+	#(159 9 #reduceActionForcreate_definition55: 1511479 false ) 
+	#(159 9 #reduceActionForcreate_definition39: 1511463 false ) 
+	#(159 9 #reduceActionForcreate_definition40: 1511464 false ) 
+	#(159 9 #reduceActionForcreate_definition43: 1511467 false ) 
+	#(159 9 #reduceActionForcreate_definition44: 1511468 false ) 
+	#(180 1 #reduceActionForFile1: 3399682 false ) 
+	#(182 0 #reduceActionForindex_type_1: 3522561 false ) 
+	#(189 8 #reduceActionFordata_type9: 4432905 false ) 
 	#(152 13 #reduceActionForCreateTable16: 457744 false ) 
 	#(152 13 #reduceActionForCreateTable28: 457756 false ) 
 	#(152 14 #reduceActionForCreateTable23: 457751 false ) 
-	#(159 10 #reduceActionForcreate_definition46: 1503278 false ) 
-	#(159 10 #reduceActionForcreate_definition47: 1503279 false ) 
-	#(159 10 #reduceActionForcreate_definition56: 1503288 false ) 
-	#(159 10 #reduceActionForcreate_definition41: 1503273 false ) 
-	#(159 10 #reduceActionForcreate_definition48: 1503280 false ) 
-	#(179 2 #reduceActionFor_Statement__statement_______semicolon__1: 3391491 false ) 
-	#(179 2 #reduceActionFor_Statement__statement_______semicolon__1: 3391490 false ) 
-	#(179 2 #reduceActionFor_Statement__statement_______semicolon__1: 3391489 false ) 
-	#(182 1 #reduceActionForFile1: 3514370 false ) 
-	#(184 0 #reduceActionForindex_type_1: 3604481 false ) 
-	#(189 9 #reduceActionFordata_type8: 4424712 false ) 
-	#(189 9 #reduceActionFordata_type12: 4424716 false ) 
+	#(159 10 #reduceActionForcreate_definition46: 1511470 false ) 
+	#(159 10 #reduceActionForcreate_definition47: 1511471 false ) 
+	#(159 10 #reduceActionForcreate_definition56: 1511480 false ) 
+	#(159 10 #reduceActionForcreate_definition41: 1511465 false ) 
+	#(159 10 #reduceActionForcreate_definition48: 1511472 false ) 
+	#(179 2 #reduceActionFor_Statement__statement_______semicolon__1: 3399683 false ) 
+	#(179 2 #reduceActionFor_Statement__statement_______semicolon__1: 3399682 false ) 
+	#(179 2 #reduceActionFor_Statement__statement_______semicolon__1: 3399681 false ) 
+	#(182 1 #reduceActionForFile1: 3522562 false ) 
+	#(184 0 #reduceActionForindex_type_1: 3612673 false ) 
+	#(189 9 #reduceActionFordata_type8: 4432904 false ) 
+	#(189 9 #reduceActionFordata_type12: 4432908 false ) 
 	#(152 15 #reduceActionForCreateTable24: 457752 false ) 
-	#(159 11 #reduceActionForcreate_definition49: 1503281 false ) 
-	#(159 11 #reduceActionForcreate_definition50: 1503282 false ) 
-	#(187 0 #reduceActionForreference_definition_1: 3785729 false ) 
-	#(181 2 #reduceActionForindex_type1: 3514369 false ) 
-	#(184 1 #reduceActionForFile1: 3604482 false ) 
-	#(186 0 #reduceActionForindex_type_1: 3707905 false ) 
-	#(189 10 #reduceActionFordata_type11: 4424715 false ) 
-	#(189 10 #reduceActionFordata_type15: 4424719 false ) 
+	#(159 11 #reduceActionForcreate_definition49: 1511473 false ) 
+	#(159 11 #reduceActionForcreate_definition50: 1511474 false ) 
+	#(187 0 #reduceActionForreference_definition_1: 3793921 false ) 
+	#(181 2 #reduceActionForindex_type1: 3522561 false ) 
+	#(184 1 #reduceActionForFile1: 3612674 false ) 
+	#(186 0 #reduceActionForindex_type_1: 3716097 false ) 
+	#(189 10 #reduceActionFordata_type11: 4432907 false ) 
+	#(189 10 #reduceActionFordata_type15: 4432911 false ) 
 	#(152 15 #reduceActionForCreateTable31: 457759 false ) 
-	#(198 0 #reduceActionFor__ON___onToken___UPDATE___updateToken__reference_option__1: 6372353 false ) 
-	#(188 0 #reduceActionForcheck_constraint_definition_1: 3810305 false ) 
-	#(187 1 #reduceActionForFile1: 3785730 false ) 
-	#(181 3 #reduceActionFor__ENGINE_ATTRIBUTE___engineAttributeToken_______equals____string___engineAttribute__2: 3514370 false ) 
-	#(183 2 #reduceActionForindex_type1: 3604481 false ) 
-	#(186 1 #reduceActionForFile1: 3707906 false ) 
-	#(189 11 #reduceActionFordata_type14: 4424718 false ) 
-	#(189 11 #reduceActionFordata_type18: 4424722 false ) 
+	#(198 0 #reduceActionFor__ON___onToken___UPDATE___updateToken__reference_option__1: 6383617 false ) 
+	#(188 0 #reduceActionForcheck_constraint_definition_1: 3818497 false ) 
+	#(187 1 #reduceActionForFile1: 3793922 false ) 
+	#(181 3 #reduceActionFor__ENGINE_ATTRIBUTE___engineAttributeToken_______equals____string___engineAttribute__2: 3522562 false ) 
+	#(183 2 #reduceActionForindex_type1: 3612673 false ) 
+	#(186 1 #reduceActionForFile1: 3716098 false ) 
+	#(189 11 #reduceActionFordata_type14: 4432910 false ) 
+	#(189 11 #reduceActionFordata_type18: 4432914 false ) 
 	#(152 16 #reduceActionForCreateTable32: 457760 false ) 
-	#(198 1 #reduceActionForFile1: 6372354 false ) 
-	#(196 7 #reduceActionForreference_definition1: 6021121 false ) 
-	#(167 12 #reduceActionForcolumn_definition13: 2887693 false ) 
-	#(188 1 #reduceActionForFile1: 3810306 false ) 
-	#(167 12 #reduceActionForcolumn_definition10: 2887690 false ) 
-	#(183 3 #reduceActionFor__ENGINE_ATTRIBUTE___engineAttributeToken_______equals____string___engineAttribute__2: 3604482 false ) 
-	#(185 2 #reduceActionForindex_type1: 3707905 false ) 
-	#(185 2 #reduceActionForindex_type2: 3707906 false ) 
-	#(189 12 #reduceActionFordata_type17: 4424721 false ) 
-	#(213 0 #reduceActionFor__IGNORE___ignoreToken_____REPLACE___replaceToken___1: 10302465 false ) 
-	#(167 13 #reduceActionForcolumn_definition15: 2887695 false ) 
-	#(167 13 #reduceActionForcolumn_definition12: 2887692 false ) 
-	#(167 13 #reduceActionForcolumn_definition1: 2887681 false ) 
-	#(213 1 #reduceActionForFile1: 10302466 false ) 
-	#(196 9 #reduceActionForreference_definition3: 6021123 false ) 
-	#(196 9 #reduceActionForreference_definition5: 6021125 false ) 
-	#(196 9 #reduceActionForreference_definition7: 6021127 false ) 
-	#(199 1 #reduceActionForreference_option2: 6434818 false ) 
-	#(199 1 #reduceActionForreference_option1: 6434817 false ) 
-	#(197 3 #reduceActionFor__ON___onToken___UPDATE___updateToken__reference_option_1: 6372353 false ) 
-	#(167 14 #reduceActionForcolumn_definition14: 2887694 false ) 
-	#(167 14 #reduceActionForcolumn_definition11: 2887691 false ) 
-	#(167 14 #reduceActionForcolumn_definition25: 2887705 false ) 
-	#(167 14 #reduceActionForcolumn_definition22: 2887702 false ) 
-	#(167 14 #reduceActionForcolumn_definition19: 2887699 false ) 
-	#(167 14 #reduceActionForcolumn_definition16: 2887696 false ) 
-	#(167 14 #reduceActionForcolumn_definition7: 2887687 false ) 
-	#(212 2 #reduceActionFor_Statement__statement_______semicolon__1: 10302465 false ) 
-	#(199 2 #reduceActionForreference_option4: 6434820 false ) 
-	#(199 2 #reduceActionForreference_option5: 6434821 false ) 
-	#(199 2 #reduceActionForreference_option3: 6434819 false ) 
-	#(196 10 #reduceActionForreference_definition2: 6021122 false ) 
-	#(167 15 #reduceActionForcolumn_definition27: 2887707 false ) 
-	#(167 15 #reduceActionForcolumn_definition24: 2887704 false ) 
-	#(167 15 #reduceActionForcolumn_definition2: 2887682 false ) 
-	#(167 15 #reduceActionForcolumn_definition21: 2887701 false ) 
-	#(167 15 #reduceActionForcolumn_definition18: 2887698 false ) 
-	#(167 15 #reduceActionForcolumn_definition4: 2887684 false ) 
-	#(215 0 #reduceActionFor_Statement__statement_______semicolon___1: 10422273 false ) 
-	#(167 16 #reduceActionForcolumn_definition26: 2887706 false ) 
-	#(167 16 #reduceActionForcolumn_definition23: 2887703 false ) 
-	#(167 16 #reduceActionForcolumn_definition31: 2887711 false ) 
-	#(167 16 #reduceActionForcolumn_definition28: 2887708 false ) 
-	#(167 16 #reduceActionForcolumn_definition20: 2887700 false ) 
-	#(167 16 #reduceActionForcolumn_definition17: 2887697 false ) 
-	#(167 16 #reduceActionForcolumn_definition8: 2887688 false ) 
-	#(218 0 #reduceActionFor__STORAGE___storageToken____ENGINE___engineToken_______equals___engine_name__engineName___1: 10823681 false ) 
-	#(254 1 #liftFirstValue: 12913665 false ) 
-	#(196 12 #reduceActionForreference_definition4: 6021124 false ) 
-	#(196 12 #reduceActionForreference_definition6: 6021126 false ) 
-	#(196 12 #reduceActionForreference_definition8: 6021128 false ) 
-	#(167 17 #reduceActionForcolumn_definition33: 2887713 false ) 
-	#(167 17 #reduceActionForcolumn_definition30: 2887710 false ) 
-	#(167 17 #reduceActionForcolumn_definition3: 2887683 false ) 
-	#(167 17 #reduceActionForcolumn_definition5: 2887685 false ) 
-	#(218 1 #reduceActionForFile1: 10823682 false ) 
-	#(220 0 #reduceActionForindex_type_1: 10918913 false ) 
-	#(206 19 #reduceActionForpartition_options7: 9298951 false ) 
-	#(215 2 #reduceActionFor_Statement__statement_______semicolon___2: 10422274 false ) 
-	#(167 18 #reduceActionForcolumn_definition32: 2887712 false ) 
-	#(167 18 #reduceActionForcolumn_definition29: 2887709 false ) 
-	#(167 18 #reduceActionForcolumn_definition9: 2887689 false ) 
-	#(206 20 #reduceActionForpartition_options8: 9298952 false ) 
-	#(217 2 #reduceActionFor__STORAGE___storageToken____ENGINE___engineToken_______equals___engine_name__engineName__1: 10823681 false ) 
-	#(220 1 #reduceActionForFile1: 10918914 false ) 
-	#(222 0 #reduceActionFor__STORAGE___storageToken____ENGINE___engineToken_______equals___engine_name__engineName___1: 10989569 false ) 
-	#(214 2 #reduceActionFor_Statement__statement_______semicolon__1: 10422273 false ) 
-	#(206 20 #reduceActionForpartition_options9: 9298953 false ) 
-	#(167 19 #reduceActionForcolumn_definition6: 2887686 false ) 
-	#(217 3 #reduceActionFor__STORAGE___storageToken____ENGINE___engineToken_______equals___engine_name__engineName__2: 10823682 false ) 
-	#(217 3 #reduceActionFor__STORAGE___storageToken____ENGINE___engineToken_______equals___engine_name__engineName__3: 10823683 false ) 
-	#(246 0 #reduceActionFor_Statement__statement_______semicolon___1: 12637186 false ) 
-	#(219 2 #reduceActionForindex_type1: 10918913 false ) 
-	#(222 1 #reduceActionForFile1: 10989570 false ) 
-	#(224 0 #reduceActionFor__STORAGE___storageToken____ENGINE___engineToken_______equals___engine_name__engineName___1: 11089921 false ) 
-	#(206 21 #reduceActionForpartition_options10: 9298954 false ) 
-	#(217 4 #reduceActionFor__STORAGE___storageToken____ENGINE___engineToken_______equals___engine_name__engineName__4: 10823684 false ) 
-	#(248 0 #reduceActionFor_Statement__statement_______semicolon___1: 12664833 false ) 
-	#(219 3 #reduceActionFor__ENGINE_ATTRIBUTE___engineAttributeToken_______equals____string___engineAttribute__2: 10918914 false ) 
-	#(224 1 #reduceActionForFile1: 11089922 false ) 
-	#(226 0 #reduceActionForindex_type_1: 11193345 false ) 
-	#(246 2 #reduceActionForvalue_list1: 12637185 false ) 
-	#(221 3 #reduceActionFor__DATA___dataToken___DIRECTORY___directoryToken_______equals____string___dataDirectory__1: 10989569 false ) 
-	#(226 1 #reduceActionForFile1: 11193346 false ) 
-	#(228 0 #reduceActionForindex_type_1: 11266049 false ) 
-	#(248 2 #reduceActionFor_Statement__statement_______semicolon___2: 12664834 false ) 
-	#(221 4 #reduceActionFor__DATA___dataToken___DIRECTORY___directoryToken_______equals____string___dataDirectory__2: 10989570 false ) 
-	#(223 3 #reduceActionFor__DATA___dataToken___DIRECTORY___directoryToken_______equals____string___dataDirectory__1: 11089921 false ) 
-	#(225 2 #reduceActionForindex_type1: 11193345 false ) 
-	#(228 1 #reduceActionForFile1: 11266050 false ) 
-	#(230 0 #reduceActionForindex_type_1: 11338753 false ) 
-	#(247 2 #reduceActionFor_Statement__statement_______semicolon__1: 12664833 false ) 
-	#(223 4 #reduceActionFor__DATA___dataToken___DIRECTORY___directoryToken_______equals____string___dataDirectory__2: 11089922 false ) 
-	#(225 3 #reduceActionFor__ENGINE_ATTRIBUTE___engineAttributeToken_______equals____string___engineAttribute__2: 11193346 false ) 
-	#(227 2 #reduceActionForindex_type1: 11266049 false ) 
-	#(230 1 #reduceActionForFile1: 11338754 false ) 
-	#(232 0 #reduceActionFor______leftParen__subpartition_definition__definition________comma__subpartition_definition__definition_________rightParen___1: 11429889 false ) 
-	#(227 3 #reduceActionFor__ENGINE_ATTRIBUTE___engineAttributeToken_______equals____string___engineAttribute__2: 11266050 false ) 
-	#(229 2 #reduceActionForindex_type1: 11338753 false ) 
-	#(232 1 #reduceActionForFile1: 11429890 false ) 
-	#(216 10 #reduceActionForpartition_definition1: 10496001 false ) 
-	#(229 3 #reduceActionFor__ENGINE_ATTRIBUTE___engineAttributeToken_______equals____string___engineAttribute__2: 11338754 false ) 
-	#(234 0 #reduceActionFor_Statement__statement_______semicolon___1: 11485185 false ) 
-	#(255 1 #liftFirstValue: 12958721 false ) 
-	#(231 4 #reduceActionFor______leftParen__subpartition_definition__definition________comma__subpartition_definition__definition_________rightParen__1: 11429889 false ) 
-	#(234 2 #reduceActionFor_Statement__statement_______semicolon___2: 11485186 false ) 
-	#(216 14 #reduceActionForpartition_definition4: 10496004 false ) 
-	#(233 2 #reduceActionFor_Statement__statement_______semicolon__1: 11485185 false ) 
-	#(216 15 #reduceActionForpartition_definition5: 10496005 false ) 
-	#(216 15 #reduceActionForpartition_definition2: 10496002 false ) 
-	#(216 15 #reduceActionForpartition_definition3: 10496003 false ) 
-	#(235 7 #reduceActionForsubpartition_definition1: 11566081 false ) 
-	#(235 9 #reduceActionForsubpartition_definition3: 11566083 false ) 
-	#(235 10 #reduceActionForsubpartition_definition2: 11566082 false ) 
-	#(235 10 #reduceActionForsubpartition_definition5: 11566085 false ) 
-	#(235 10 #reduceActionForsubpartition_definition7: 11566087 false ) 
-	#(235 11 #reduceActionForsubpartition_definition9: 11566089 false ) 
-	#(235 12 #reduceActionForsubpartition_definition4: 11566084 false ) 
-	#(235 13 #reduceActionForsubpartition_definition6: 11566086 false ) 
-	#(235 13 #reduceActionForsubpartition_definition8: 11566088 false ) 
-	#(235 14 #reduceActionForsubpartition_definition10: 11566090 false )
+	#(198 1 #reduceActionForFile1: 6383618 false ) 
+	#(196 7 #reduceActionForreference_definition1: 6032385 false ) 
+	#(167 12 #reduceActionForcolumn_definition13: 2895885 false ) 
+	#(188 1 #reduceActionForFile1: 3818498 false ) 
+	#(167 12 #reduceActionForcolumn_definition10: 2895882 false ) 
+	#(183 3 #reduceActionFor__ENGINE_ATTRIBUTE___engineAttributeToken_______equals____string___engineAttribute__2: 3612674 false ) 
+	#(185 2 #reduceActionForindex_type1: 3716097 false ) 
+	#(185 2 #reduceActionForindex_type2: 3716098 false ) 
+	#(189 12 #reduceActionFordata_type17: 4432913 false ) 
+	#(213 0 #reduceActionFor__IGNORE___ignoreToken_____REPLACE___replaceToken___1: 10313729 false ) 
+	#(167 13 #reduceActionForcolumn_definition15: 2895887 false ) 
+	#(167 13 #reduceActionForcolumn_definition12: 2895884 false ) 
+	#(167 13 #reduceActionForcolumn_definition1: 2895873 false ) 
+	#(213 1 #reduceActionForFile1: 10313730 false ) 
+	#(196 9 #reduceActionForreference_definition3: 6032387 false ) 
+	#(196 9 #reduceActionForreference_definition5: 6032389 false ) 
+	#(196 9 #reduceActionForreference_definition7: 6032391 false ) 
+	#(199 1 #reduceActionForreference_option2: 6446082 false ) 
+	#(199 1 #reduceActionForreference_option1: 6446081 false ) 
+	#(197 3 #reduceActionFor__ON___onToken___UPDATE___updateToken__reference_option_1: 6383617 false ) 
+	#(167 14 #reduceActionForcolumn_definition14: 2895886 false ) 
+	#(167 14 #reduceActionForcolumn_definition11: 2895883 false ) 
+	#(167 14 #reduceActionForcolumn_definition25: 2895897 false ) 
+	#(167 14 #reduceActionForcolumn_definition22: 2895894 false ) 
+	#(167 14 #reduceActionForcolumn_definition19: 2895891 false ) 
+	#(167 14 #reduceActionForcolumn_definition16: 2895888 false ) 
+	#(167 14 #reduceActionForcolumn_definition7: 2895879 false ) 
+	#(212 2 #reduceActionFor_Statement__statement_______semicolon__1: 10313729 false ) 
+	#(199 2 #reduceActionForreference_option4: 6446084 false ) 
+	#(199 2 #reduceActionForreference_option5: 6446085 false ) 
+	#(199 2 #reduceActionForreference_option3: 6446083 false ) 
+	#(196 10 #reduceActionForreference_definition2: 6032386 false ) 
+	#(167 15 #reduceActionForcolumn_definition27: 2895899 false ) 
+	#(167 15 #reduceActionForcolumn_definition24: 2895896 false ) 
+	#(167 15 #reduceActionForcolumn_definition2: 2895874 false ) 
+	#(167 15 #reduceActionForcolumn_definition21: 2895893 false ) 
+	#(167 15 #reduceActionForcolumn_definition18: 2895890 false ) 
+	#(167 15 #reduceActionForcolumn_definition4: 2895876 false ) 
+	#(215 0 #reduceActionFor_Statement__statement_______semicolon___1: 10433537 false ) 
+	#(167 16 #reduceActionForcolumn_definition26: 2895898 false ) 
+	#(167 16 #reduceActionForcolumn_definition23: 2895895 false ) 
+	#(167 16 #reduceActionForcolumn_definition31: 2895903 false ) 
+	#(167 16 #reduceActionForcolumn_definition28: 2895900 false ) 
+	#(167 16 #reduceActionForcolumn_definition20: 2895892 false ) 
+	#(167 16 #reduceActionForcolumn_definition17: 2895889 false ) 
+	#(167 16 #reduceActionForcolumn_definition8: 2895880 false ) 
+	#(218 0 #reduceActionFor__STORAGE___storageToken____ENGINE___engineToken_______equals___engine_name__engineName___1: 10834945 false ) 
+	#(254 1 #liftFirstValue: 12924929 false ) 
+	#(196 12 #reduceActionForreference_definition4: 6032388 false ) 
+	#(196 12 #reduceActionForreference_definition6: 6032390 false ) 
+	#(196 12 #reduceActionForreference_definition8: 6032392 false ) 
+	#(167 17 #reduceActionForcolumn_definition33: 2895905 false ) 
+	#(167 17 #reduceActionForcolumn_definition30: 2895902 false ) 
+	#(167 17 #reduceActionForcolumn_definition3: 2895875 false ) 
+	#(167 17 #reduceActionForcolumn_definition5: 2895877 false ) 
+	#(218 1 #reduceActionForFile1: 10834946 false ) 
+	#(220 0 #reduceActionForindex_type_1: 10930177 false ) 
+	#(206 19 #reduceActionForpartition_options7: 9310215 false ) 
+	#(215 2 #reduceActionFor_Statement__statement_______semicolon___2: 10433538 false ) 
+	#(167 18 #reduceActionForcolumn_definition32: 2895904 false ) 
+	#(167 18 #reduceActionForcolumn_definition29: 2895901 false ) 
+	#(167 18 #reduceActionForcolumn_definition9: 2895881 false ) 
+	#(206 20 #reduceActionForpartition_options8: 9310216 false ) 
+	#(217 2 #reduceActionFor__STORAGE___storageToken____ENGINE___engineToken_______equals___engine_name__engineName__1: 10834945 false ) 
+	#(220 1 #reduceActionForFile1: 10930178 false ) 
+	#(222 0 #reduceActionFor__STORAGE___storageToken____ENGINE___engineToken_______equals___engine_name__engineName___1: 11000833 false ) 
+	#(214 2 #reduceActionFor_Statement__statement_______semicolon__1: 10433537 false ) 
+	#(206 20 #reduceActionForpartition_options9: 9310217 false ) 
+	#(167 19 #reduceActionForcolumn_definition6: 2895878 false ) 
+	#(217 3 #reduceActionFor__STORAGE___storageToken____ENGINE___engineToken_______equals___engine_name__engineName__2: 10834946 false ) 
+	#(217 3 #reduceActionFor__STORAGE___storageToken____ENGINE___engineToken_______equals___engine_name__engineName__3: 10834947 false ) 
+	#(246 0 #reduceActionFor_Statement__statement_______semicolon___1: 12648450 false ) 
+	#(219 2 #reduceActionForindex_type1: 10930177 false ) 
+	#(222 1 #reduceActionForFile1: 11000834 false ) 
+	#(224 0 #reduceActionFor__STORAGE___storageToken____ENGINE___engineToken_______equals___engine_name__engineName___1: 11101185 false ) 
+	#(206 21 #reduceActionForpartition_options10: 9310218 false ) 
+	#(217 4 #reduceActionFor__STORAGE___storageToken____ENGINE___engineToken_______equals___engine_name__engineName__4: 10834948 false ) 
+	#(248 0 #reduceActionFor_Statement__statement_______semicolon___1: 12676097 false ) 
+	#(219 3 #reduceActionFor__ENGINE_ATTRIBUTE___engineAttributeToken_______equals____string___engineAttribute__2: 10930178 false ) 
+	#(224 1 #reduceActionForFile1: 11101186 false ) 
+	#(226 0 #reduceActionForindex_type_1: 11204609 false ) 
+	#(246 2 #reduceActionForvalue_list1: 12648449 false ) 
+	#(221 3 #reduceActionFor__DATA___dataToken___DIRECTORY___directoryToken_______equals____string___dataDirectory__1: 11000833 false ) 
+	#(226 1 #reduceActionForFile1: 11204610 false ) 
+	#(228 0 #reduceActionForindex_type_1: 11277313 false ) 
+	#(248 2 #reduceActionFor_Statement__statement_______semicolon___2: 12676098 false ) 
+	#(221 4 #reduceActionFor__DATA___dataToken___DIRECTORY___directoryToken_______equals____string___dataDirectory__2: 11000834 false ) 
+	#(223 3 #reduceActionFor__DATA___dataToken___DIRECTORY___directoryToken_______equals____string___dataDirectory__1: 11101185 false ) 
+	#(225 2 #reduceActionForindex_type1: 11204609 false ) 
+	#(228 1 #reduceActionForFile1: 11277314 false ) 
+	#(230 0 #reduceActionForindex_type_1: 11350017 false ) 
+	#(247 2 #reduceActionFor_Statement__statement_______semicolon__1: 12676097 false ) 
+	#(223 4 #reduceActionFor__DATA___dataToken___DIRECTORY___directoryToken_______equals____string___dataDirectory__2: 11101186 false ) 
+	#(225 3 #reduceActionFor__ENGINE_ATTRIBUTE___engineAttributeToken_______equals____string___engineAttribute__2: 11204610 false ) 
+	#(227 2 #reduceActionForindex_type1: 11277313 false ) 
+	#(230 1 #reduceActionForFile1: 11350018 false ) 
+	#(232 0 #reduceActionFor______leftParen__subpartition_definition__definition________comma__subpartition_definition__definition_________rightParen___1: 11441153 false ) 
+	#(227 3 #reduceActionFor__ENGINE_ATTRIBUTE___engineAttributeToken_______equals____string___engineAttribute__2: 11277314 false ) 
+	#(229 2 #reduceActionForindex_type1: 11350017 false ) 
+	#(232 1 #reduceActionForFile1: 11441154 false ) 
+	#(216 10 #reduceActionForpartition_definition1: 10507265 false ) 
+	#(229 3 #reduceActionFor__ENGINE_ATTRIBUTE___engineAttributeToken_______equals____string___engineAttribute__2: 11350018 false ) 
+	#(234 0 #reduceActionFor_Statement__statement_______semicolon___1: 11496449 false ) 
+	#(255 1 #liftFirstValue: 12969985 false ) 
+	#(231 4 #reduceActionFor______leftParen__subpartition_definition__definition________comma__subpartition_definition__definition_________rightParen__1: 11441153 false ) 
+	#(234 2 #reduceActionFor_Statement__statement_______semicolon___2: 11496450 false ) 
+	#(216 14 #reduceActionForpartition_definition4: 10507268 false ) 
+	#(233 2 #reduceActionFor_Statement__statement_______semicolon__1: 11496449 false ) 
+	#(216 15 #reduceActionForpartition_definition5: 10507269 false ) 
+	#(216 15 #reduceActionForpartition_definition2: 10507266 false ) 
+	#(216 15 #reduceActionForpartition_definition3: 10507267 false ) 
+	#(235 7 #reduceActionForsubpartition_definition1: 11577345 false ) 
+	#(235 9 #reduceActionForsubpartition_definition3: 11577347 false ) 
+	#(235 10 #reduceActionForsubpartition_definition2: 11577346 false ) 
+	#(235 10 #reduceActionForsubpartition_definition5: 11577349 false ) 
+	#(235 10 #reduceActionForsubpartition_definition7: 11577351 false ) 
+	#(235 11 #reduceActionForsubpartition_definition9: 11577353 false ) 
+	#(235 12 #reduceActionForsubpartition_definition4: 11577348 false ) 
+	#(235 13 #reduceActionForsubpartition_definition6: 11577350 false ) 
+	#(235 13 #reduceActionForsubpartition_definition8: 11577352 false ) 
+	#(235 14 #reduceActionForsubpartition_definition10: 11577354 false )
 	).
 ]
 
@@ -2306,7 +2306,7 @@ MysqlParser >> reduceActionForCreateTable10: nodes [
 	result createToken: (nodes at: 1).
 	result temporaryToken: (nodes at: 2).
 	result tableToken: (nodes at: 3).
-	result addToken: (nodes at: 4) to: result tableNames.
+	result tableName: (nodes at: 4).
 	result addToken: (nodes at: 5) to: result leftParens.
 	result addNode: (nodes at: 6) to: result definitions.
 	result addTokens: ((nodes at: 7) at: 1) to: result commas.
@@ -2346,7 +2346,7 @@ MysqlParser >> reduceActionForCreateTable11: nodes [
 	result createToken: (nodes at: 1).
 	result temporaryToken: (nodes at: 2).
 	result tableToken: (nodes at: 3).
-	result addToken: (nodes at: 4) to: result tableNames.
+	result tableName: (nodes at: 4).
 	result addToken: (nodes at: 5) to: result leftParens.
 	result addNode: (nodes at: 6) to: result definitions.
 	result addTokens: ((nodes at: 7) at: 1) to: result commas.
@@ -2364,7 +2364,7 @@ MysqlParser >> reduceActionForCreateTable12: nodes [
 	result createToken: (nodes at: 1).
 	result temporaryToken: (nodes at: 2).
 	result tableToken: (nodes at: 3).
-	result addToken: (nodes at: 4) to: result tableNames.
+	result tableName: (nodes at: 4).
 	result addToken: (nodes at: 5) to: result leftParens.
 	result addNode: (nodes at: 6) to: result definitions.
 	result addTokens: ((nodes at: 7) at: 1) to: result commas.
@@ -2409,7 +2409,7 @@ MysqlParser >> reduceActionForCreateTable13: nodes [
 	result ifToken: (nodes at: 4).
 	result notToken: (nodes at: 5).
 	result existsToken: (nodes at: 6).
-	result addToken: (nodes at: 7) to: result tableNames.
+	result tableName: (nodes at: 7).
 	result addToken: (nodes at: 8) to: result leftParens.
 	result addNode: (nodes at: 9) to: result definitions.
 	result addTokens: ((nodes at: 10) at: 1) to: result commas.
@@ -2428,7 +2428,7 @@ MysqlParser >> reduceActionForCreateTable14: nodes [
 	result ifToken: (nodes at: 4).
 	result notToken: (nodes at: 5).
 	result existsToken: (nodes at: 6).
-	result addToken: (nodes at: 7) to: result tableNames.
+	result tableName: (nodes at: 7).
 	result addToken: (nodes at: 8) to: result leftParens.
 	result addNode: (nodes at: 9) to: result definitions.
 	result addTokens: ((nodes at: 10) at: 1) to: result commas.
@@ -2471,7 +2471,7 @@ MysqlParser >> reduceActionForCreateTable15: nodes [
 	result ifToken: (nodes at: 4).
 	result notToken: (nodes at: 5).
 	result existsToken: (nodes at: 6).
-	result addToken: (nodes at: 7) to: result tableNames.
+	result tableName: (nodes at: 7).
 	result addToken: (nodes at: 8) to: result leftParens.
 	result addNode: (nodes at: 9) to: result definitions.
 	result addTokens: ((nodes at: 10) at: 1) to: result commas.
@@ -2492,7 +2492,7 @@ MysqlParser >> reduceActionForCreateTable16: nodes [
 	result ifToken: (nodes at: 4).
 	result notToken: (nodes at: 5).
 	result existsToken: (nodes at: 6).
-	result addToken: (nodes at: 7) to: result tableNames.
+	result tableName: (nodes at: 7).
 	result addToken: (nodes at: 8) to: result leftParens.
 	result addNode: (nodes at: 9) to: result definitions.
 	result addTokens: ((nodes at: 10) at: 1) to: result commas.
@@ -2533,7 +2533,7 @@ MysqlParser >> reduceActionForCreateTable17: nodes [
 	result := MysqlCreateTableNode new.
 	result createToken: (nodes at: 1).
 	result tableToken: (nodes at: 2).
-	result addToken: (nodes at: 3) to: result tableNames.
+	result tableName: (nodes at: 3).
 	result partitionToken: ((nodes at: 4) at: 1).
 	result addTokens: ((nodes at: 4) at: 2) to: result byTokens.
 	result hashToken: ((nodes at: 4) at: 3).
@@ -2571,7 +2571,7 @@ MysqlParser >> reduceActionForCreateTable18: nodes [
 	result := MysqlCreateTableNode new.
 	result createToken: (nodes at: 1).
 	result tableToken: (nodes at: 2).
-	result addToken: (nodes at: 3) to: result tableNames.
+	result tableName: (nodes at: 3).
 	result addNodes: ((nodes at: 4) at: 1) to: result options.
 	result addTokens: ((nodes at: 4) at: 2) to: result commas.
 	result partitionToken: ((nodes at: 5) at: 1).
@@ -2611,7 +2611,7 @@ MysqlParser >> reduceActionForCreateTable19: nodes [
 	result := MysqlCreateTableNode new.
 	result createToken: (nodes at: 1).
 	result tableToken: (nodes at: 2).
-	result addToken: (nodes at: 3) to: result tableNames.
+	result tableName: (nodes at: 3).
 	result addToken: (nodes at: 4) to: result leftParens.
 	result addNode: (nodes at: 5) to: result definitions.
 	result addTokens: ((nodes at: 6) at: 1) to: result commas.
@@ -2654,7 +2654,7 @@ MysqlParser >> reduceActionForCreateTable1: nodes [
 	result := MysqlCreateTableNode new.
 	result createToken: (nodes at: 1).
 	result tableToken: (nodes at: 2).
-	result addToken: (nodes at: 3) to: result tableNames.
+	result tableName: (nodes at: 3).
 	result addToken: (nodes at: 4) to: result leftParens.
 	result addNode: (nodes at: 5) to: result definitions.
 	result addTokens: ((nodes at: 6) at: 1) to: result commas.
@@ -2669,7 +2669,7 @@ MysqlParser >> reduceActionForCreateTable20: nodes [
 	result := MysqlCreateTableNode new.
 	result createToken: (nodes at: 1).
 	result tableToken: (nodes at: 2).
-	result addToken: (nodes at: 3) to: result tableNames.
+	result tableName: (nodes at: 3).
 	result addToken: (nodes at: 4) to: result leftParens.
 	result addNode: (nodes at: 5) to: result definitions.
 	result addTokens: ((nodes at: 6) at: 1) to: result commas.
@@ -2717,7 +2717,7 @@ MysqlParser >> reduceActionForCreateTable21: nodes [
 	result ifToken: (nodes at: 3).
 	result notToken: (nodes at: 4).
 	result existsToken: (nodes at: 5).
-	result addToken: (nodes at: 6) to: result tableNames.
+	result tableName: (nodes at: 6).
 	result partitionToken: ((nodes at: 7) at: 1).
 	result addTokens: ((nodes at: 7) at: 2) to: result byTokens.
 	result hashToken: ((nodes at: 7) at: 3).
@@ -2758,7 +2758,7 @@ MysqlParser >> reduceActionForCreateTable22: nodes [
 	result ifToken: (nodes at: 3).
 	result notToken: (nodes at: 4).
 	result existsToken: (nodes at: 5).
-	result addToken: (nodes at: 6) to: result tableNames.
+	result tableName: (nodes at: 6).
 	result addNodes: ((nodes at: 7) at: 1) to: result options.
 	result addTokens: ((nodes at: 7) at: 2) to: result commas.
 	result partitionToken: ((nodes at: 8) at: 1).
@@ -2801,7 +2801,7 @@ MysqlParser >> reduceActionForCreateTable23: nodes [
 	result ifToken: (nodes at: 3).
 	result notToken: (nodes at: 4).
 	result existsToken: (nodes at: 5).
-	result addToken: (nodes at: 6) to: result tableNames.
+	result tableName: (nodes at: 6).
 	result addToken: (nodes at: 7) to: result leftParens.
 	result addNode: (nodes at: 8) to: result definitions.
 	result addTokens: ((nodes at: 9) at: 1) to: result commas.
@@ -2847,7 +2847,7 @@ MysqlParser >> reduceActionForCreateTable24: nodes [
 	result ifToken: (nodes at: 3).
 	result notToken: (nodes at: 4).
 	result existsToken: (nodes at: 5).
-	result addToken: (nodes at: 6) to: result tableNames.
+	result tableName: (nodes at: 6).
 	result addToken: (nodes at: 7) to: result leftParens.
 	result addNode: (nodes at: 8) to: result definitions.
 	result addTokens: ((nodes at: 9) at: 1) to: result commas.
@@ -2893,7 +2893,7 @@ MysqlParser >> reduceActionForCreateTable25: nodes [
 	result createToken: (nodes at: 1).
 	result temporaryToken: (nodes at: 2).
 	result tableToken: (nodes at: 3).
-	result addToken: (nodes at: 4) to: result tableNames.
+	result tableName: (nodes at: 4).
 	result partitionToken: ((nodes at: 5) at: 1).
 	result addTokens: ((nodes at: 5) at: 2) to: result byTokens.
 	result hashToken: ((nodes at: 5) at: 3).
@@ -2932,7 +2932,7 @@ MysqlParser >> reduceActionForCreateTable26: nodes [
 	result createToken: (nodes at: 1).
 	result temporaryToken: (nodes at: 2).
 	result tableToken: (nodes at: 3).
-	result addToken: (nodes at: 4) to: result tableNames.
+	result tableName: (nodes at: 4).
 	result addNodes: ((nodes at: 5) at: 1) to: result options.
 	result addTokens: ((nodes at: 5) at: 2) to: result commas.
 	result partitionToken: ((nodes at: 6) at: 1).
@@ -2973,7 +2973,7 @@ MysqlParser >> reduceActionForCreateTable27: nodes [
 	result createToken: (nodes at: 1).
 	result temporaryToken: (nodes at: 2).
 	result tableToken: (nodes at: 3).
-	result addToken: (nodes at: 4) to: result tableNames.
+	result tableName: (nodes at: 4).
 	result addToken: (nodes at: 5) to: result leftParens.
 	result addNode: (nodes at: 6) to: result definitions.
 	result addTokens: ((nodes at: 7) at: 1) to: result commas.
@@ -3017,7 +3017,7 @@ MysqlParser >> reduceActionForCreateTable28: nodes [
 	result createToken: (nodes at: 1).
 	result temporaryToken: (nodes at: 2).
 	result tableToken: (nodes at: 3).
-	result addToken: (nodes at: 4) to: result tableNames.
+	result tableName: (nodes at: 4).
 	result addToken: (nodes at: 5) to: result leftParens.
 	result addNode: (nodes at: 6) to: result definitions.
 	result addTokens: ((nodes at: 7) at: 1) to: result commas.
@@ -3066,7 +3066,7 @@ MysqlParser >> reduceActionForCreateTable29: nodes [
 	result ifToken: (nodes at: 4).
 	result notToken: (nodes at: 5).
 	result existsToken: (nodes at: 6).
-	result addToken: (nodes at: 7) to: result tableNames.
+	result tableName: (nodes at: 7).
 	result partitionToken: ((nodes at: 8) at: 1).
 	result addTokens: ((nodes at: 8) at: 2) to: result byTokens.
 	result hashToken: ((nodes at: 8) at: 3).
@@ -3104,7 +3104,7 @@ MysqlParser >> reduceActionForCreateTable2: nodes [
 	result := MysqlCreateTableNode new.
 	result createToken: (nodes at: 1).
 	result tableToken: (nodes at: 2).
-	result addToken: (nodes at: 3) to: result tableNames.
+	result tableName: (nodes at: 3).
 	result addToken: (nodes at: 4) to: result leftParens.
 	result addNode: (nodes at: 5) to: result definitions.
 	result addTokens: ((nodes at: 6) at: 1) to: result commas.
@@ -3147,7 +3147,7 @@ MysqlParser >> reduceActionForCreateTable30: nodes [
 	result ifToken: (nodes at: 4).
 	result notToken: (nodes at: 5).
 	result existsToken: (nodes at: 6).
-	result addToken: (nodes at: 7) to: result tableNames.
+	result tableName: (nodes at: 7).
 	result addNodes: ((nodes at: 8) at: 1) to: result options.
 	result addTokens: ((nodes at: 8) at: 2) to: result commas.
 	result partitionToken: ((nodes at: 9) at: 1).
@@ -3191,7 +3191,7 @@ MysqlParser >> reduceActionForCreateTable31: nodes [
 	result ifToken: (nodes at: 4).
 	result notToken: (nodes at: 5).
 	result existsToken: (nodes at: 6).
-	result addToken: (nodes at: 7) to: result tableNames.
+	result tableName: (nodes at: 7).
 	result addToken: (nodes at: 8) to: result leftParens.
 	result addNode: (nodes at: 9) to: result definitions.
 	result addTokens: ((nodes at: 10) at: 1) to: result commas.
@@ -3238,7 +3238,7 @@ MysqlParser >> reduceActionForCreateTable32: nodes [
 	result ifToken: (nodes at: 4).
 	result notToken: (nodes at: 5).
 	result existsToken: (nodes at: 6).
-	result addToken: (nodes at: 7) to: result tableNames.
+	result tableName: (nodes at: 7).
 	result addToken: (nodes at: 8) to: result leftParens.
 	result addNode: (nodes at: 9) to: result definitions.
 	result addTokens: ((nodes at: 10) at: 1) to: result commas.
@@ -3283,9 +3283,9 @@ MysqlParser >> reduceActionForCreateTable33: nodes [
 	result := MysqlCreateTableNode new.
 	result createToken: (nodes at: 1).
 	result tableToken: (nodes at: 2).
-	result addToken: (nodes at: 3) to: result tableNames.
+	result tableName: (nodes at: 3).
 	result likeToken: (nodes at: 4).
-	result addToken: (nodes at: 5) to: result tableNames.
+	result likeTableName: (nodes at: 5).
 	^ result
 ]
 
@@ -3295,10 +3295,10 @@ MysqlParser >> reduceActionForCreateTable34: nodes [
 	result := MysqlCreateTableNode new.
 	result createToken: (nodes at: 1).
 	result tableToken: (nodes at: 2).
-	result addToken: (nodes at: 3) to: result tableNames.
+	result tableName: (nodes at: 3).
 	result addToken: (nodes at: 4) to: result leftParens.
 	result likeToken: (nodes at: 5).
-	result addToken: (nodes at: 6) to: result tableNames.
+	result likeTableName: (nodes at: 6).
 	result addToken: (nodes at: 7) to: result rightParens.
 	^ result
 ]
@@ -3312,9 +3312,9 @@ MysqlParser >> reduceActionForCreateTable35: nodes [
 	result ifToken: (nodes at: 3).
 	result notToken: (nodes at: 4).
 	result existsToken: (nodes at: 5).
-	result addToken: (nodes at: 6) to: result tableNames.
+	result tableName: (nodes at: 6).
 	result likeToken: (nodes at: 7).
-	result addToken: (nodes at: 8) to: result tableNames.
+	result likeTableName: (nodes at: 8).
 	^ result
 ]
 
@@ -3327,10 +3327,10 @@ MysqlParser >> reduceActionForCreateTable36: nodes [
 	result ifToken: (nodes at: 3).
 	result notToken: (nodes at: 4).
 	result existsToken: (nodes at: 5).
-	result addToken: (nodes at: 6) to: result tableNames.
+	result tableName: (nodes at: 6).
 	result addToken: (nodes at: 7) to: result leftParens.
 	result likeToken: (nodes at: 8).
-	result addToken: (nodes at: 9) to: result tableNames.
+	result likeTableName: (nodes at: 9).
 	result addToken: (nodes at: 10) to: result rightParens.
 	^ result
 ]
@@ -3342,9 +3342,9 @@ MysqlParser >> reduceActionForCreateTable37: nodes [
 	result createToken: (nodes at: 1).
 	result temporaryToken: (nodes at: 2).
 	result tableToken: (nodes at: 3).
-	result addToken: (nodes at: 4) to: result tableNames.
+	result tableName: (nodes at: 4).
 	result likeToken: (nodes at: 5).
-	result addToken: (nodes at: 6) to: result tableNames.
+	result likeTableName: (nodes at: 6).
 	^ result
 ]
 
@@ -3355,10 +3355,10 @@ MysqlParser >> reduceActionForCreateTable38: nodes [
 	result createToken: (nodes at: 1).
 	result temporaryToken: (nodes at: 2).
 	result tableToken: (nodes at: 3).
-	result addToken: (nodes at: 4) to: result tableNames.
+	result tableName: (nodes at: 4).
 	result addToken: (nodes at: 5) to: result leftParens.
 	result likeToken: (nodes at: 6).
-	result addToken: (nodes at: 7) to: result tableNames.
+	result likeTableName: (nodes at: 7).
 	result addToken: (nodes at: 8) to: result rightParens.
 	^ result
 ]
@@ -3373,9 +3373,9 @@ MysqlParser >> reduceActionForCreateTable39: nodes [
 	result ifToken: (nodes at: 4).
 	result notToken: (nodes at: 5).
 	result existsToken: (nodes at: 6).
-	result addToken: (nodes at: 7) to: result tableNames.
+	result tableName: (nodes at: 7).
 	result likeToken: (nodes at: 8).
-	result addToken: (nodes at: 9) to: result tableNames.
+	result likeTableName: (nodes at: 9).
 	^ result
 ]
 
@@ -3385,7 +3385,7 @@ MysqlParser >> reduceActionForCreateTable3: nodes [
 	result := MysqlCreateTableNode new.
 	result createToken: (nodes at: 1).
 	result tableToken: (nodes at: 2).
-	result addToken: (nodes at: 3) to: result tableNames.
+	result tableName: (nodes at: 3).
 	result addToken: (nodes at: 4) to: result leftParens.
 	result addNode: (nodes at: 5) to: result definitions.
 	result addTokens: ((nodes at: 6) at: 1) to: result commas.
@@ -3406,10 +3406,10 @@ MysqlParser >> reduceActionForCreateTable40: nodes [
 	result ifToken: (nodes at: 4).
 	result notToken: (nodes at: 5).
 	result existsToken: (nodes at: 6).
-	result addToken: (nodes at: 7) to: result tableNames.
+	result tableName: (nodes at: 7).
 	result addToken: (nodes at: 8) to: result leftParens.
 	result likeToken: (nodes at: 9).
-	result addToken: (nodes at: 10) to: result tableNames.
+	result likeTableName: (nodes at: 10).
 	result addToken: (nodes at: 11) to: result rightParens.
 	^ result
 ]
@@ -3420,7 +3420,7 @@ MysqlParser >> reduceActionForCreateTable4: nodes [
 	result := MysqlCreateTableNode new.
 	result createToken: (nodes at: 1).
 	result tableToken: (nodes at: 2).
-	result addToken: (nodes at: 3) to: result tableNames.
+	result tableName: (nodes at: 3).
 	result addToken: (nodes at: 4) to: result leftParens.
 	result addNode: (nodes at: 5) to: result definitions.
 	result addTokens: ((nodes at: 6) at: 1) to: result commas.
@@ -3464,7 +3464,7 @@ MysqlParser >> reduceActionForCreateTable5: nodes [
 	result ifToken: (nodes at: 3).
 	result notToken: (nodes at: 4).
 	result existsToken: (nodes at: 5).
-	result addToken: (nodes at: 6) to: result tableNames.
+	result tableName: (nodes at: 6).
 	result addToken: (nodes at: 7) to: result leftParens.
 	result addNode: (nodes at: 8) to: result definitions.
 	result addTokens: ((nodes at: 9) at: 1) to: result commas.
@@ -3482,7 +3482,7 @@ MysqlParser >> reduceActionForCreateTable6: nodes [
 	result ifToken: (nodes at: 3).
 	result notToken: (nodes at: 4).
 	result existsToken: (nodes at: 5).
-	result addToken: (nodes at: 6) to: result tableNames.
+	result tableName: (nodes at: 6).
 	result addToken: (nodes at: 7) to: result leftParens.
 	result addNode: (nodes at: 8) to: result definitions.
 	result addTokens: ((nodes at: 9) at: 1) to: result commas.
@@ -3524,7 +3524,7 @@ MysqlParser >> reduceActionForCreateTable7: nodes [
 	result ifToken: (nodes at: 3).
 	result notToken: (nodes at: 4).
 	result existsToken: (nodes at: 5).
-	result addToken: (nodes at: 6) to: result tableNames.
+	result tableName: (nodes at: 6).
 	result addToken: (nodes at: 7) to: result leftParens.
 	result addNode: (nodes at: 8) to: result definitions.
 	result addTokens: ((nodes at: 9) at: 1) to: result commas.
@@ -3544,7 +3544,7 @@ MysqlParser >> reduceActionForCreateTable8: nodes [
 	result ifToken: (nodes at: 3).
 	result notToken: (nodes at: 4).
 	result existsToken: (nodes at: 5).
-	result addToken: (nodes at: 6) to: result tableNames.
+	result tableName: (nodes at: 6).
 	result addToken: (nodes at: 7) to: result leftParens.
 	result addNode: (nodes at: 8) to: result definitions.
 	result addTokens: ((nodes at: 9) at: 1) to: result commas.
@@ -3586,7 +3586,7 @@ MysqlParser >> reduceActionForCreateTable9: nodes [
 	result createToken: (nodes at: 1).
 	result temporaryToken: (nodes at: 2).
 	result tableToken: (nodes at: 3).
-	result addToken: (nodes at: 4) to: result tableNames.
+	result tableName: (nodes at: 4).
 	result addToken: (nodes at: 5) to: result leftParens.
 	result addNode: (nodes at: 6) to: result definitions.
 	result addTokens: ((nodes at: 7) at: 1) to: result commas.
@@ -6445,14 +6445,14 @@ MysqlParser >> reduceActionForcreate_definition10: nodes [
 	result := MysqlIndexDefinitionNode new.
 	result keyToken: (nodes at: 1).
 	result addToken: (nodes at: 2) to: result leftParens.
-	result addToken: ((nodes at: 3) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 3) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 3) at: 2) to: result directions.
 	result addToken: ((nodes at: 3) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 3) at: 4) to: result lengths.
 	result addToken: ((nodes at: 3) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 3) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 4) at: 1) to: result commas.
-	result addTokens: ((nodes at: 4) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 4) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 4) at: 3) to: result directions.
 	result addTokens: ((nodes at: 4) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 4) at: 5) to: result lengths.
@@ -6468,14 +6468,14 @@ MysqlParser >> reduceActionForcreate_definition11: nodes [
 	result := MysqlIndexDefinitionNode new.
 	result keyToken: (nodes at: 1).
 	result addToken: (nodes at: 2) to: result leftParens.
-	result addToken: ((nodes at: 3) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 3) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 3) at: 2) to: result directions.
 	result addToken: ((nodes at: 3) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 3) at: 4) to: result lengths.
 	result addToken: ((nodes at: 3) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 3) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 4) at: 1) to: result commas.
-	result addTokens: ((nodes at: 4) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 4) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 4) at: 3) to: result directions.
 	result addTokens: ((nodes at: 4) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 4) at: 5) to: result lengths.
@@ -6495,14 +6495,14 @@ MysqlParser >> reduceActionForcreate_definition12: nodes [
 	result btreeToken: ((nodes at: 2) at: 2).
 	result hashToken: ((nodes at: 2) at: 3).
 	result addToken: (nodes at: 3) to: result leftParens.
-	result addToken: ((nodes at: 4) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 4) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 4) at: 2) to: result directions.
 	result addToken: ((nodes at: 4) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 4) at: 4) to: result lengths.
 	result addToken: ((nodes at: 4) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 4) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 5) at: 1) to: result commas.
-	result addTokens: ((nodes at: 5) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 5) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 5) at: 3) to: result directions.
 	result addTokens: ((nodes at: 5) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 5) at: 5) to: result lengths.
@@ -6521,14 +6521,14 @@ MysqlParser >> reduceActionForcreate_definition13: nodes [
 	result btreeToken: ((nodes at: 2) at: 2).
 	result hashToken: ((nodes at: 2) at: 3).
 	result addToken: (nodes at: 3) to: result leftParens.
-	result addToken: ((nodes at: 4) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 4) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 4) at: 2) to: result directions.
 	result addToken: ((nodes at: 4) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 4) at: 4) to: result lengths.
 	result addToken: ((nodes at: 4) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 4) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 5) at: 1) to: result commas.
-	result addTokens: ((nodes at: 5) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 5) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 5) at: 3) to: result directions.
 	result addTokens: ((nodes at: 5) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 5) at: 5) to: result lengths.
@@ -6546,14 +6546,14 @@ MysqlParser >> reduceActionForcreate_definition14: nodes [
 	result keyToken: (nodes at: 1).
 	result indexName: (nodes at: 2).
 	result addToken: (nodes at: 3) to: result leftParens.
-	result addToken: ((nodes at: 4) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 4) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 4) at: 2) to: result directions.
 	result addToken: ((nodes at: 4) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 4) at: 4) to: result lengths.
 	result addToken: ((nodes at: 4) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 4) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 5) at: 1) to: result commas.
-	result addTokens: ((nodes at: 5) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 5) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 5) at: 3) to: result directions.
 	result addTokens: ((nodes at: 5) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 5) at: 5) to: result lengths.
@@ -6570,14 +6570,14 @@ MysqlParser >> reduceActionForcreate_definition15: nodes [
 	result keyToken: (nodes at: 1).
 	result indexName: (nodes at: 2).
 	result addToken: (nodes at: 3) to: result leftParens.
-	result addToken: ((nodes at: 4) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 4) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 4) at: 2) to: result directions.
 	result addToken: ((nodes at: 4) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 4) at: 4) to: result lengths.
 	result addToken: ((nodes at: 4) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 4) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 5) at: 1) to: result commas.
-	result addTokens: ((nodes at: 5) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 5) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 5) at: 3) to: result directions.
 	result addTokens: ((nodes at: 5) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 5) at: 5) to: result lengths.
@@ -6598,14 +6598,14 @@ MysqlParser >> reduceActionForcreate_definition16: nodes [
 	result btreeToken: ((nodes at: 3) at: 2).
 	result hashToken: ((nodes at: 3) at: 3).
 	result addToken: (nodes at: 4) to: result leftParens.
-	result addToken: ((nodes at: 5) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 5) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 5) at: 2) to: result directions.
 	result addToken: ((nodes at: 5) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 5) at: 4) to: result lengths.
 	result addToken: ((nodes at: 5) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 5) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 6) at: 1) to: result commas.
-	result addTokens: ((nodes at: 6) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 6) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 6) at: 3) to: result directions.
 	result addTokens: ((nodes at: 6) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 6) at: 5) to: result lengths.
@@ -6625,14 +6625,14 @@ MysqlParser >> reduceActionForcreate_definition17: nodes [
 	result btreeToken: ((nodes at: 3) at: 2).
 	result hashToken: ((nodes at: 3) at: 3).
 	result addToken: (nodes at: 4) to: result leftParens.
-	result addToken: ((nodes at: 5) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 5) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 5) at: 2) to: result directions.
 	result addToken: ((nodes at: 5) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 5) at: 4) to: result lengths.
 	result addToken: ((nodes at: 5) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 5) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 6) at: 1) to: result commas.
-	result addTokens: ((nodes at: 6) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 6) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 6) at: 3) to: result directions.
 	result addTokens: ((nodes at: 6) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 6) at: 5) to: result lengths.
@@ -6649,14 +6649,14 @@ MysqlParser >> reduceActionForcreate_definition18: nodes [
 	result := MysqlIndexDefinitionNode new.
 	result fulltextToken: (nodes at: 1).
 	result addToken: (nodes at: 2) to: result leftParens.
-	result addToken: ((nodes at: 3) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 3) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 3) at: 2) to: result directions.
 	result addToken: ((nodes at: 3) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 3) at: 4) to: result lengths.
 	result addToken: ((nodes at: 3) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 3) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 4) at: 1) to: result commas.
-	result addTokens: ((nodes at: 4) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 4) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 4) at: 3) to: result directions.
 	result addTokens: ((nodes at: 4) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 4) at: 5) to: result lengths.
@@ -6674,14 +6674,14 @@ MysqlParser >> reduceActionForcreate_definition19: nodes [
 	result fulltextToken: (nodes at: 1).
 	result indexName: (nodes at: 2).
 	result addToken: (nodes at: 3) to: result leftParens.
-	result addToken: ((nodes at: 4) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 4) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 4) at: 2) to: result directions.
 	result addToken: ((nodes at: 4) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 4) at: 4) to: result lengths.
 	result addToken: ((nodes at: 4) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 4) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 5) at: 1) to: result commas.
-	result addTokens: ((nodes at: 5) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 5) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 5) at: 3) to: result directions.
 	result addTokens: ((nodes at: 5) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 5) at: 5) to: result lengths.
@@ -6696,7 +6696,7 @@ MysqlParser >> reduceActionForcreate_definition19: nodes [
 MysqlParser >> reduceActionForcreate_definition1: nodes [
 	| result |
 	result := MysqlColumnDefinitionNode new.
-	result addToken: (nodes at: 1) to: result columnNames.
+	result columnName: (nodes at: 1).
 	result dataType: ((nodes at: 2) at: 1).
 	result visibleToken: ((nodes at: 2) at: 2).
 	result invisibleToken: ((nodes at: 2) at: 3).
@@ -6720,7 +6720,7 @@ MysqlParser >> reduceActionForcreate_definition1: nodes [
 	result referencesToken: ((nodes at: 2) at: 21).
 	result tableName: ((nodes at: 2) at: 22).
 	result addTokens: ((nodes at: 2) at: 23) to: result leftParens.
-	result addTokens: ((nodes at: 2) at: 24) to: result columnNames.
+	result addTokens: ((nodes at: 2) at: 24) to: result refColumnNames.
 	result addTokens: ((nodes at: 2) at: 25) to: result directions.
 	result addTokens: ((nodes at: 2) at: 26) to: result lengths.
 	result addTokens: ((nodes at: 2) at: 27) to: result rightParens.
@@ -6763,14 +6763,14 @@ MysqlParser >> reduceActionForcreate_definition20: nodes [
 	result fulltextToken: (nodes at: 1).
 	result indexToken: (nodes at: 2).
 	result addToken: (nodes at: 3) to: result leftParens.
-	result addToken: ((nodes at: 4) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 4) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 4) at: 2) to: result directions.
 	result addToken: ((nodes at: 4) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 4) at: 4) to: result lengths.
 	result addToken: ((nodes at: 4) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 4) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 5) at: 1) to: result commas.
-	result addTokens: ((nodes at: 5) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 5) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 5) at: 3) to: result directions.
 	result addTokens: ((nodes at: 5) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 5) at: 5) to: result lengths.
@@ -6789,14 +6789,14 @@ MysqlParser >> reduceActionForcreate_definition21: nodes [
 	result indexToken: (nodes at: 2).
 	result indexName: (nodes at: 3).
 	result addToken: (nodes at: 4) to: result leftParens.
-	result addToken: ((nodes at: 5) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 5) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 5) at: 2) to: result directions.
 	result addToken: ((nodes at: 5) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 5) at: 4) to: result lengths.
 	result addToken: ((nodes at: 5) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 5) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 6) at: 1) to: result commas.
-	result addTokens: ((nodes at: 6) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 6) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 6) at: 3) to: result directions.
 	result addTokens: ((nodes at: 6) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 6) at: 5) to: result lengths.
@@ -6814,14 +6814,14 @@ MysqlParser >> reduceActionForcreate_definition22: nodes [
 	result fulltextToken: (nodes at: 1).
 	result keyToken: (nodes at: 2).
 	result addToken: (nodes at: 3) to: result leftParens.
-	result addToken: ((nodes at: 4) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 4) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 4) at: 2) to: result directions.
 	result addToken: ((nodes at: 4) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 4) at: 4) to: result lengths.
 	result addToken: ((nodes at: 4) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 4) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 5) at: 1) to: result commas.
-	result addTokens: ((nodes at: 5) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 5) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 5) at: 3) to: result directions.
 	result addTokens: ((nodes at: 5) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 5) at: 5) to: result lengths.
@@ -6840,14 +6840,14 @@ MysqlParser >> reduceActionForcreate_definition23: nodes [
 	result keyToken: (nodes at: 2).
 	result indexName: (nodes at: 3).
 	result addToken: (nodes at: 4) to: result leftParens.
-	result addToken: ((nodes at: 5) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 5) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 5) at: 2) to: result directions.
 	result addToken: ((nodes at: 5) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 5) at: 4) to: result lengths.
 	result addToken: ((nodes at: 5) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 5) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 6) at: 1) to: result commas.
-	result addTokens: ((nodes at: 6) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 6) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 6) at: 3) to: result directions.
 	result addTokens: ((nodes at: 6) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 6) at: 5) to: result lengths.
@@ -6864,14 +6864,14 @@ MysqlParser >> reduceActionForcreate_definition24: nodes [
 	result := MysqlIndexDefinitionNode new.
 	result spatialToken: (nodes at: 1).
 	result addToken: (nodes at: 2) to: result leftParens.
-	result addToken: ((nodes at: 3) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 3) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 3) at: 2) to: result directions.
 	result addToken: ((nodes at: 3) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 3) at: 4) to: result lengths.
 	result addToken: ((nodes at: 3) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 3) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 4) at: 1) to: result commas.
-	result addTokens: ((nodes at: 4) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 4) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 4) at: 3) to: result directions.
 	result addTokens: ((nodes at: 4) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 4) at: 5) to: result lengths.
@@ -6889,14 +6889,14 @@ MysqlParser >> reduceActionForcreate_definition25: nodes [
 	result spatialToken: (nodes at: 1).
 	result indexName: (nodes at: 2).
 	result addToken: (nodes at: 3) to: result leftParens.
-	result addToken: ((nodes at: 4) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 4) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 4) at: 2) to: result directions.
 	result addToken: ((nodes at: 4) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 4) at: 4) to: result lengths.
 	result addToken: ((nodes at: 4) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 4) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 5) at: 1) to: result commas.
-	result addTokens: ((nodes at: 5) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 5) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 5) at: 3) to: result directions.
 	result addTokens: ((nodes at: 5) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 5) at: 5) to: result lengths.
@@ -6914,14 +6914,14 @@ MysqlParser >> reduceActionForcreate_definition26: nodes [
 	result spatialToken: (nodes at: 1).
 	result indexToken: (nodes at: 2).
 	result addToken: (nodes at: 3) to: result leftParens.
-	result addToken: ((nodes at: 4) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 4) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 4) at: 2) to: result directions.
 	result addToken: ((nodes at: 4) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 4) at: 4) to: result lengths.
 	result addToken: ((nodes at: 4) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 4) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 5) at: 1) to: result commas.
-	result addTokens: ((nodes at: 5) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 5) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 5) at: 3) to: result directions.
 	result addTokens: ((nodes at: 5) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 5) at: 5) to: result lengths.
@@ -6940,14 +6940,14 @@ MysqlParser >> reduceActionForcreate_definition27: nodes [
 	result indexToken: (nodes at: 2).
 	result indexName: (nodes at: 3).
 	result addToken: (nodes at: 4) to: result leftParens.
-	result addToken: ((nodes at: 5) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 5) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 5) at: 2) to: result directions.
 	result addToken: ((nodes at: 5) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 5) at: 4) to: result lengths.
 	result addToken: ((nodes at: 5) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 5) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 6) at: 1) to: result commas.
-	result addTokens: ((nodes at: 6) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 6) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 6) at: 3) to: result directions.
 	result addTokens: ((nodes at: 6) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 6) at: 5) to: result lengths.
@@ -6965,14 +6965,14 @@ MysqlParser >> reduceActionForcreate_definition28: nodes [
 	result spatialToken: (nodes at: 1).
 	result keyToken: (nodes at: 2).
 	result addToken: (nodes at: 3) to: result leftParens.
-	result addToken: ((nodes at: 4) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 4) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 4) at: 2) to: result directions.
 	result addToken: ((nodes at: 4) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 4) at: 4) to: result lengths.
 	result addToken: ((nodes at: 4) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 4) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 5) at: 1) to: result commas.
-	result addTokens: ((nodes at: 5) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 5) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 5) at: 3) to: result directions.
 	result addTokens: ((nodes at: 5) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 5) at: 5) to: result lengths.
@@ -6991,14 +6991,14 @@ MysqlParser >> reduceActionForcreate_definition29: nodes [
 	result keyToken: (nodes at: 2).
 	result indexName: (nodes at: 3).
 	result addToken: (nodes at: 4) to: result leftParens.
-	result addToken: ((nodes at: 5) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 5) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 5) at: 2) to: result directions.
 	result addToken: ((nodes at: 5) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 5) at: 4) to: result lengths.
 	result addToken: ((nodes at: 5) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 5) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 6) at: 1) to: result commas.
-	result addTokens: ((nodes at: 6) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 6) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 6) at: 3) to: result directions.
 	result addTokens: ((nodes at: 6) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 6) at: 5) to: result lengths.
@@ -7015,14 +7015,14 @@ MysqlParser >> reduceActionForcreate_definition2: nodes [
 	result := MysqlIndexDefinitionNode new.
 	result indexToken: (nodes at: 1).
 	result addToken: (nodes at: 2) to: result leftParens.
-	result addToken: ((nodes at: 3) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 3) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 3) at: 2) to: result directions.
 	result addToken: ((nodes at: 3) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 3) at: 4) to: result lengths.
 	result addToken: ((nodes at: 3) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 3) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 4) at: 1) to: result commas.
-	result addTokens: ((nodes at: 4) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 4) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 4) at: 3) to: result directions.
 	result addTokens: ((nodes at: 4) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 4) at: 5) to: result lengths.
@@ -7039,14 +7039,14 @@ MysqlParser >> reduceActionForcreate_definition30: nodes [
 	result primaryToken: (nodes at: 1).
 	result keyToken: (nodes at: 2).
 	result addToken: (nodes at: 3) to: result leftParens.
-	result addToken: ((nodes at: 4) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 4) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 4) at: 2) to: result directions.
 	result addToken: ((nodes at: 4) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 4) at: 4) to: result lengths.
 	result addToken: ((nodes at: 4) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 4) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 5) at: 1) to: result commas.
-	result addTokens: ((nodes at: 5) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 5) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 5) at: 3) to: result directions.
 	result addTokens: ((nodes at: 5) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 5) at: 5) to: result lengths.
@@ -7063,14 +7063,14 @@ MysqlParser >> reduceActionForcreate_definition31: nodes [
 	result primaryToken: (nodes at: 1).
 	result keyToken: (nodes at: 2).
 	result addToken: (nodes at: 3) to: result leftParens.
-	result addToken: ((nodes at: 4) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 4) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 4) at: 2) to: result directions.
 	result addToken: ((nodes at: 4) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 4) at: 4) to: result lengths.
 	result addToken: ((nodes at: 4) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 4) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 5) at: 1) to: result commas.
-	result addTokens: ((nodes at: 5) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 5) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 5) at: 3) to: result directions.
 	result addTokens: ((nodes at: 5) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 5) at: 5) to: result lengths.
@@ -7091,14 +7091,14 @@ MysqlParser >> reduceActionForcreate_definition32: nodes [
 	result btreeToken: ((nodes at: 3) at: 2).
 	result hashToken: ((nodes at: 3) at: 3).
 	result addToken: (nodes at: 4) to: result leftParens.
-	result addToken: ((nodes at: 5) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 5) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 5) at: 2) to: result directions.
 	result addToken: ((nodes at: 5) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 5) at: 4) to: result lengths.
 	result addToken: ((nodes at: 5) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 5) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 6) at: 1) to: result commas.
-	result addTokens: ((nodes at: 6) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 6) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 6) at: 3) to: result directions.
 	result addTokens: ((nodes at: 6) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 6) at: 5) to: result lengths.
@@ -7118,14 +7118,14 @@ MysqlParser >> reduceActionForcreate_definition33: nodes [
 	result btreeToken: ((nodes at: 3) at: 2).
 	result hashToken: ((nodes at: 3) at: 3).
 	result addToken: (nodes at: 4) to: result leftParens.
-	result addToken: ((nodes at: 5) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 5) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 5) at: 2) to: result directions.
 	result addToken: ((nodes at: 5) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 5) at: 4) to: result lengths.
 	result addToken: ((nodes at: 5) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 5) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 6) at: 1) to: result commas.
-	result addTokens: ((nodes at: 6) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 6) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 6) at: 3) to: result directions.
 	result addTokens: ((nodes at: 6) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 6) at: 5) to: result lengths.
@@ -7144,14 +7144,14 @@ MysqlParser >> reduceActionForcreate_definition34: nodes [
 	result primaryToken: (nodes at: 2).
 	result keyToken: (nodes at: 3).
 	result addToken: (nodes at: 4) to: result leftParens.
-	result addToken: ((nodes at: 5) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 5) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 5) at: 2) to: result directions.
 	result addToken: ((nodes at: 5) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 5) at: 4) to: result lengths.
 	result addToken: ((nodes at: 5) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 5) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 6) at: 1) to: result commas.
-	result addTokens: ((nodes at: 6) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 6) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 6) at: 3) to: result directions.
 	result addTokens: ((nodes at: 6) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 6) at: 5) to: result lengths.
@@ -7169,14 +7169,14 @@ MysqlParser >> reduceActionForcreate_definition35: nodes [
 	result primaryToken: (nodes at: 2).
 	result keyToken: (nodes at: 3).
 	result addToken: (nodes at: 4) to: result leftParens.
-	result addToken: ((nodes at: 5) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 5) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 5) at: 2) to: result directions.
 	result addToken: ((nodes at: 5) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 5) at: 4) to: result lengths.
 	result addToken: ((nodes at: 5) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 5) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 6) at: 1) to: result commas.
-	result addTokens: ((nodes at: 6) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 6) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 6) at: 3) to: result directions.
 	result addTokens: ((nodes at: 6) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 6) at: 5) to: result lengths.
@@ -7198,14 +7198,14 @@ MysqlParser >> reduceActionForcreate_definition36: nodes [
 	result btreeToken: ((nodes at: 4) at: 2).
 	result hashToken: ((nodes at: 4) at: 3).
 	result addToken: (nodes at: 5) to: result leftParens.
-	result addToken: ((nodes at: 6) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 6) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 6) at: 2) to: result directions.
 	result addToken: ((nodes at: 6) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 6) at: 4) to: result lengths.
 	result addToken: ((nodes at: 6) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 6) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 7) at: 1) to: result commas.
-	result addTokens: ((nodes at: 7) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 7) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 7) at: 3) to: result directions.
 	result addTokens: ((nodes at: 7) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 7) at: 5) to: result lengths.
@@ -7226,14 +7226,14 @@ MysqlParser >> reduceActionForcreate_definition37: nodes [
 	result btreeToken: ((nodes at: 4) at: 2).
 	result hashToken: ((nodes at: 4) at: 3).
 	result addToken: (nodes at: 5) to: result leftParens.
-	result addToken: ((nodes at: 6) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 6) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 6) at: 2) to: result directions.
 	result addToken: ((nodes at: 6) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 6) at: 4) to: result lengths.
 	result addToken: ((nodes at: 6) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 6) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 7) at: 1) to: result commas.
-	result addTokens: ((nodes at: 7) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 7) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 7) at: 3) to: result directions.
 	result addTokens: ((nodes at: 7) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 7) at: 5) to: result lengths.
@@ -7253,14 +7253,14 @@ MysqlParser >> reduceActionForcreate_definition38: nodes [
 	result primaryToken: (nodes at: 3).
 	result keyToken: (nodes at: 4).
 	result addToken: (nodes at: 5) to: result leftParens.
-	result addToken: ((nodes at: 6) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 6) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 6) at: 2) to: result directions.
 	result addToken: ((nodes at: 6) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 6) at: 4) to: result lengths.
 	result addToken: ((nodes at: 6) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 6) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 7) at: 1) to: result commas.
-	result addTokens: ((nodes at: 7) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 7) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 7) at: 3) to: result directions.
 	result addTokens: ((nodes at: 7) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 7) at: 5) to: result lengths.
@@ -7279,14 +7279,14 @@ MysqlParser >> reduceActionForcreate_definition39: nodes [
 	result primaryToken: (nodes at: 3).
 	result keyToken: (nodes at: 4).
 	result addToken: (nodes at: 5) to: result leftParens.
-	result addToken: ((nodes at: 6) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 6) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 6) at: 2) to: result directions.
 	result addToken: ((nodes at: 6) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 6) at: 4) to: result lengths.
 	result addToken: ((nodes at: 6) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 6) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 7) at: 1) to: result commas.
-	result addTokens: ((nodes at: 7) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 7) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 7) at: 3) to: result directions.
 	result addTokens: ((nodes at: 7) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 7) at: 5) to: result lengths.
@@ -7303,14 +7303,14 @@ MysqlParser >> reduceActionForcreate_definition3: nodes [
 	result := MysqlIndexDefinitionNode new.
 	result indexToken: (nodes at: 1).
 	result addToken: (nodes at: 2) to: result leftParens.
-	result addToken: ((nodes at: 3) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 3) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 3) at: 2) to: result directions.
 	result addToken: ((nodes at: 3) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 3) at: 4) to: result lengths.
 	result addToken: ((nodes at: 3) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 3) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 4) at: 1) to: result commas.
-	result addTokens: ((nodes at: 4) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 4) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 4) at: 3) to: result directions.
 	result addTokens: ((nodes at: 4) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 4) at: 5) to: result lengths.
@@ -7333,14 +7333,14 @@ MysqlParser >> reduceActionForcreate_definition40: nodes [
 	result btreeToken: ((nodes at: 5) at: 2).
 	result hashToken: ((nodes at: 5) at: 3).
 	result addToken: (nodes at: 6) to: result leftParens.
-	result addToken: ((nodes at: 7) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 7) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 7) at: 2) to: result directions.
 	result addToken: ((nodes at: 7) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 7) at: 4) to: result lengths.
 	result addToken: ((nodes at: 7) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 7) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 8) at: 1) to: result commas.
-	result addTokens: ((nodes at: 8) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 8) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 8) at: 3) to: result directions.
 	result addTokens: ((nodes at: 8) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 8) at: 5) to: result lengths.
@@ -7362,14 +7362,14 @@ MysqlParser >> reduceActionForcreate_definition41: nodes [
 	result btreeToken: ((nodes at: 5) at: 2).
 	result hashToken: ((nodes at: 5) at: 3).
 	result addToken: (nodes at: 6) to: result leftParens.
-	result addToken: ((nodes at: 7) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 7) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 7) at: 2) to: result directions.
 	result addToken: ((nodes at: 7) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 7) at: 4) to: result lengths.
 	result addToken: ((nodes at: 7) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 7) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 8) at: 1) to: result commas.
-	result addTokens: ((nodes at: 8) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 8) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 8) at: 3) to: result directions.
 	result addTokens: ((nodes at: 8) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 8) at: 5) to: result lengths.
@@ -7390,14 +7390,14 @@ MysqlParser >> reduceActionForcreate_definition42: nodes [
 	result btreeToken: ((nodes at: 3) at: 2).
 	result hashToken: ((nodes at: 3) at: 3).
 	result addToken: (nodes at: 4) to: result leftParens.
-	result addToken: ((nodes at: 5) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 5) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 5) at: 2) to: result directions.
 	result addToken: ((nodes at: 5) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 5) at: 4) to: result lengths.
 	result addToken: ((nodes at: 5) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 5) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 6) at: 1) to: result commas.
-	result addTokens: ((nodes at: 6) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 6) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 6) at: 3) to: result directions.
 	result addTokens: ((nodes at: 6) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 6) at: 5) to: result lengths.
@@ -7419,14 +7419,14 @@ MysqlParser >> reduceActionForcreate_definition43: nodes [
 	result btreeToken: ((nodes at: 4) at: 2).
 	result hashToken: ((nodes at: 4) at: 3).
 	result addToken: (nodes at: 5) to: result leftParens.
-	result addToken: ((nodes at: 6) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 6) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 6) at: 2) to: result directions.
 	result addToken: ((nodes at: 6) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 6) at: 4) to: result lengths.
 	result addToken: ((nodes at: 6) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 6) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 7) at: 1) to: result commas.
-	result addTokens: ((nodes at: 7) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 7) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 7) at: 3) to: result directions.
 	result addTokens: ((nodes at: 7) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 7) at: 5) to: result lengths.
@@ -7448,14 +7448,14 @@ MysqlParser >> reduceActionForcreate_definition44: nodes [
 	result btreeToken: ((nodes at: 4) at: 2).
 	result hashToken: ((nodes at: 4) at: 3).
 	result addToken: (nodes at: 5) to: result leftParens.
-	result addToken: ((nodes at: 6) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 6) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 6) at: 2) to: result directions.
 	result addToken: ((nodes at: 6) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 6) at: 4) to: result lengths.
 	result addToken: ((nodes at: 6) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 6) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 7) at: 1) to: result commas.
-	result addTokens: ((nodes at: 7) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 7) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 7) at: 3) to: result directions.
 	result addTokens: ((nodes at: 7) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 7) at: 5) to: result lengths.
@@ -7477,14 +7477,14 @@ MysqlParser >> reduceActionForcreate_definition45: nodes [
 	result btreeToken: ((nodes at: 4) at: 2).
 	result hashToken: ((nodes at: 4) at: 3).
 	result addToken: (nodes at: 5) to: result leftParens.
-	result addToken: ((nodes at: 6) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 6) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 6) at: 2) to: result directions.
 	result addToken: ((nodes at: 6) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 6) at: 4) to: result lengths.
 	result addToken: ((nodes at: 6) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 6) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 7) at: 1) to: result commas.
-	result addTokens: ((nodes at: 7) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 7) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 7) at: 3) to: result directions.
 	result addTokens: ((nodes at: 7) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 7) at: 5) to: result lengths.
@@ -7507,14 +7507,14 @@ MysqlParser >> reduceActionForcreate_definition46: nodes [
 	result btreeToken: ((nodes at: 5) at: 2).
 	result hashToken: ((nodes at: 5) at: 3).
 	result addToken: (nodes at: 6) to: result leftParens.
-	result addToken: ((nodes at: 7) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 7) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 7) at: 2) to: result directions.
 	result addToken: ((nodes at: 7) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 7) at: 4) to: result lengths.
 	result addToken: ((nodes at: 7) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 7) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 8) at: 1) to: result commas.
-	result addTokens: ((nodes at: 8) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 8) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 8) at: 3) to: result directions.
 	result addTokens: ((nodes at: 8) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 8) at: 5) to: result lengths.
@@ -7537,14 +7537,14 @@ MysqlParser >> reduceActionForcreate_definition47: nodes [
 	result btreeToken: ((nodes at: 5) at: 2).
 	result hashToken: ((nodes at: 5) at: 3).
 	result addToken: (nodes at: 6) to: result leftParens.
-	result addToken: ((nodes at: 7) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 7) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 7) at: 2) to: result directions.
 	result addToken: ((nodes at: 7) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 7) at: 4) to: result lengths.
 	result addToken: ((nodes at: 7) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 7) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 8) at: 1) to: result commas.
-	result addTokens: ((nodes at: 8) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 8) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 8) at: 3) to: result directions.
 	result addTokens: ((nodes at: 8) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 8) at: 5) to: result lengths.
@@ -7567,14 +7567,14 @@ MysqlParser >> reduceActionForcreate_definition48: nodes [
 	result btreeToken: ((nodes at: 5) at: 2).
 	result hashToken: ((nodes at: 5) at: 3).
 	result addToken: (nodes at: 6) to: result leftParens.
-	result addToken: ((nodes at: 7) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 7) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 7) at: 2) to: result directions.
 	result addToken: ((nodes at: 7) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 7) at: 4) to: result lengths.
 	result addToken: ((nodes at: 7) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 7) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 8) at: 1) to: result commas.
-	result addTokens: ((nodes at: 8) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 8) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 8) at: 3) to: result directions.
 	result addTokens: ((nodes at: 8) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 8) at: 5) to: result lengths.
@@ -7598,14 +7598,14 @@ MysqlParser >> reduceActionForcreate_definition49: nodes [
 	result btreeToken: ((nodes at: 6) at: 2).
 	result hashToken: ((nodes at: 6) at: 3).
 	result addToken: (nodes at: 7) to: result leftParens.
-	result addToken: ((nodes at: 8) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 8) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 8) at: 2) to: result directions.
 	result addToken: ((nodes at: 8) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 8) at: 4) to: result lengths.
 	result addToken: ((nodes at: 8) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 8) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 9) at: 1) to: result commas.
-	result addTokens: ((nodes at: 9) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 9) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 9) at: 3) to: result directions.
 	result addTokens: ((nodes at: 9) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 9) at: 5) to: result lengths.
@@ -7625,14 +7625,14 @@ MysqlParser >> reduceActionForcreate_definition4: nodes [
 	result btreeToken: ((nodes at: 2) at: 2).
 	result hashToken: ((nodes at: 2) at: 3).
 	result addToken: (nodes at: 3) to: result leftParens.
-	result addToken: ((nodes at: 4) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 4) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 4) at: 2) to: result directions.
 	result addToken: ((nodes at: 4) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 4) at: 4) to: result lengths.
 	result addToken: ((nodes at: 4) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 4) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 5) at: 1) to: result commas.
-	result addTokens: ((nodes at: 5) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 5) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 5) at: 3) to: result directions.
 	result addTokens: ((nodes at: 5) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 5) at: 5) to: result lengths.
@@ -7655,14 +7655,14 @@ MysqlParser >> reduceActionForcreate_definition50: nodes [
 	result btreeToken: ((nodes at: 6) at: 2).
 	result hashToken: ((nodes at: 6) at: 3).
 	result addToken: (nodes at: 7) to: result leftParens.
-	result addToken: ((nodes at: 8) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 8) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 8) at: 2) to: result directions.
 	result addToken: ((nodes at: 8) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 8) at: 4) to: result lengths.
 	result addToken: ((nodes at: 8) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 8) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 9) at: 1) to: result commas.
-	result addTokens: ((nodes at: 9) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 9) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 9) at: 3) to: result directions.
 	result addTokens: ((nodes at: 9) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 9) at: 5) to: result lengths.
@@ -7687,7 +7687,7 @@ MysqlParser >> reduceActionForcreate_definition51: nodes [
 	result referencesToken: ((nodes at: 7) at: 1).
 	result tableName: ((nodes at: 7) at: 2).
 	result addTokens: ((nodes at: 7) at: 3) to: result leftParens.
-	result addTokens: ((nodes at: 7) at: 4) to: result columnNames.
+	result addTokens: ((nodes at: 7) at: 4) to: result refColumnNames.
 	result addTokens: ((nodes at: 7) at: 5) to: result directions.
 	result addTokens: ((nodes at: 7) at: 6) to: result lengths.
 	result addTokens: ((nodes at: 7) at: 7) to: result rightParens.
@@ -7725,7 +7725,7 @@ MysqlParser >> reduceActionForcreate_definition52: nodes [
 	result referencesToken: ((nodes at: 8) at: 1).
 	result tableName: ((nodes at: 8) at: 2).
 	result addTokens: ((nodes at: 8) at: 3) to: result leftParens.
-	result addTokens: ((nodes at: 8) at: 4) to: result columnNames.
+	result addTokens: ((nodes at: 8) at: 4) to: result refColumnNames.
 	result addTokens: ((nodes at: 8) at: 5) to: result directions.
 	result addTokens: ((nodes at: 8) at: 6) to: result lengths.
 	result addTokens: ((nodes at: 8) at: 7) to: result rightParens.
@@ -7763,7 +7763,7 @@ MysqlParser >> reduceActionForcreate_definition53: nodes [
 	result referencesToken: ((nodes at: 8) at: 1).
 	result tableName: ((nodes at: 8) at: 2).
 	result addTokens: ((nodes at: 8) at: 3) to: result leftParens.
-	result addTokens: ((nodes at: 8) at: 4) to: result columnNames.
+	result addTokens: ((nodes at: 8) at: 4) to: result refColumnNames.
 	result addTokens: ((nodes at: 8) at: 5) to: result directions.
 	result addTokens: ((nodes at: 8) at: 6) to: result lengths.
 	result addTokens: ((nodes at: 8) at: 7) to: result rightParens.
@@ -7802,7 +7802,7 @@ MysqlParser >> reduceActionForcreate_definition54: nodes [
 	result referencesToken: ((nodes at: 9) at: 1).
 	result tableName: ((nodes at: 9) at: 2).
 	result addTokens: ((nodes at: 9) at: 3) to: result leftParens.
-	result addTokens: ((nodes at: 9) at: 4) to: result columnNames.
+	result addTokens: ((nodes at: 9) at: 4) to: result refColumnNames.
 	result addTokens: ((nodes at: 9) at: 5) to: result directions.
 	result addTokens: ((nodes at: 9) at: 6) to: result lengths.
 	result addTokens: ((nodes at: 9) at: 7) to: result rightParens.
@@ -7841,7 +7841,7 @@ MysqlParser >> reduceActionForcreate_definition55: nodes [
 	result referencesToken: ((nodes at: 9) at: 1).
 	result tableName: ((nodes at: 9) at: 2).
 	result addTokens: ((nodes at: 9) at: 3) to: result leftParens.
-	result addTokens: ((nodes at: 9) at: 4) to: result columnNames.
+	result addTokens: ((nodes at: 9) at: 4) to: result refColumnNames.
 	result addTokens: ((nodes at: 9) at: 5) to: result directions.
 	result addTokens: ((nodes at: 9) at: 6) to: result lengths.
 	result addTokens: ((nodes at: 9) at: 7) to: result rightParens.
@@ -7881,7 +7881,7 @@ MysqlParser >> reduceActionForcreate_definition56: nodes [
 	result referencesToken: ((nodes at: 10) at: 1).
 	result tableName: ((nodes at: 10) at: 2).
 	result addTokens: ((nodes at: 10) at: 3) to: result leftParens.
-	result addTokens: ((nodes at: 10) at: 4) to: result columnNames.
+	result addTokens: ((nodes at: 10) at: 4) to: result refColumnNames.
 	result addTokens: ((nodes at: 10) at: 5) to: result directions.
 	result addTokens: ((nodes at: 10) at: 6) to: result lengths.
 	result addTokens: ((nodes at: 10) at: 7) to: result rightParens.
@@ -7928,14 +7928,14 @@ MysqlParser >> reduceActionForcreate_definition5: nodes [
 	result btreeToken: ((nodes at: 2) at: 2).
 	result hashToken: ((nodes at: 2) at: 3).
 	result addToken: (nodes at: 3) to: result leftParens.
-	result addToken: ((nodes at: 4) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 4) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 4) at: 2) to: result directions.
 	result addToken: ((nodes at: 4) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 4) at: 4) to: result lengths.
 	result addToken: ((nodes at: 4) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 4) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 5) at: 1) to: result commas.
-	result addTokens: ((nodes at: 5) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 5) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 5) at: 3) to: result directions.
 	result addTokens: ((nodes at: 5) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 5) at: 5) to: result lengths.
@@ -7953,14 +7953,14 @@ MysqlParser >> reduceActionForcreate_definition6: nodes [
 	result indexToken: (nodes at: 1).
 	result indexName: (nodes at: 2).
 	result addToken: (nodes at: 3) to: result leftParens.
-	result addToken: ((nodes at: 4) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 4) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 4) at: 2) to: result directions.
 	result addToken: ((nodes at: 4) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 4) at: 4) to: result lengths.
 	result addToken: ((nodes at: 4) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 4) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 5) at: 1) to: result commas.
-	result addTokens: ((nodes at: 5) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 5) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 5) at: 3) to: result directions.
 	result addTokens: ((nodes at: 5) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 5) at: 5) to: result lengths.
@@ -7977,14 +7977,14 @@ MysqlParser >> reduceActionForcreate_definition7: nodes [
 	result indexToken: (nodes at: 1).
 	result indexName: (nodes at: 2).
 	result addToken: (nodes at: 3) to: result leftParens.
-	result addToken: ((nodes at: 4) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 4) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 4) at: 2) to: result directions.
 	result addToken: ((nodes at: 4) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 4) at: 4) to: result lengths.
 	result addToken: ((nodes at: 4) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 4) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 5) at: 1) to: result commas.
-	result addTokens: ((nodes at: 5) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 5) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 5) at: 3) to: result directions.
 	result addTokens: ((nodes at: 5) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 5) at: 5) to: result lengths.
@@ -8005,14 +8005,14 @@ MysqlParser >> reduceActionForcreate_definition8: nodes [
 	result btreeToken: ((nodes at: 3) at: 2).
 	result hashToken: ((nodes at: 3) at: 3).
 	result addToken: (nodes at: 4) to: result leftParens.
-	result addToken: ((nodes at: 5) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 5) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 5) at: 2) to: result directions.
 	result addToken: ((nodes at: 5) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 5) at: 4) to: result lengths.
 	result addToken: ((nodes at: 5) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 5) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 6) at: 1) to: result commas.
-	result addTokens: ((nodes at: 6) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 6) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 6) at: 3) to: result directions.
 	result addTokens: ((nodes at: 6) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 6) at: 5) to: result lengths.
@@ -8032,14 +8032,14 @@ MysqlParser >> reduceActionForcreate_definition9: nodes [
 	result btreeToken: ((nodes at: 3) at: 2).
 	result hashToken: ((nodes at: 3) at: 3).
 	result addToken: (nodes at: 4) to: result leftParens.
-	result addToken: ((nodes at: 5) at: 1) to: result columnNames.
+	result addToken: ((nodes at: 5) at: 1) to: result refColumnNames.
 	result addToken: ((nodes at: 5) at: 2) to: result directions.
 	result addToken: ((nodes at: 5) at: 3) to: result leftParens.
 	result addToken: ((nodes at: 5) at: 4) to: result lengths.
 	result addToken: ((nodes at: 5) at: 5) to: result rightParens.
 	result addNode: ((nodes at: 5) at: 6) to: result exprs.
 	result addTokens: ((nodes at: 6) at: 1) to: result commas.
-	result addTokens: ((nodes at: 6) at: 2) to: result columnNames.
+	result addTokens: ((nodes at: 6) at: 2) to: result refColumnNames.
 	result addTokens: ((nodes at: 6) at: 3) to: result directions.
 	result addTokens: ((nodes at: 6) at: 4) to: result leftParens.
 	result addTokens: ((nodes at: 6) at: 5) to: result lengths.
