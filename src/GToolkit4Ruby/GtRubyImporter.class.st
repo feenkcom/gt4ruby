@@ -653,6 +653,7 @@ GtRubyImporter >> literalArrayFor: aMethod [
 { #category : #'generating ast node classes' }
 GtRubyImporter >> loadASTAsLiteral: aFilename [
 	| command stream scriptDirectory |
+	NonInteractiveTranscript stdout nextPutAll: aFilename asString; cr.
 	scriptDirectory := GtResourcesUtility default
 		resourceAtPath: Path * 'feenkcom/gt4ruby/ruby/'.
 	command := OSSUnixSubprocess new
