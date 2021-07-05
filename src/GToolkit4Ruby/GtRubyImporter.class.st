@@ -304,7 +304,7 @@ GtRubyImporter >> createAcceptVisitorMethodsIn: aModel [
 ]
 
 { #category : #importing }
-GtRubyImporter >> createActiveRecordAttributes [
+GtRubyImporter >> createActiveRecordLinksAndAttributes [
 	mooseModel allClasses asOrderedCollection
 		detect: [:each | each isRubyClass and: [ each isActiveRecordBase ] ]
 		ifFound: [ :theActiveRecordBase | 
@@ -312,6 +312,8 @@ GtRubyImporter >> createActiveRecordAttributes [
 				allSubclassesDo: [ :anActiveRecordClass | 
 					(self findTableForClass: anActiveRecordClass)
 						ifNotNil: [ :table | 
+							table rubyActiveRecordClass: anActiveRecordClass.
+							anActiveRecordClass activeRecordTable: table.
 							table attributes
 								do: [ :column | 
 									| attribute |

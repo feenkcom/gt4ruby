@@ -1,8 +1,22 @@
 Class {
 	#name : #GtRubyClass,
 	#superclass : #FAMIXClass,
+	#instVars : [
+		'activeRecordTable'
+	],
 	#category : #'GToolkit4Ruby-Model'
 }
+
+{ #category : #accessing }
+GtRubyClass >> activeRecordTable [
+	<MSEProperty: #activeRecordTable type: #GtTable>
+	^ activeRecordTable
+]
+
+{ #category : #accessing }
+GtRubyClass >> activeRecordTable: aTable [
+	activeRecordTable := aTable
+]
 
 { #category : #accessing }
 GtRubyClass >> isActiveRecordBase [
