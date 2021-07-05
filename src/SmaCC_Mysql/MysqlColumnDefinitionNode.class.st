@@ -2,7 +2,7 @@ Class {
 	#name : #MysqlColumnDefinitionNode,
 	#superclass : #MysqlProgramNode,
 	#instVars : [
-		'columnNames',
+		'columnName',
 		'dataType',
 		'visibleToken',
 		'invisibleToken',
@@ -26,6 +26,7 @@ Class {
 		'referencesToken',
 		'tableName',
 		'leftParens',
+		'refColumnNames',
 		'directions',
 		'lengths',
 		'rightParens',
@@ -192,13 +193,13 @@ MysqlColumnDefinitionNode >> columnFormatToken: aSmaCCToken [
 ]
 
 { #category : #generated }
-MysqlColumnDefinitionNode >> columnNames [
-	^ columnNames
+MysqlColumnDefinitionNode >> columnName [
+	^ columnName
 ]
 
 { #category : #generated }
-MysqlColumnDefinitionNode >> columnNames: anOrderedCollection [
-	columnNames := anOrderedCollection
+MysqlColumnDefinitionNode >> columnName: aSmaCCToken [
+	columnName := aSmaCCToken
 ]
 
 { #category : #generated }
@@ -228,7 +229,7 @@ MysqlColumnDefinitionNode >> compositeNodeVariables [
 
 { #category : #generated }
 MysqlColumnDefinitionNode >> compositeTokenVariables [
-	^ #(#columnNames #keyTokens #equalses #leftParens #directions #lengths #rightParens #commas #onTokens #restrictTokens #cascadeTokens #setTokens #nullTokens #noTokens #actionTokens #defaultTokens #notTokens)
+	^ #(#keyTokens #equalses #leftParens #refColumnNames #directions #lengths #rightParens #commas #onTokens #restrictTokens #cascadeTokens #setTokens #nullTokens #noTokens #actionTokens #defaultTokens #notTokens)
 ]
 
 { #category : #generated }
@@ -388,10 +389,10 @@ MysqlColumnDefinitionNode >> generatedToken: aSmaCCToken [
 { #category : #'generated-initialize-release' }
 MysqlColumnDefinitionNode >> initialize [
 	super initialize.
-	columnNames := OrderedCollection new: 2.
 	keyTokens := OrderedCollection new: 2.
 	equalses := OrderedCollection new: 2.
 	leftParens := OrderedCollection new: 2.
+	refColumnNames := OrderedCollection new: 2.
 	directions := OrderedCollection new: 2.
 	lengths := OrderedCollection new: 2.
 	rightParens := OrderedCollection new: 2.
@@ -539,6 +540,16 @@ MysqlColumnDefinitionNode >> primaryToken: aSmaCCToken [
 ]
 
 { #category : #generated }
+MysqlColumnDefinitionNode >> refColumnNames [
+	^ refColumnNames
+]
+
+{ #category : #generated }
+MysqlColumnDefinitionNode >> refColumnNames: anOrderedCollection [
+	refColumnNames := anOrderedCollection
+]
+
+{ #category : #generated }
 MysqlColumnDefinitionNode >> referencesToken [
 	^ referencesToken
 ]
@@ -640,7 +651,7 @@ MysqlColumnDefinitionNode >> tableName: aSmaCCToken [
 
 { #category : #generated }
 MysqlColumnDefinitionNode >> tokenVariables [
-	^ #(#visibleToken #invisibleToken #autoIncrementToken #uniqueToken #primaryToken #commentToken #collateToken #collationName #columnFormatToken #columnFormat #engineAttributeToken #engineAttribute #secondaryToken #secondaryEngineAttribute #storageToken #diskToken #memoryToken #referencesToken #tableName #updateToken #_deleteToken #matchToken #fullToken #partialToken #simpleToken #checkToken #enforcedToken #constraintToken #asToken #virtualToken #storedToken #generatedToken #alwaysToken)
+	^ #(#columnName #visibleToken #invisibleToken #autoIncrementToken #uniqueToken #primaryToken #commentToken #collateToken #collationName #columnFormatToken #columnFormat #engineAttributeToken #engineAttribute #secondaryToken #secondaryEngineAttribute #storageToken #diskToken #memoryToken #referencesToken #tableName #updateToken #_deleteToken #matchToken #fullToken #partialToken #simpleToken #checkToken #enforcedToken #constraintToken #asToken #virtualToken #storedToken #generatedToken #alwaysToken)
 ]
 
 { #category : #generated }

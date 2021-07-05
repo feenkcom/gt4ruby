@@ -5,7 +5,7 @@ Class {
 		'primaryToken',
 		'keyToken',
 		'leftParens',
-		'columnNames',
+		'refColumnNames',
 		'directions',
 		'lengths',
 		'rightParens',
@@ -21,6 +21,7 @@ Class {
 		'indexName',
 		'indexToken',
 		'foreignToken',
+		'columnNames',
 		'referencesToken',
 		'tableName',
 		'onTokens',
@@ -141,7 +142,7 @@ MysqlConstraintDefinitionNode >> compositeNodeVariables [
 
 { #category : #generated }
 MysqlConstraintDefinitionNode >> compositeTokenVariables [
-	^ #(#leftParens #columnNames #directions #lengths #rightParens #commas #onTokens #restrictTokens #cascadeTokens #setTokens #nullTokens #noTokens #actionTokens #defaultTokens)
+	^ #(#leftParens #refColumnNames #directions #lengths #rightParens #commas #columnNames #onTokens #restrictTokens #cascadeTokens #setTokens #nullTokens #noTokens #actionTokens #defaultTokens)
 ]
 
 { #category : #generated }
@@ -264,12 +265,13 @@ MysqlConstraintDefinitionNode >> indexToken: aSmaCCToken [
 MysqlConstraintDefinitionNode >> initialize [
 	super initialize.
 	leftParens := OrderedCollection new: 2.
-	columnNames := OrderedCollection new: 2.
+	refColumnNames := OrderedCollection new: 2.
 	directions := OrderedCollection new: 2.
 	lengths := OrderedCollection new: 2.
 	rightParens := OrderedCollection new: 2.
 	exprs := OrderedCollection new: 2.
 	commas := OrderedCollection new: 2.
+	columnNames := OrderedCollection new: 2.
 	onTokens := OrderedCollection new: 2.
 	restrictTokens := OrderedCollection new: 2.
 	cascadeTokens := OrderedCollection new: 2.
@@ -397,6 +399,16 @@ MysqlConstraintDefinitionNode >> primaryToken [
 { #category : #generated }
 MysqlConstraintDefinitionNode >> primaryToken: aSmaCCToken [
 	primaryToken := aSmaCCToken
+]
+
+{ #category : #generated }
+MysqlConstraintDefinitionNode >> refColumnNames [
+	^ refColumnNames
+]
+
+{ #category : #generated }
+MysqlConstraintDefinitionNode >> refColumnNames: anOrderedCollection [
+	refColumnNames := anOrderedCollection
 ]
 
 { #category : #generated }

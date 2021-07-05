@@ -9,7 +9,7 @@ BaselineOfGToolkit4Ruby >> baseline: spec [
 	<baseline>
 	spec
 		for: #common
-		do: [
-			spec package: 'GToolkit4Ruby'.
-			spec package: 'SmaCC_Mysql' ]
+		do: [ spec
+				package: 'SmaCC_Mysql';
+				package: 'GToolkit4Ruby' with: [ spec requires: 'SmaCC_Mysql' ] ]
 ]
