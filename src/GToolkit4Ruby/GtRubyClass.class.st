@@ -14,6 +14,11 @@ GtRubyClass >> isAnActiveRecord [
 	^ self withSuperclassHierarchy anySatisfy: #isActiveRecordBase
 ]
 
+{ #category : #accessing }
+GtRubyClass >> isRubyClass [
+	^ true
+]
+
 { #category : #'as yet unclassified' }
 GtRubyClass >> rubyContainer: aContainerEntity [
 	self container: aContainerEntity.

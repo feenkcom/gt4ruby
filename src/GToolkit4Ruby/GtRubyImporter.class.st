@@ -305,19 +305,22 @@ GtRubyImporter >> createAcceptVisitorMethodsIn: aModel [
 
 { #category : #importing }
 GtRubyImporter >> createActiveRecordAttributes [
-	(mooseModel allClasses entityNamed: 'ActiveRecord::Base')
-		ifNotNil: [ :cls | 
-			cls
-				allSubclassesDo: [ :each | 
-					(self findTableForClass: each)
+	mooseModel allClasses asOrderedCollection
+		detect: [:each | each isRubyClass and: [ each isActiveRecordBase ] ]
+		ifFound: [ :theActiveRecordBase | 
+			theActiveRecordBase
+				allSubclassesDo: [ :anActiveRecordClass | 
+					(self findTableForClass: anActiveRecordClass)
 						ifNotNil: [ :table | 
 							table attributes
-								do: [ :col | 
-									| attr |
-									attr := GtRubyActiveRecordAttribute new.
-									attr name: col name.
-									mooseModel add: attr.
-									each addAttribute: attr ] ] ] ]
+								do: [ :column | 
+									| attribute |
+									attribute := GtRubyActiveRecordAttribute new.
+									attribute name: (column name removeSuffix: '_id').
+									attribute tableColumn: column.
+									column rubyActiveRecordAttribute: attribute.
+									mooseModel add: attribute.
+									anActiveRecordClass addAttribute: attribute ] ] ] ]
 ]
 
 { #category : #importing }
