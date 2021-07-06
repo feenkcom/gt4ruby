@@ -318,25 +318,32 @@ GtRubyImporter >> createAcceptVisitorMethodsIn: aModel [
 ]
 
 { #category : #importing }
+GtRubyImporter >> createActiveRecordLinkBetweenClass: anActiveRecordClass andTable: table [
+	table rubyActiveRecordClass: anActiveRecordClass.
+	anActiveRecordClass activeRecordTable: table.
+	^ table attributes
+		do: [ :column | 
+			| attribute |
+			attribute := GtRubyActiveRecordAttribute new.
+			attribute name: (column name removeSuffix: '_id').
+			attribute tableColumn: column.
+			column rubyActiveRecordAttribute: attribute.
+			mooseModel add: attribute.
+			anActiveRecordClass addAttribute: attribute ]
+]
+
+{ #category : #importing }
 GtRubyImporter >> createActiveRecordLinksAndAttributes [
 	mooseModel allClasses asOrderedCollection
-		detect: [:each | each isRubyClass and: [ each isActiveRecordBase ] ]
+		detect: [ :each | each isRubyClass and: [ each isActiveRecordBase ] ]
 		ifFound: [ :theActiveRecordBase | 
 			theActiveRecordBase
 				allSubclassesDo: [ :anActiveRecordClass | 
 					(self findTableForClass: anActiveRecordClass)
 						ifNotNil: [ :table | 
-							table rubyActiveRecordClass: anActiveRecordClass.
-							anActiveRecordClass activeRecordTable: table.
-							table attributes
-								do: [ :column | 
-									| attribute |
-									attribute := GtRubyActiveRecordAttribute new.
-									attribute name: (column name removeSuffix: '_id').
-									attribute tableColumn: column.
-									column rubyActiveRecordAttribute: attribute.
-									mooseModel add: attribute.
-									anActiveRecordClass addAttribute: attribute ] ] ] ]
+							self
+								createActiveRecordLinkBetweenClass: anActiveRecordClass
+								andTable: table ] ] ]
 ]
 
 { #category : #importing }
@@ -468,6 +475,19 @@ GtRubyImporter >> createNodeFrom: aLiteralArray [
 			ifFalse: [ value := self createASTFrom: (aLiteralArray at: i + 1) ].
 		node perform: (name , ':') asSymbol with: value ].
 	^ node
+]
+
+{ #category : #importing }
+GtRubyImporter >> createStubClassesFromTables [
+	tables
+		do: [ :each | 
+			each rubyActiveRecordClass isNil
+				ifTrue: [ | rubyClassName class |
+					rubyClassName := self rubyClassNameFrom: each name.
+					class := self ensureClassNamed: rubyClassName.
+					class isStub: true.
+					each rubyActiveRecordClass: class.
+					self createActiveRecordLinkBetweenClass: class andTable: each ] ]
 ]
 
 { #category : #parsing }
@@ -819,6 +839,30 @@ GtRubyImporter >> parseFile: aFileReference [
 	node completeSource: aFileReference contents.
 	node filename: aFileReference fullName.
 	^ node
+]
+
+{ #category : #importing }
+GtRubyImporter >> rubyClassNameFrom: aString [
+	| name |
+	name := String
+		streamContents: [ :stream | 
+			| capitalize |
+			capitalize := true.
+			aString
+				do: [ :char | 
+					char = $_
+						ifTrue: [ capitalize := true ]
+						ifFalse: [ stream
+								nextPut:
+									(capitalize
+										ifTrue: [ char asUppercase ]
+										ifFalse: [ char ]).
+							capitalize := false ] ] ].
+	(name endsWith: 'ies')
+		ifTrue: [ name := (name allButLast: 3) , 'y' ].
+	(name endsWith: 's')
+		ifTrue: [ name := name allButLast ].
+	^ name
 ]
 
 { #category : #importing }
