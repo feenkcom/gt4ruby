@@ -400,6 +400,21 @@ GtRubyImporter >> createCommentIntervalsFrom: aLiteralArray [
 		collect: [ :i | (aLiteralArray at: i) to: (aLiteralArray at: i + 1) ]
 ]
 
+{ #category : #importing }
+GtRubyImporter >> createForeignKeys [
+	tables
+		do: [ :each | 
+			each attributes
+				do: [ :col | 
+					(col name endsWith: '_id')
+						ifTrue: [ | tableName |
+							tableName := SmaCCVariableDefinition
+								pluralNameFor: (col name allButLast: 3).
+							tables
+								at: tableName
+								ifPresent: [ :table | col foreignKey: table ] ] ] ]
+]
+
 { #category : #'generating ast node classes' }
 GtRubyImporter >> createInitialRubyParseNode [
 	| mdl |
@@ -663,7 +678,8 @@ GtRubyImporter >> importASTs: aCollection [
 { #category : #importing }
 GtRubyImporter >> importTables: aMysqlFileNode [
 	scopeStack := OrderedCollection new.
-	self accept: aMysqlFileNode
+	self accept: aMysqlFileNode.
+	self createForeignKeys
 ]
 
 { #category : #'generating ast node classes' }
