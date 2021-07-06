@@ -28,21 +28,36 @@ GtRubyClass >> gtAllConnectionsToDeclaredTypesFor: aView [
 				stencil: [ :c | 
 					BlTextElement new
 						zIndex: 10;
-						text: (c name asRopedText glamorousRegularFont foreground: (self = c
+						text:
+							(c name asRopedText glamorousRegularFont
+								foreground:
+									(self = c
 										ifTrue: [ Color blue ]
-										ifFalse: [ Color black alpha: 0.5 ]) ) ];
+										ifFalse: [ Color black ])) ];
 				with:
-					({self} withDeepCollect: [:class | 
-						class attributes
+					({self}
+						withDeepCollect: [ :class | 
+							class attributes
 								select: [ :each | each declaredType notNil ]
-								thenCollect: [ :each | each declaredType ]]).
+								thenCollect: [ :each | each declaredType ] ]).
 			m edges
 				fromRightCenter;
 				toLeftCenter;
-				connect: self attributes
-				from: [ :x | self ]
-				to: [ :a | a declaredType ].
-			m layout horizontalTree levelDistance: 50; nodeDistance: 10 ]
+				stencil: [:class | 
+					BlParabollaArcElement new 
+						zIndex: 0;
+						curvatureFraction: 0.3;
+						border: (BlBorder paint: (Color orange alpha: 0.8) width: 2);
+						toHead: (BlArrowheadSimpleArrow new
+							border: (BlBorder builder paint: (Color orange alpha: 0.8); width: 4; build)) ];
+				connectFrom: [ :class | class ]
+					toAll: [ :class | 
+					class attributes
+						select: [ :each | each declaredType notNil ]
+						thenCollect: [ :each | each declaredType ] ].
+			m layout horizontalDominanceTree
+				levelDistance: 50;
+				nodeDistance: 10 ]
 ]
 
 { #category : #accessing }
