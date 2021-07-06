@@ -482,10 +482,14 @@ GtRubyImporter >> createStubClassesFromTables [
 	tables
 		do: [ :each | 
 			each rubyActiveRecordClass isNil
-				ifTrue: [ | rubyClassName class |
+				ifTrue: [ | rubyClassName class inheritance |
 					rubyClassName := self rubyClassNameFrom: each name.
 					class := self ensureClassNamed: rubyClassName.
+					inheritance := FAMIXInheritance new 
+						superclass: (self ensureActiveRecordBaseClass);
+						subclass: class.
 					class isStub: true.
+					mooseModel add: inheritance.
 					each rubyActiveRecordClass: class.
 					self createActiveRecordLinkBetweenClass: class andTable: each ] ]
 ]
@@ -539,6 +543,12 @@ GtRubyImporter >> createVisitorIn: aModel [
 				classVariableNames: ''''
 				poolDictionaries: ''''
 				package: ''GToolkit4Ruby'''
+]
+
+{ #category : #importing }
+GtRubyImporter >> ensureActiveRecordBaseClass [
+	^ mooseModel allClasses 
+		detect: [ :each | each isActiveRecordBase ]
 ]
 
 { #category : #importing }
@@ -700,6 +710,15 @@ GtRubyImporter >> importTables: aMysqlFileNode [
 	scopeStack := OrderedCollection new.
 	self accept: aMysqlFileNode.
 	self createForeignKeys
+]
+
+{ #category : #accessing }
+GtRubyImporter >> inferDeclaredTypes [
+	tables do: [:aTable | 
+		aTable attributes do: [ :aColumn |
+			(aColumn foreignKey notNil and: [ aColumn rubyActiveRecordAttribute notNil ])
+				ifTrue: [ 
+					aColumn rubyActiveRecordAttribute declaredType: aColumn foreignKey rubyActiveRecordClass ] ]]
 ]
 
 { #category : #'generating ast node classes' }
