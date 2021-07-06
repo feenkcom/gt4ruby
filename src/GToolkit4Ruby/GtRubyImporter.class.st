@@ -271,6 +271,20 @@ GtRubyImporter >> containerScope [
 ]
 
 { #category : #parsing }
+GtRubyImporter >> createASTCacheIn: aDirectory [
+	| scriptDirectory command |
+	scriptDirectory := GtResourcesUtility default
+		resourceAtPath: Path * 'feenkcom/gt4ruby/ruby/'.
+	command := OSSUnixSubprocess new
+		shellCommand:
+			'ruby "' , scriptDirectory fullName , '/write-ast-dir.rb" "'
+				, aDirectory asFileReference fullName , '"';
+		workingDirectory: scriptDirectory fullName.
+	command run.
+	command waitForExit
+]
+
+{ #category : #parsing }
 GtRubyImporter >> createASTFrom: aLiteralArray [
 	(self isNodeLiteral: aLiteralArray)
 		ifTrue: [ ^ self createNodeFrom: aLiteralArray ].
