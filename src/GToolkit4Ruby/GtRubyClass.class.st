@@ -49,7 +49,7 @@ GtRubyClass >> gtAllConnectionsToDeclaredTypesFor: aView [
 						curvatureFraction: 0.3;
 						border: (BlBorder paint: (Color orange alpha: 0.8) width: 2);
 						toHead: (BlArrowheadSimpleArrow new
-							border: (BlBorder builder paint: (Color orange alpha: 0.8); width: 4; build)) ];
+							border: (BlBorder builder paint: (Color orange alpha: 0.8); width: 2; build)) ];
 				connectFrom: [ :class | class ]
 					toAll: [ :class | 
 					class attributes
@@ -82,6 +82,13 @@ GtRubyClass >> gtDirectConnectionsToDeclaredTypesFor: aView [
 			m edges
 				fromRightCenter;
 				toLeftCenter;
+				stencil: [:class | 
+					BlParabollaArcElement new 
+						zIndex: 0;
+						curvatureFraction: 0.3;
+						border: (BlBorder paint: (Color orange alpha: 0.8) width: 2);
+						toHead: (BlArrowheadSimpleArrow new
+							border: (BlBorder builder paint: (Color orange alpha: 0.8); width: 2; build)) ];
 				connect: self attributes
 				from: [ :x | self ]
 				to: [ :a | a declaredType ].

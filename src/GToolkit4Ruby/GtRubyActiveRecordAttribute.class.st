@@ -8,6 +8,14 @@ Class {
 }
 
 { #category : #accessing }
+GtRubyActiveRecordAttribute >> gtSourceFor: aView [
+	<gtView>
+	^ self tableColumn notNil 
+		ifFalse: [ aView empty ]
+		ifTrue: [ self tableColumn gtSourceFor: aView ]
+]
+
+{ #category : #accessing }
 GtRubyActiveRecordAttribute >> tableColumn [
 	<MSEProperty: #tableColumn type: #GtTableColumn>
 	^ tableColumn

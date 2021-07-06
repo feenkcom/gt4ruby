@@ -24,6 +24,13 @@ GtTableColumn >> foreignKey: aTable [
 ]
 
 { #category : #accessing }
+GtTableColumn >> gtSourceFor: aView [
+	^ self gtASTNode notNil 
+		ifFalse: [ aView empty ]
+		ifTrue: [ self gtASTNode gtSourceFor: aView ]
+]
+
+{ #category : #accessing }
 GtTableColumn >> rubyActiveRecordAttribute [
 	<MSEProperty: #rubyActiveRecordAttribute type: #GtRubyActiveRecordAttribute>
 	^ rubyActiveRecordAttribute
