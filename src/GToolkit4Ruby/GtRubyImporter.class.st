@@ -748,6 +748,29 @@ GtRubyImporter >> model: aModel [
 ]
 
 { #category : #parsing }
+GtRubyImporter >> parseCachedDirectory: aString [
+	self baseDirectory: aString asFileReference.
+	^ (aString asFileReference allFiles
+		select: [ :e | e extension = 'ast' ])
+		collect: [ :each | self parseCachedFile: each ]
+]
+
+{ #category : #parsing }
+GtRubyImporter >> parseCachedFile: aFileReference [
+	| node rubyName |
+	node := [ | literalAST |
+	literalAST := (RBParser parseExpression: aFileReference contents)
+		value.
+	self createASTFrom: literalAST ]
+		on: Error
+		do: [ :ex | ex return: SmaCCErrorNode new ].
+	rubyName := aFileReference fullName allButLast: 4.
+	node completeSource: rubyName asFileReference contents.
+	node filename: rubyName.
+	^ node
+]
+
+{ #category : #parsing }
 GtRubyImporter >> parseDirectory: aString [
 	self baseDirectory: aString asFileReference.
 	^ (aString asFileReference allFiles
