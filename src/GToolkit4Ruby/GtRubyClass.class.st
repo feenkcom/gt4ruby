@@ -110,6 +110,22 @@ GtRubyClass >> gtHierarchyFor: aView [
 ]
 
 { #category : #accessing }
+GtRubyClass >> gtSourceFor: aView [
+	^ self gtASTNode notNil 
+		ifFalse: [ aView empty ]
+		ifTrue: [ self gtASTNode gtSourceFor: aView ]
+]
+
+{ #category : #accessing }
+GtRubyClass >> gtTableSourceFor: aView [
+	<gtView>
+	activeRecordTable ifNil: [ ^ aView empty].
+	^ (activeRecordTable gtASTNode gtSourceFor: aView)
+		title: 'Table source';
+		priority: 40
+]
+
+{ #category : #accessing }
 GtRubyClass >> isActiveRecordBase [
 	^ self mooseName = #'ActiveRecord::Base'
 ]
