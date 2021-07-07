@@ -11,7 +11,9 @@ Class {
 		'folders',
 		'classesAndModules',
 		'superclasses',
-		'tables'
+		'tables',
+		'insideSchemaFile',
+		'currentTable'
 	],
 	#category : #'GToolkit4Ruby-Importer'
 }
@@ -753,7 +755,8 @@ GtRubyImporter >> initialize [
 	folders := Dictionary new.
 	files := Dictionary new.
 	classesAndModules := Dictionary new.
-	tables := Dictionary new
+	tables := Dictionary new.
+	insideSchemaFile := false
 ]
 
 { #category : #testing }
@@ -940,6 +943,52 @@ GtRubyImporter >> updateVariableTypes: variableTypes from: aLiteralArray in: aMo
 ]
 
 { #category : #visiting }
+GtRubyImporter >> visitCall: aNode [
+	insideSchemaFile
+		ifTrue: [ | name |
+			name := aNode name source.
+			name = 'create_table'
+				ifTrue: [ | tableName |
+					tableName := self
+						stripQuotesFrom: aNode arguments arguments first source.
+					currentTable := GtTable new name: tableName.
+					mooseModel add: currentTable.
+					self storeAST: aNode into: currentTable.
+					currentFile addEntity: currentTable.
+					self addSourceFor: aNode to: currentTable.
+					tables at: tableName put: currentTable.
+					aNode arguments arguments
+						do: [ :each | 
+							(each isKindOf: RubyAssociationArgumentsNode)
+								ifTrue: [ each args
+										do: [ :assoc | 
+											(assoc key source = 'id:' and: [ assoc value source ~= 'false' ])
+												ifTrue: [ | column |
+													column := GtTableColumn new name: 'id'.
+													mooseModel add: column.
+													self storeAST: assoc into: column.
+													currentFile addEntity: column.
+													self addSourceFor: assoc to: column.
+													currentTable addAttribute: column ] ] ] ].
+					self visitProgram: aNode.
+					currentTable := nil.
+					^ self ]
+				ifFalse: [ (currentTable notNil
+						and:
+							[ #('binary' 'boolean' 'date' 'datetime' 'decimal' 'float' 'integer' 'primary_key' 'string' 'text' 'time' 'timestamp')
+								includes: name ])
+						ifTrue: [ | column |
+							column := GtTableColumn new
+								name: (self stripQuotesFrom: aNode arguments arguments first source).
+							mooseModel add: column.
+							self storeAST: aNode into: column.
+							currentFile addEntity: column.
+							self addSourceFor: aNode to: column.
+							currentTable addAttribute: column ] ] ].
+	^ self visitProgram: aNode
+]
+
+{ #category : #visiting }
 GtRubyImporter >> visitClass: aNode [
 	| class |
 	class := self ensureClassNamed: (self fullNameFor: aNode name source).
@@ -986,6 +1035,7 @@ GtRubyImporter >> visitFile: aNode [
 	scopeStack := OrderedCollection new.
 	currentFile := self ensureFileNamed: aNode filename asFileReference.
 	self storeAST: aNode into: currentFile.
+	insideSchemaFile := aNode filename endsWith: '/db/schema.rb'.
 	^ self visitSmaCCParseNode: aNode
 ]
 
