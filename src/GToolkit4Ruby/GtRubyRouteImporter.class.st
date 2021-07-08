@@ -6,10 +6,23 @@ Class {
 	#instVars : [
 		'importer',
 		'insideDraw',
-		'namespace'
+		'namespace',
+		'resourceNames'
 	],
 	#category : #'GToolkit4Ruby-Importer'
 }
+
+{ #category : #visiting }
+GtRubyRouteImporter >> addRouteFrom: aNode to: method named: methodName [
+	| route |
+	route := GtRubyRoute new.
+	importer model add: route.
+	importer storeAST: aNode into: route.
+	importer addSourceFor: aNode to: route.
+	importer currentFile addEntity: route.
+	route methodName: methodName.
+	route method: method
+]
 
 { #category : #visiting }
 GtRubyRouteImporter >> associativeArgumentsOf: aNode do: aBlock [
@@ -47,7 +60,8 @@ GtRubyRouteImporter >> importer: anObject [
 { #category : #initialization }
 GtRubyRouteImporter >> initialize [
 	super initialize.
-	namespace := ''
+	namespace := ''.
+	resourceNames := #()
 ]
 
 { #category : #accessing }
@@ -100,13 +114,26 @@ GtRubyRouteImporter >> processNamespace: aNode [
 
 { #category : #visiting }
 GtRubyRouteImporter >> processNonResourceRoute: aNode [
-	| route method |
-	route := GtRubyRoute new.
-	importer model add: route.
-	importer storeAST: aNode into: route.
-	importer addSourceFor: aNode to: route.
-	importer currentFile addEntity: route.
 	(self lookupNonResourceRouteNameFrom: aNode)
+		ifNil: [ resourceNames isEmpty
+				ifTrue: [ self addRouteFrom: aNode to: nil named: '?' ]
+				ifFalse: [ resourceNames
+						do: [ :each | 
+							| className |
+							className := (importer
+								rubyClassNameFrom: each
+								removePluralization: false) , 'Controller'.
+							self
+								normalArgumentsOf: aNode
+								do: [ :arg | 
+									| name |
+									name := arg source.
+									name first = $:
+										ifTrue: [ name := name allButFirst.
+											self
+												addRouteFrom: aNode
+												to: (self findMethod: name inClass: className)
+												named: name ] ] ] ] ]
 		ifNotNil: [ :aString | 
 			| className methodName index |
 			index := aString indexOf: $#.
@@ -114,36 +141,37 @@ GtRubyRouteImporter >> processNonResourceRoute: aNode [
 				rubyClassNameFrom: (aString first: index - 1)
 				removePluralization: false) , 'Controller'.
 			methodName := aString allButFirst: index.
-			route methodName: methodName.
-			method := self findMethod: methodName inClass: className ].
-	route method: method
+			self
+				addRouteFrom: aNode
+				to: (self findMethod: methodName inClass: className)
+				named: methodName ]
 ]
 
 { #category : #visiting }
 GtRubyRouteImporter >> processResourceRoute: aNode [
-	| classNames methods |
-	classNames := Set new.
+	| methods |
+	resourceNames := Set new.
 	methods := #('index' 'new' 'create' 'show' 'edit' 'update' 'destroy')
 		asSet.
 	self
 		normalArgumentsOf: aNode
 		do: [ :arg | 
 			(arg isKindOf: RubySymbolNode)
-				ifTrue: [ classNames add: arg source allButFirst ] ].
+				ifTrue: [ resourceNames add: arg source allButFirst ] ].
 	self
 		associativeArgumentsOf: aNode
 		do: [ :arg | 
 			| name |
 			name := arg key source.
 			name = 'controller:'
-				ifTrue:
-					[ classNames := Set with: (importer stripQuotesFrom: arg value source) ].
+				ifTrue: [ resourceNames := Set
+						with: (importer stripQuotesFrom: arg value source) ].
 			name = 'only:'
 				ifTrue: [ methods := self symbolsIn: arg value ].
 			name = 'except:'
 				ifTrue: [ (self symbolsIn: arg value)
 						do: [ :each | methods remove: each ifAbsent: [  ] ] ] ].
-	classNames
+	resourceNames
 		do: [ :className | 
 			methods
 				do: [ :methodName | 
@@ -192,9 +220,10 @@ GtRubyRouteImporter >> symbolsIn: aNode [
 
 { #category : #visiting }
 GtRubyRouteImporter >> visitCall: aNode [
-	| name originalDraw originalNamespace |
+	| name originalDraw originalNamespace originalResourceNames |
 	originalDraw := insideDraw.
 	originalNamespace := namespace.
+	originalResourceNames := resourceNames.
 	[ name := aNode name source.
 	insideDraw
 		ifTrue: [ (#('get' 'post' 'patch' 'put' 'delete' 'root') includes: name)
@@ -210,5 +239,6 @@ GtRubyRouteImporter >> visitCall: aNode [
 		ifFalse: [ insideDraw := name = 'draw' ].
 	self visitProgram: aNode ]
 		ensure: [ insideDraw := originalDraw.
-			namespace := originalNamespace ]
+			namespace := originalNamespace.
+			resourceNames := originalResourceNames ]
 ]

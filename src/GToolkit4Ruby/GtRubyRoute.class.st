@@ -18,6 +18,13 @@ GtRubyRoute >> gtDisplayOn: aStream [
 		ifNotNil: [ :m | m gtDisplayOn: aStream ]
 ]
 
+{ #category : #ui }
+GtRubyRoute >> gtSourceFor: aView [
+	^ self gtASTNode notNil
+		ifFalse: [ super gtSourceFor: aView ]
+		ifTrue: [ self gtASTNode gtSourceFor: aView ]
+]
+
 { #category : #accessing }
 GtRubyRoute >> method [
 	<MSEProperty: #method type: #FAMIXMethod opposite: #routes>
