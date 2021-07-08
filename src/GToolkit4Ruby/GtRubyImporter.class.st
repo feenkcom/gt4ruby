@@ -14,8 +14,7 @@ Class {
 		'tables',
 		'insideSchemaFile',
 		'currentTable',
-		'insideRoutes',
-		'routes'
+		'routeFiles'
 	],
 	#category : #'GToolkit4Ruby-Importer'
 }
@@ -116,6 +115,11 @@ GtRubyImporter >> classScope [
 		((scopeStack at: i) isKindOf: GtRubyClass)
 			ifTrue: [ ^ scopeStack at: i ] ].
 	^ nil
+]
+
+{ #category : #accessing }
+GtRubyImporter >> classesAndModules [
+	^ classesAndModules
 ]
 
 { #category : #'generating ast node classes' }
@@ -483,17 +487,15 @@ GtRubyImporter >> createNodeFrom: aLiteralArray [
 
 { #category : #importing }
 GtRubyImporter >> createRoutes [
-	routes
-		do: [ :each | 
-			| route |
-			route := GtRubyRoute new.
-			mooseModel add: route.
-			currentFile := each first topParent attributeNamed: #entity.
-			self storeAST: each first into: route.
-			self addSourceFor: each first to: route.
-			currentFile addEntity: route.
-			(self lookupMethodForRoute: each last from: each first)
-				ifNotNil: [ :method | route method: method ] ]
+	| first |
+	first := true.
+	[ routeFiles notEmpty ]
+		whileTrue: [ currentFile := routeFiles first attributeNamed: #entity.
+			GtRubyRouteImporter new
+				importer: self;
+				insideDraw: first not;
+				accept: routeFiles removeFirst.
+			first := false ]
 ]
 
 { #category : #importing }
@@ -564,6 +566,11 @@ GtRubyImporter >> createVisitorIn: aModel [
 				classVariableNames: ''''
 				poolDictionaries: ''''
 				package: ''GToolkit4Ruby'''
+]
+
+{ #category : #accessing }
+GtRubyImporter >> currentFile [
+	^ currentFile
 ]
 
 { #category : #importing }
@@ -733,7 +740,7 @@ GtRubyImporter >> importTables: aMysqlFileNode [
 	self createForeignKeys
 ]
 
-{ #category : #accessing }
+{ #category : #importing }
 GtRubyImporter >> inferDeclaredTypes [
 	tables do: [:aTable | 
 		aTable attributes do: [ :aColumn |
@@ -776,7 +783,7 @@ GtRubyImporter >> initialize [
 	classesAndModules := Dictionary new.
 	tables := Dictionary new.
 	insideSchemaFile := false.
-	routes := OrderedCollection new
+	routeFiles := OrderedCollection new
 ]
 
 { #category : #testing }
@@ -819,25 +826,6 @@ GtRubyImporter >> loadASTAsLiteral: aFilename [
 	stream nextPutAll: command stdoutStream upToEndOfFile.
 	command closeAndCleanStreams.
 	^ (RBParser parseExpression: stream contents) value
-]
-
-{ #category : #importing }
-GtRubyImporter >> lookupMethodForRoute: aString from: aNode [
-	| className methodName index namespaceName |
-	index := aString indexOf: $#.
-	className := (self
-		rubyClassNameFrom: (aString first: index - 1)
-		removePluralization: false) , 'Controller'.
-	methodName := aString allButFirst: index.
-	namespaceName := self namespaceFrom: aNode.
-	^ classesAndModules
-		at: namespaceName , className
-		ifPresent: [ :cls | cls lookUp: methodName , '()' ]
-		ifAbsent: [ classesAndModules
-				keysAndValuesDo: [ :key :value | 
-					(key = className or: [ key endsWith: '::' , className ])
-						ifTrue: [ (value lookUp: methodName , '()') ifNotNil: [ :m | ^ m ] ] ].
-			nil ]
 ]
 
 { #category : #importing }
@@ -919,27 +907,6 @@ GtRubyImporter >> parseFile: aFileReference [
 ]
 
 { #category : #importing }
-GtRubyImporter >> processRouteCall: aNode [
-	| name |
-	name := aNode name source.
-	(#('get' 'post') includes: name)
-		ifTrue: [ | source |
-			aNode arguments arguments
-				do: [ :arg | 
-					(arg isKindOf: RubyAssociationArgumentsNode)
-						ifTrue: [ arg args
-								do: [ :each | 
-									(each value isKindOf: RubyStringNode)
-										ifTrue: [ source := self stripQuotesFrom: each value source.
-											(source includes: $#)
-												ifTrue: [ routes
-														add:
-															{aNode.
-															source} ] ] ] ] ] ].
-	^ self visitProgram: aNode
-]
-
-{ #category : #importing }
 GtRubyImporter >> processSchemaCall: aNode [
 	| name |
 	name := aNode name source.
@@ -958,7 +925,7 @@ GtRubyImporter >> processSchemaCall: aNode [
 					(each isKindOf: RubyAssociationArgumentsNode)
 						ifTrue: [ each args
 								do: [ :assoc | 
-									(assoc key source = 'id:' and: [ assoc value source ~= 'false' ])
+									assoc key source = 'id:'
 										ifTrue: [ | column |
 											column := GtTableColumn new name: 'id'.
 											mooseModel add: column.
@@ -995,12 +962,15 @@ GtRubyImporter >> rubyClassNameFrom: aString removePluralization: aBoolean [
 				do: [ :char | 
 					char = $_
 						ifTrue: [ capitalize := true ]
-						ifFalse: [ stream
-								nextPut:
-									(capitalize
-										ifTrue: [ char asUppercase ]
-										ifFalse: [ char ]).
-							capitalize := false ] ] ].
+						ifFalse: [ char = $/
+								ifTrue: [ stream nextPutAll: '::'.
+									capitalize := true ]
+								ifFalse: [ stream
+										nextPut:
+											(capitalize
+												ifTrue: [ char asUppercase ]
+												ifFalse: [ char ]).
+									capitalize := false ] ] ] ].
 	aBoolean
 		ifTrue: [ (name endsWith: 'ies')
 				ifTrue: [ name := (name allButLast: 3) , 'y' ].
@@ -1068,8 +1038,6 @@ GtRubyImporter >> updateVariableTypes: variableTypes from: aLiteralArray in: aMo
 GtRubyImporter >> visitCall: aNode [
 	insideSchemaFile
 		ifTrue: [ ^ self processSchemaCall: aNode ].
-	insideRoutes
-		ifTrue: [ ^ self processRouteCall: aNode ].
 	^ self visitProgram: aNode
 ]
 
@@ -1122,7 +1090,8 @@ GtRubyImporter >> visitFile: aNode [
 	aNode attributeNamed: #entity put: currentFile.
 	self storeAST: aNode into: currentFile.
 	insideSchemaFile := aNode filename endsWith: '/db/schema.rb'.
-	insideRoutes := aNode filename endsWith: '/config/routes.rb'.
+	(aNode filename endsWith: '/config/routes.rb')
+		ifTrue: [ routeFiles add: aNode ].
 	^ self visitSmaCCParseNode: aNode
 ]
 
