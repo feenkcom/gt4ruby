@@ -108,11 +108,11 @@ GtRubyClass >> gtHierarchyFor: aView [
 						border: (BlBorder paint: (self =c ifTrue: [ Color blue ] ifFalse: [Color black alpha: 0.5]) width: 2);
 						width: (c numberOfAttributes max: 5);
 						height: (c numberOfMethods max: 5) ];
-				with: (self withSubclassHierarchy, self superclassHierarchy).
+				with: (self withSubclassHierarchy, self superclassHierarchy) asSet.
 			mondrian edges
 				fromCenterBottom;
 				toCenterTop;
-				connectFrom: #superclass.
+				connectFromAll: [:each | each directSuperclasses].
 			mondrian layout custom: GtGraphTreeLayout new ]
 ]
 
