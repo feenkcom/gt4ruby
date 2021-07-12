@@ -416,6 +416,19 @@ GtRubyImporter >> createCommentIntervalsFrom: aLiteralArray [
 ]
 
 { #category : #importing }
+GtRubyImporter >> createControllerStubMethods [
+	(self ensureClassNamed: 'ActionController::Base')
+		ifNotNil: [ :sprClass | 
+			#('index' 'new' 'create' 'show' 'edit' 'update' 'destroy')
+				do: [ :name | 
+					| method |
+					method := self ensureMethodNamed: name.
+					method parentType: sprClass.
+					method isStub: true.
+					method signature: name , '()' ] ]
+]
+
+{ #category : #importing }
 GtRubyImporter >> createForeignKeys [
 	tables
 		do: [ :each | 
@@ -488,6 +501,7 @@ GtRubyImporter >> createNodeFrom: aLiteralArray [
 { #category : #importing }
 GtRubyImporter >> createRoutes [
 	| first |
+	self createControllerStubMethods.
 	first := true.
 	[ routeFiles notEmpty ]
 		whileTrue: [ currentFile := routeFiles first attributeNamed: #entity.
@@ -995,7 +1009,11 @@ GtRubyImporter >> storeAST: aNode into: anEntity [
 
 { #category : #importing }
 GtRubyImporter >> stripQuotesFrom: aString [
-	^ aString copyFrom: 2 to: aString size - 1
+	((aString beginsWith: '''') or: [ aString beginsWith: '"' ])
+		ifTrue: [ ^ aString copyFrom: 2 to: aString size - 1 ].
+	(aString beginsWith: ':')
+		ifTrue: [ ^ aString allButFirst ].
+	^ aString
 ]
 
 { #category : #'generating ast node classes' }

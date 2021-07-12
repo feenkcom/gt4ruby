@@ -7,13 +7,38 @@ Class {
 		'importer',
 		'insideDraw',
 		'namespace',
-		'resourceNames'
+		'resourceNames',
+		'paths'
 	],
 	#category : #'GToolkit4Ruby-Importer'
 }
 
 { #category : #visiting }
-GtRubyRouteImporter >> addRouteFrom: aNode to: method named: methodName [
+GtRubyRouteImporter >> addPathFrom: aNode [
+	self
+		normalArgumentsOf: aNode
+		do:
+			[ :each | ^ self addPathPart: (importer stripQuotesFrom: each source) ].
+	self
+		associativeArgumentsOf: aNode
+		do: [ :each | 
+			each arrow notNil
+				ifTrue: [ ^ self addPathPart: (importer stripQuotesFrom: each key source) ] ]
+]
+
+{ #category : #visiting }
+GtRubyRouteImporter >> addPathPart: ns [
+	paths := paths
+		collect: [ :each | 
+			((each endsWith: '/') or: [ ns beginsWith: '/' ])
+				ifTrue: [ each last = ns first
+						ifTrue: [ each allButLast , ns ]
+						ifFalse: [ each , ns ] ]
+				ifFalse: [ each , '/' , ns ] ]
+]
+
+{ #category : #visiting }
+GtRubyRouteImporter >> addRouteFrom: aNode to: method named: methodName verb: verbString [
 	| route |
 	route := GtRubyRoute new.
 	importer model add: route.
@@ -21,7 +46,10 @@ GtRubyRouteImporter >> addRouteFrom: aNode to: method named: methodName [
 	importer addSourceFor: aNode to: route.
 	importer currentFile addEntity: route.
 	route methodName: methodName.
-	route method: method
+	route method: method.
+	route verb: verbString.
+	route paths: paths.
+	^ route
 ]
 
 { #category : #visiting }
@@ -38,7 +66,8 @@ GtRubyRouteImporter >> findMethod: methodName inClass: className [
 		at:
 			((className includes: $:)
 				ifTrue: [ className ]
-				ifFalse: [ namespace , className ])
+				ifFalse: [ (importer rubyClassNameFrom: namespace removePluralization: false)
+						, '::' , className ])
 		ifPresent: [ :cls | cls lookUp: methodName , '()' ]
 		ifAbsent: [ importer classesAndModules
 				keysAndValuesDo: [ :key :value | 
@@ -61,7 +90,8 @@ GtRubyRouteImporter >> importer: anObject [
 GtRubyRouteImporter >> initialize [
 	super initialize.
 	namespace := ''.
-	resourceNames := #()
+	resourceNames := #().
+	paths := Set with: '/'
 ]
 
 { #category : #accessing }
@@ -107,6 +137,7 @@ GtRubyRouteImporter >> processNamespace: aNode [
 	ns := name first = $:
 		ifTrue: [ name allButFirst ]
 		ifFalse: [ importer stripQuotesFrom: name ].
+	self addPathPart: ns.
 	namespace := namespace isEmpty
 		ifTrue: [ ns ]
 		ifFalse: [ namespace , '::' , ns ]
@@ -114,14 +145,24 @@ GtRubyRouteImporter >> processNamespace: aNode [
 
 { #category : #visiting }
 GtRubyRouteImporter >> processNonResourceRoute: aNode [
+	| callName verb |
+	callName := aNode name source.
+	callName = 'root'
+		ifTrue: [ verb := 'GET' ]
+		ifFalse: [ self addPathFrom: aNode.
+			verb := callName asUppercase ].
 	(self lookupNonResourceRouteNameFrom: aNode)
 		ifNil: [ resourceNames isEmpty
-				ifTrue: [ self addRouteFrom: aNode to: nil named: '?' ]
+				ifTrue: [ self
+						addRouteFrom: aNode
+						to: nil
+						named: '?'
+						verb: verb ]
 				ifFalse: [ resourceNames
 						do: [ :each | 
 							| className |
 							className := (importer
-								rubyClassNameFrom: each
+								rubyClassNameFrom: each first
 								removePluralization: false) , 'Controller'.
 							self
 								normalArgumentsOf: aNode
@@ -133,7 +174,8 @@ GtRubyRouteImporter >> processNonResourceRoute: aNode [
 											self
 												addRouteFrom: aNode
 												to: (self findMethod: name inClass: className)
-												named: name ] ] ] ] ]
+												named: name
+												verb: verb ] ] ] ] ]
 		ifNotNil: [ :aString | 
 			| className methodName index |
 			index := aString indexOf: $#.
@@ -144,53 +186,87 @@ GtRubyRouteImporter >> processNonResourceRoute: aNode [
 			self
 				addRouteFrom: aNode
 				to: (self findMethod: methodName inClass: className)
-				named: methodName ]
+				named: methodName
+				verb: verb ]
 ]
 
 { #category : #visiting }
 GtRubyRouteImporter >> processResourceRoute: aNode [
-	| methods |
+	| actions methodNames isResources |
 	resourceNames := Set new.
-	methods := #('index' 'new' 'create' 'show' 'edit' 'update' 'destroy')
-		asSet.
+	actions := #(#('index' 'GET' '') #('new' 'GET' '/new') #('create' 'POST' '') #('show' 'GET' '/<1s>') #('edit' 'GET' '/<1s>/edit') #('update' 'PUT' '/<1s>') #('update' 'PATCH' '/<1s>') #('destroy' 'DELETE' '/<1s>')).
+	isResources := aNode name source = 'resources'.
+	isResources
+		ifFalse: [ actions := actions allButFirst ].
 	self
 		normalArgumentsOf: aNode
 		do: [ :arg | 
+			| name |
+			name := arg source allButFirst.
 			(arg isKindOf: RubySymbolNode)
-				ifTrue: [ resourceNames add: arg source allButFirst ] ].
+				ifTrue: [ resourceNames
+						add:
+							{name.
+							name.
+							'?'} ] ].
 	self
 		associativeArgumentsOf: aNode
 		do: [ :arg | 
 			| name |
 			name := arg key source.
 			name = 'controller:'
-				ifTrue: [ resourceNames := Set
-						with: (importer stripQuotesFrom: arg value source) ].
+				ifTrue: [ resourceNames
+						do:
+							[ :each | each at: 1 put: (importer stripQuotesFrom: arg value source) ] ].
+			name = 'path:'
+				ifTrue: [ resourceNames
+						do:
+							[ :each | each at: 2 put: (importer stripQuotesFrom: arg value source) ] ].
 			name = 'only:'
-				ifTrue: [ methods := self symbolsIn: arg value ].
+				ifTrue: [ methodNames := self symbolsIn: arg value.
+					actions := actions
+						select: [ :each | methodNames includes: each first ] ].
 			name = 'except:'
-				ifTrue: [ (self symbolsIn: arg value)
-						do: [ :each | methods remove: each ifAbsent: [  ] ] ] ].
+				ifTrue: [ methodNames := self symbolsIn: arg value.
+					actions := actions
+						reject: [ :each | methodNames includes: each first ] ] ].
 	resourceNames
-		do: [ :className | 
-			methods
-				do: [ :methodName | 
-					| route rubyClassName |
+		do: [ :resource | 
+			| currentPaths |
+			currentPaths := paths.
+			self addPathPart: resource second.
+			actions
+				do: [ :action | 
+					| rubyClassName actionPaths |
+					actionPaths := paths.
+					isResources
+						ifTrue: [ self addPathPart: (action third expandMacrosWith: resource third) ].
 					rubyClassName := (importer
-						rubyClassNameFrom: className
+						rubyClassNameFrom: resource first
 						removePluralization: false) , 'Controller'.
-					route := GtRubyRoute new.
-					importer model add: route.
-					importer storeAST: aNode into: route.
-					importer addSourceFor: aNode to: route.
-					importer currentFile addEntity: route.
-					route methodName: methodName.
-					(self findMethod: methodName inClass: rubyClassName)
-						ifNotNil: [ :method | route method: method ] ] ]
+					self
+						addRouteFrom: aNode
+						to:
+							((self findMethod: action first inClass: rubyClassName)
+								ifNil: [ self
+										findMethod: action first
+										inClass:
+											(SmaCCVariableDefinition
+												pluralNameFor:
+													(importer rubyClassNameFrom: resource first removePluralization: false))
+												, 'Controller' ])
+						named: action first
+						verb: action second.
+					paths := actionPaths ].
+			paths := currentPaths ].
+	self addPathPart: resourceNames anyOne second.
+	isResources
+		ifTrue: [ self addPathPart: resourceNames anyOne third ]
 ]
 
 { #category : #visiting }
 GtRubyRouteImporter >> processScope: aNode [
+	| path |
 	self
 		associativeArgumentsOf: aNode
 		do: [ :arg | 
@@ -202,7 +278,17 @@ GtRubyRouteImporter >> processScope: aNode [
 						ifFalse: [ importer stripQuotesFrom: name ].
 					namespace := namespace isEmpty
 						ifTrue: [ ns ]
-						ifFalse: [ namespace , '::' , ns ] ] ]
+						ifFalse: [ namespace , '::' , ns ] ] ].
+	self
+		normalArgumentsOf: aNode
+		do: [ :arg | 
+			(arg isKindOf: RubyStringNode)
+				ifTrue: [ path := importer stripQuotesFrom: arg source ]
+				ifFalse: [ path := arg source ] ].
+	path notNil
+		ifTrue: [ (path beginsWith: '/')
+				ifTrue: [ paths := Set with: path ]
+				ifFalse: [ self addPathPart: path ] ]
 ]
 
 { #category : #visiting }
@@ -220,10 +306,11 @@ GtRubyRouteImporter >> symbolsIn: aNode [
 
 { #category : #visiting }
 GtRubyRouteImporter >> visitCall: aNode [
-	| name originalDraw originalNamespace originalResourceNames |
+	| name originalDraw originalNamespace originalResourceNames originalPaths |
 	originalDraw := insideDraw.
 	originalNamespace := namespace.
 	originalResourceNames := resourceNames.
+	originalPaths := paths.
 	[ name := aNode name source.
 	insideDraw
 		ifTrue: [ (#('get' 'post' 'patch' 'put' 'delete' 'root') includes: name)
@@ -240,5 +327,6 @@ GtRubyRouteImporter >> visitCall: aNode [
 	self visitProgram: aNode ]
 		ensure: [ insideDraw := originalDraw.
 			namespace := originalNamespace.
-			resourceNames := originalResourceNames ]
+			resourceNames := originalResourceNames.
+			paths := originalPaths ]
 ]
