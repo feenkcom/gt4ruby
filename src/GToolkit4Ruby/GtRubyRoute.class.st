@@ -11,6 +11,15 @@ Class {
 }
 
 { #category : #accessing }
+GtRubyRoute >> gtControllerSourceFor: aView [
+	<gtView>
+	
+	^ self method 
+		ifNil: [ aView empty]
+		ifNotNil: [ :m | (m gtSourceFor: aView) title: 'Controller source' ]
+]
+
+{ #category : #accessing }
 GtRubyRoute >> gtDisplayOn: aStream [
 	verb notNil
 		ifTrue: [ aStream
