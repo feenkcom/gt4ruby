@@ -33,17 +33,18 @@ GtRubyRouteImporter >> addPathPart: ns [
 
 { #category : #visiting }
 GtRubyRouteImporter >> addRouteFrom: aNode to: method named: methodName verb: verbString [
-	| route |
-	route := GtRubyRoute new.
-	importer model add: route.
-	importer storeAST: aNode into: route.
-	importer addSourceFor: aNode to: route.
-	importer currentFile addEntity: route.
-	route methodName: methodName.
-	route method: method.
-	route verb: verbString.
-	route paths: paths.
-	^ route
+	paths
+		do: [ :each | 
+			| route |
+			route := GtRubyRoute new.
+			importer model add: route.
+			importer storeAST: aNode into: route.
+			importer addSourceFor: aNode to: route.
+			importer currentFile addEntity: route.
+			route methodName: methodName.
+			route method: method.
+			route verb: verbString.
+			route path: each ]
 ]
 
 { #category : #visiting }

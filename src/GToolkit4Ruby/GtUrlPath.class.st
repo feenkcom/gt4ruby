@@ -91,7 +91,7 @@ GtUrlPath >> parent: urlPath [
 
 { #category : #accessing }
 GtUrlPath >> routes [
-	<MSEProperty: #routes type: #GtRubyRoute opposite: #paths>
+	<MSEProperty: #routes type: #GtRubyRoute opposite: #path>
 	<multivalued>
 	^ routes
 ]

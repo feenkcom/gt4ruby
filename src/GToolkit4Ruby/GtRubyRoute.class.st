@@ -5,7 +5,7 @@ Class {
 		'verb',
 		'method',
 		'methodName',
-		'paths'
+		'path'
 	],
 	#category : #'GToolkit4Ruby-Model'
 }
@@ -27,8 +27,8 @@ GtRubyRoute >> gtDisplayOn: aStream [
 	verb notNil
 		ifTrue: [ verb gtDisplayOn: aStream.
 			aStream space ].
-	(paths notNil and: [ paths notEmpty ])
-		ifTrue: [ paths anyOne gtDisplayOn: aStream.
+	path notNil
+		ifTrue: [ path gtDisplayOn: aStream.
 			aStream space ].
 	aStream nextPutAll: '-> '.
 	self method
@@ -44,12 +44,6 @@ GtRubyRoute >> gtSourceFor: aView [
 	^ self gtASTNode notNil
 		ifFalse: [ super gtSourceFor: aView ]
 		ifTrue: [ self gtASTNode gtSourceFor: aView ]
-]
-
-{ #category : #accessing }
-GtRubyRoute >> initialize [
-	super initialize.
-	paths := FMMultiMultivalueLink on: self opposite: #routes
 ]
 
 { #category : #accessing }
@@ -78,15 +72,18 @@ GtRubyRoute >> methodName: anObject [
 ]
 
 { #category : #accessing }
-GtRubyRoute >> paths [
-	<MSEProperty: #paths type: #GtUrlPath opposite: #routes>
-	<multivalued>
-	^ paths
+GtRubyRoute >> path [
+	<MSEProperty: #path type: #GtUrlPath opposite: #routes>
+	^ path
 ]
 
 { #category : #accessing }
-GtRubyRoute >> paths: aCollection [
-	paths value: aCollection
+GtRubyRoute >> path: urlPath [
+	path := FMMultivalueLink
+		on: self
+		update: #routes
+		from: self path
+		to: urlPath
 ]
 
 { #category : #accessing }
@@ -95,6 +92,6 @@ GtRubyRoute >> verb [
 ]
 
 { #category : #accessing }
-GtRubyRoute >> verb: anObject [
-	verb := anObject
+GtRubyRoute >> verb: aString [
+	verb := aString
 ]
