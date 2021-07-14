@@ -48,6 +48,21 @@ GtUrlPath >> gtDisplayOn: aStream [
 	name gtDisplayOn: aStream
 ]
 
+{ #category : #accessing }
+GtUrlPath >> gtPathTreeFor: aView [
+	<gtView>
+	^ aView columnedTree
+		title: 'Path tree';
+		items: [ {self} ];
+		children: #children;
+		column: 'Path' text: #gtDisplayString;
+		column: 'Routes' text: [ :each | 
+			', ' join: (each routes 
+				collect: [:route | route verb ]
+				thenSelect: [:verb | verb notNil ]) ];
+		expandOneLevel
+]
+
 { #category : #initialization }
 GtUrlPath >> initialize [
 	super initialize.
