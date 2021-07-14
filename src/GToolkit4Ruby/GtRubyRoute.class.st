@@ -13,10 +13,13 @@ Class {
 { #category : #accessing }
 GtRubyRoute >> gtControllerSourceFor: aView [
 	<gtView>
-	
-	^ self method 
-		ifNil: [ aView empty]
-		ifNotNil: [ :m | (m gtSourceFor: aView) title: 'Controller source' ]
+	^ self method
+		ifNil: [ aView empty ]
+		ifNotNil: [ :m | 
+			(m gtASTNode
+				ifNil: [ m gtSourceFor: aView ]
+				ifNotNil: [ :ast | ast gtSourceFor: aView ])
+				title: 'Controller source' ]
 ]
 
 { #category : #accessing }

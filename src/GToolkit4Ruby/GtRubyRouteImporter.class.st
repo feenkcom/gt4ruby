@@ -280,9 +280,7 @@ GtRubyRouteImporter >> processScope: aNode [
 				ifTrue: [ path := importer stripQuotesFrom: arg source ]
 				ifFalse: [ path := arg source ] ].
 	path notNil
-		ifTrue: [ (path beginsWith: '/')
-				ifTrue: [ paths := OrderedCollection with: importer rootUrl ]
-				ifFalse: [ self addPathPart: path ] ]
+		ifTrue: [ self addPathPart: path ]
 ]
 
 { #category : #visiting }
