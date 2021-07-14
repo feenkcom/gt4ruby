@@ -14,7 +14,8 @@ Class {
 		'tables',
 		'insideSchemaFile',
 		'currentTable',
-		'routeFiles'
+		'routeFiles',
+		'rootUrl'
 	],
 	#category : #'GToolkit4Ruby-Importer'
 }
@@ -499,17 +500,16 @@ GtRubyImporter >> createNodeFrom: aLiteralArray [
 ]
 
 { #category : #importing }
+GtRubyImporter >> createRootUrl [
+	rootUrl := GtUrlPath new.
+	mooseModel add: rootUrl
+]
+
+{ #category : #importing }
 GtRubyImporter >> createRoutes [
-	| first |
 	self createControllerStubMethods.
-	first := true.
-	[ routeFiles notEmpty ]
-		whileTrue: [ currentFile := routeFiles first attributeNamed: #entity.
-			GtRubyRouteImporter new
-				importer: self;
-				insideDraw: first not;
-				accept: routeFiles removeFirst.
-			first := false ]
+	self createRootUrl.
+	self processRouteFiles
 ]
 
 { #category : #importing }
@@ -921,6 +921,19 @@ GtRubyImporter >> parseFile: aFileReference [
 ]
 
 { #category : #importing }
+GtRubyImporter >> processRouteFiles [
+	| first |
+	first := true.
+	[ routeFiles notEmpty ]
+		whileTrue: [ currentFile := routeFiles first attributeNamed: #entity.
+			GtRubyRouteImporter new
+				importer: self;
+				insideDraw: first not;
+				accept: routeFiles removeFirst.
+			first := false ]
+]
+
+{ #category : #importing }
 GtRubyImporter >> processSchemaCall: aNode [
 	| name |
 	name := aNode name source.
@@ -963,6 +976,11 @@ GtRubyImporter >> processSchemaCall: aNode [
 					self addSourceFor: aNode to: column.
 					currentTable addAttribute: column ] ].
 	^ self visitProgram: aNode
+]
+
+{ #category : #accessing }
+GtRubyImporter >> rootUrl [
+	^ rootUrl
 ]
 
 { #category : #importing }

@@ -23,3 +23,9 @@ MooseAbstractGroup >> allTables [
 	<navigation: 'All database tables'>
 	^ self allWithType: GtTable
 ]
+
+{ #category : #'*GToolkit4Ruby' }
+MooseAbstractGroup >> allUrlPaths [
+	<navigation: 'All url paths'>
+	^ self allWithType: GtUrlPath
+]

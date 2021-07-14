@@ -28,13 +28,7 @@ GtRubyRouteImporter >> addPathFrom: aNode [
 
 { #category : #visiting }
 GtRubyRouteImporter >> addPathPart: ns [
-	paths := paths
-		collect: [ :each | 
-			((each endsWith: '/') or: [ ns beginsWith: '/' ])
-				ifTrue: [ each last = ns first
-						ifTrue: [ each allButLast , ns ]
-						ifFalse: [ each , ns ] ]
-				ifFalse: [ each , '/' , ns ] ]
+	paths := paths collect: [ :each | each / ns ]
 ]
 
 { #category : #visiting }
@@ -82,16 +76,16 @@ GtRubyRouteImporter >> importer [
 ]
 
 { #category : #accessing }
-GtRubyRouteImporter >> importer: anObject [
-	importer := anObject
+GtRubyRouteImporter >> importer: rubyImporter [
+	importer := rubyImporter.
+	paths := OrderedCollection with: importer rootUrl
 ]
 
 { #category : #initialization }
 GtRubyRouteImporter >> initialize [
 	super initialize.
 	namespace := ''.
-	resourceNames := #().
-	paths := Set with: '/'
+	resourceNames := #()
 ]
 
 { #category : #accessing }
@@ -287,7 +281,7 @@ GtRubyRouteImporter >> processScope: aNode [
 				ifFalse: [ path := arg source ] ].
 	path notNil
 		ifTrue: [ (path beginsWith: '/')
-				ifTrue: [ paths := Set with: path ]
+				ifTrue: [ paths := OrderedCollection with: importer rootUrl ]
 				ifFalse: [ self addPathPart: path ] ]
 ]
 

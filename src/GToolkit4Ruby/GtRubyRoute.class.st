@@ -22,13 +22,11 @@ GtRubyRoute >> gtControllerSourceFor: aView [
 { #category : #accessing }
 GtRubyRoute >> gtDisplayOn: aStream [
 	verb notNil
-		ifTrue: [ aStream
-				nextPutAll: verb;
-				space ].
+		ifTrue: [ verb gtDisplayOn: aStream.
+			aStream space ].
 	(paths notNil and: [ paths notEmpty ])
-		ifTrue: [ aStream
-				nextPutAll: paths anyOne;
-				space ].
+		ifTrue: [ paths anyOne gtDisplayOn: aStream.
+			aStream space ].
 	aStream nextPutAll: '-> '.
 	self method
 		ifNil: [ aStream
@@ -43,6 +41,12 @@ GtRubyRoute >> gtSourceFor: aView [
 	^ self gtASTNode notNil
 		ifFalse: [ super gtSourceFor: aView ]
 		ifTrue: [ self gtASTNode gtSourceFor: aView ]
+]
+
+{ #category : #accessing }
+GtRubyRoute >> initialize [
+	super initialize.
+	paths := FMMultiMultivalueLink on: self opposite: #routes
 ]
 
 { #category : #accessing }
@@ -72,12 +76,14 @@ GtRubyRoute >> methodName: anObject [
 
 { #category : #accessing }
 GtRubyRoute >> paths [
+	<MSEProperty: #paths type: #GtUrlPath opposite: #routes>
+	<multivalued>
 	^ paths
 ]
 
 { #category : #accessing }
 GtRubyRoute >> paths: aCollection [
-	paths := aCollection
+	paths value: aCollection
 ]
 
 { #category : #accessing }
