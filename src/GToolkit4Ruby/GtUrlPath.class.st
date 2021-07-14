@@ -16,13 +16,14 @@ GtUrlPath >> / aString [
 		inject: self
 		into: [ :sum :each | 
 			| path |
-			path := children
+			path := sum children
 				detect: [ :child | child name = each ]
 				ifNone: [ path := self class new
 						name: each;
 						parent: sum;
 						yourself.
-					self mooseModel ifNotNil: [ :m | m add: path ] ].
+					self mooseModel ifNotNil: [ :m | m add: path ].
+					path ].
 			path ]
 ]
 
