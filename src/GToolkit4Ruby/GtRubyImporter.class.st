@@ -1,8 +1,8 @@
 Class {
 	#name : #GtRubyImporter,
 	#superclass : #Object,
-	#traits : 'TRubyProgramNodeVisitor + (TMysqlProgramNodeVisitor - {#visitProgram:})',
-	#classTraits : 'TRubyProgramNodeVisitor classTrait + TMysqlProgramNodeVisitor classTrait',
+	#traits : 'TMysqlProgramNodeVisitor - {#visitProgram:}',
+	#classTraits : 'TMysqlProgramNodeVisitor classTrait',
 	#instVars : [
 		'mooseModel',
 		'scopeStack',
@@ -27,8 +27,7 @@ GtRubyImporter >> addReferenceTo: attribute from: aNode [
 		from: self methodScope;
 		to: attribute;
 		isWrite:
-			((aNode parent isKindOf: RubyAssignmentNode)
-				and: [ aNode parent lhs == aNode ]);
+			((self isAssignment: aNode parent) and: [ aNode parent lhs == aNode ]);
 		sourceAnchor: (self sourceAnchorFor: aNode).
 	mooseModel add: access.
 	self storeAST: aNode into: access.
@@ -49,13 +48,6 @@ GtRubyImporter >> addSourceFor: aNode to: anEntity [
 						addSourceAnchor: anEntity sourceAnchor;
 						yourself) ].
 	anEntity sourceAnchor addSourceAnchor: (self sourceAnchorFor: aNode)
-]
-
-{ #category : #'generating ast node classes' }
-GtRubyImporter >> addVariablesFrom: aLiteralArray to: aClass [
-	2 to: aLiteralArray size by: 2 do: [ :i | 
-		(aClass definesVariable: (aLiteralArray at: i) asString)
-			ifFalse: [ aClass addInstanceVariable: (aLiteralArray at: i) asString ] ]
 ]
 
 { #category : #importing }
@@ -95,21 +87,6 @@ GtRubyImporter >> baseDirectory: aFileReference [
 	mooseModel rootFolder: aFileReference asFileReference
 ]
 
-{ #category : #'generating ast node classes' }
-GtRubyImporter >> buildClassesFromDirectory: aString [
-	| model variableTypes |
-	model := self createInitialRubyParseNode.
-	variableTypes := self initialVariableTypesFrom: model.
-	(aString asFileReference allFiles select: [ :e | e extension = 'rb' ])
-		do: [ :each | 
-			| literalAST |
-			literalAST := self loadASTAsLiteral: each.
-			self createClassesFrom: literalAST into: model.
-			self updateVariableTypes: variableTypes from: literalAST in: model ].
-	self compileMethodsForVariables: variableTypes.
-	^ model
-]
-
 { #category : #importing }
 GtRubyImporter >> classScope [
 	scopeStack size to: 1 by: -1 do: [ :i | 
@@ -123,207 +100,12 @@ GtRubyImporter >> classesAndModules [
 	^ classesAndModules
 ]
 
-{ #category : #'generating ast node classes' }
-GtRubyImporter >> compileCompositeNodeMethodFor: name in: cls [
-	cls
-		compile: ('<1s><r><t>^ <1s>' expandMacrosWith: name)
-		classified: #generated.
-	cls
-		compile:
-			('<1s>: anOrderedCollection<r><t>self setParent: self <1s> to: nil.<r><t><1s> := anOrderedCollection.<r><t>self setParent: self <1s> to: self'
-				expandMacrosWith: name)
-		classified: #generated
-]
-
-{ #category : #'generating ast node classes' }
-GtRubyImporter >> compileCompositeTokenMethodFor: name in: cls [
-	cls
-		compile: ('<1s><r><t>^ <1s>' expandMacrosWith: name)
-		classified: #generated.
-	cls
-		compile: ('<1s>: anOrderedCollection<r><t><1s> := anOrderedCollection' expandMacrosWith: name)
-		classified: #generated
-]
-
-{ #category : #'generating ast node classes' }
-GtRubyImporter >> compileInitializeMethodFor: names in: cls [
-	cls
-		compile:
-			(String
-				streamContents: [ :stream | 
-					stream
-						nextPutAll: 'initialize';
-						cr;
-						nextPutAll: '	super initialize'.
-					names
-						do: [ :each | 
-							stream
-								nextPut: $.;
-								cr;
-								tab;
-								nextPutAll: each;
-								nextPutAll: ' := OrderedCollection new: 2' ] ])
-		classified: #generated
-]
-
-{ #category : #'generating ast node classes' }
-GtRubyImporter >> compileMethodsForVariables: variableTypes [
-	variableTypes
-		keysAndValuesDo: [ :cls :vars | 
-			| nodes collectionNodes tokens collectionTokens other |
-			nodes := Set new.
-			collectionNodes := Set new.
-			tokens := Set new.
-			collectionTokens := Set new.
-			other := Set new.
-			vars
-				keysAndValuesDo: [ :name :types | 
-					(types includes: #node)
-						ifTrue: [ (types includes: #token)
-								ifTrue: [ other add: name.
-									self compileOtherMethodFor: name in: cls ]
-								ifFalse: [ (types includes: #composite)
-										ifTrue: [ collectionNodes add: name.
-											self compileCompositeNodeMethodFor: name in: cls ]
-										ifFalse: [ nodes add: name.
-											self compileNodeMethodFor: name in: cls ] ] ]
-						ifFalse: [ (types includes: #composite)
-								ifTrue: [ collectionTokens add: name.
-									self compileCompositeTokenMethodFor: name in: cls ]
-								ifFalse: [ tokens add: name.
-									self compileTokenMethodFor: name in: cls ] ] ].
-			(collectionNodes notEmpty or: [ collectionTokens notEmpty ])
-				ifTrue: [ self
-						compileInitializeMethodFor:
-							(collectionNodes copy
-								addAll: collectionTokens;
-								yourself)
-						in: cls ].
-			self compileVariableMethodNamed: 'nodeVariables' for: nodes in: cls.
-			self
-				compileVariableMethodNamed: 'compositeNodeVariables'
-				for: collectionNodes
-				in: cls.
-			self
-				compileVariableMethodNamed: 'tokenVariables'
-				for: tokens
-				in: cls.
-			self
-				compileVariableMethodNamed: 'compositeTokenVariables'
-				for: collectionTokens
-				in: cls.
-			self
-				compileVariableMethodNamed: 'otherVariables'
-				for: other
-				in: cls ]
-]
-
-{ #category : #'generating ast node classes' }
-GtRubyImporter >> compileNodeMethodFor: name in: cls [
-	cls
-		compile: ('<1s><r><t>^ <1s>' expandMacrosWith: name)
-		classified: #generated.
-	cls
-		compile:
-			('<1s>: aNode<r><t>self <1s> notNil ifTrue: [ self <1s> parent: nil ].<r><t><1s> := aNode.<r><t>self <1s> notNil ifTrue: [ self <1s> parent: self ]'
-				expandMacrosWith: name)
-		classified: #generated
-]
-
-{ #category : #'generating ast node classes' }
-GtRubyImporter >> compileOtherMethodFor: name in: cls [
-	cls
-		compile: ('<1s><r><t>^ <1s>' expandMacrosWith: name)
-		classified: #generated.
-	cls
-		compile:
-			('<1s>: anObject<r><t>self setParent: self <1s> to: nil.<r><t><1s> := anObject.<r><t>self setParent: self <1s> to: self'
-				expandMacrosWith: name)
-		classified: #generated
-]
-
-{ #category : #'generating ast node classes' }
-GtRubyImporter >> compileTokenMethodFor: name in: cls [
-	cls
-		compile: ('<1s><r><t>^ <1s>' expandMacrosWith: name)
-		classified: #generated.
-	cls
-		compile: ('<1s>: aToken<r><t><1s> := aToken' expandMacrosWith: name)
-		classified: #generated
-]
-
-{ #category : #'generating ast node classes' }
-GtRubyImporter >> compileVariableMethodNamed: selector for: names in: cls [
-	names isEmpty
-		ifTrue: [ ^ self ].
-	cls
-		compile:
-			(String
-				streamContents: [ :stream | 
-					stream
-						nextPutAll: selector;
-						cr;
-						nextPutAll: '	^ #('.
-					names asSortedCollection
-						do: [ :each | stream nextPutAll: each ]
-						separatedBy: [ stream space ].
-					stream nextPut: $) ])
-		classified: #generated
-]
-
 { #category : #importing }
 GtRubyImporter >> containerScope [
 	scopeStack size to: 1 by: -1 do: [ :i | 
 		((scopeStack at: i) isKindOf: FAMIXContainerEntity)
 			ifTrue: [ ^ scopeStack at: i ] ].
 	^ nil
-]
-
-{ #category : #parsing }
-GtRubyImporter >> createASTCacheIn: aDirectory [
-	| scriptDirectory command |
-	scriptDirectory := GtResourcesUtility default
-		resourceAtPath: Path * 'feenkcom/gt4ruby/ruby/'.
-	command := OSSUnixSubprocess new
-		shellCommand:
-			'ruby "' , scriptDirectory fullName , '/write-ast-dir.rb" "'
-				, aDirectory asFileReference fullName , '"';
-		workingDirectory: scriptDirectory fullName.
-	command run.
-	command waitForExit
-]
-
-{ #category : #parsing }
-GtRubyImporter >> createASTFrom: aLiteralArray [
-	(self isNodeLiteral: aLiteralArray)
-		ifTrue: [ ^ self createNodeFrom: aLiteralArray ].
-	(self isTokenLiteral: aLiteralArray)
-		ifTrue: [ ^ self createTokenFrom: aLiteralArray ].
-	^ aLiteralArray asOrderedCollection
-		collect: [ :each | self createASTFrom: each ]
-]
-
-{ #category : #'generating ast node classes' }
-GtRubyImporter >> createAcceptVisitorMethods [
-	| model |
-	model := self createInitialRubyParseNode.
-	self createAcceptVisitorMethodsIn: model.
-	^ model
-]
-
-{ #category : #'generating ast node classes' }
-GtRubyImporter >> createAcceptVisitorMethodsIn: aModel [
-	| class |
-	class := aModel classNamed: #RubyProgramNode.
-	class withAllSubclasses
-		do: [ :cls | 
-			| name |
-			name := cls name copyFrom: 5 to: cls name size - 4.
-			cls
-				compile:
-					('acceptVisitor: aVisitor<r><t>^ aVisitor visit<1s>: self'
-						expandMacrosWith: name)
-				classified: #generated ]
 ]
 
 { #category : #importing }
@@ -379,43 +161,6 @@ GtRubyImporter >> createClassVariableReferenceFrom: aNode [
 	self addReferenceTo: attribute from: aNode
 ]
 
-{ #category : #'generating ast node classes' }
-GtRubyImporter >> createClassesFrom: aLiteralArray [
-	| model |
-	model := self createInitialRubyParseNode.
-	self createClassesFrom: aLiteralArray into: model.
-	^ model changes
-]
-
-{ #category : #'generating ast node classes' }
-GtRubyImporter >> createClassesFrom: aLiteralArray into: aModel [
-	| className class |
-	(self isNodeLiteral: aLiteralArray)
-		ifTrue: [ className := ('Ruby' , aLiteralArray first , 'Node') asSymbol.
-			(class := aModel classNamed: className) isNil
-				ifTrue: [ aModel
-						defineClass:
-							'RubyProgramNode subclass: #' , className
-								,
-									'
-				instanceVariableNames: ''''
-				classVariableNames: ''''
-				poolDictionaries: ''''
-				package: ''GToolkit4Ruby'''.
-					class := aModel classNamed: className ].
-			self addVariablesFrom: aLiteralArray to: class ].
-	aLiteralArray
-		do: [ :each | 
-			each isArray
-				ifTrue: [ self createClassesFrom: each into: aModel ] ]
-]
-
-{ #category : #parsing }
-GtRubyImporter >> createCommentIntervalsFrom: aLiteralArray [
-	^ (1 to: aLiteralArray size by: 2)
-		collect: [ :i | (aLiteralArray at: i) to: (aLiteralArray at: i + 1) ]
-]
-
 { #category : #importing }
 GtRubyImporter >> createControllerStubMethods [
 	(self ensureClassNamed: 'ActionController::Base')
@@ -444,21 +189,6 @@ GtRubyImporter >> createForeignKeys [
 								ifPresent: [ :table | col foreignKey: table ] ] ] ]
 ]
 
-{ #category : #'generating ast node classes' }
-GtRubyImporter >> createInitialRubyParseNode [
-	| mdl |
-	mdl := RBNamespace new.
-	(mdl classNamed: #RubyProgramNode) isNil
-		ifTrue: [ mdl
-				defineClass:
-					'SmaCCParseNode subclass: #RubyProgramNode
-				instanceVariableNames: ''''
-				classVariableNames: ''''
-				poolDictionaries: ''''
-				package: ''GToolkit4Ruby''' ].
-	^ mdl
-]
-
 { #category : #importing }
 GtRubyImporter >> createInstanceVariable: aString in: aClass [
 	| attribute |
@@ -480,23 +210,6 @@ GtRubyImporter >> createInstanceVariableReferenceFrom: aNode [
 		detect: [ :each | each name = name ]
 		ifNone: [ self createInstanceVariable: name in: class ].
 	self addReferenceTo: attribute from: aNode
-]
-
-{ #category : #parsing }
-GtRubyImporter >> createNodeFrom: aLiteralArray [
-	| class node |
-	class := Smalltalk
-		at: ('Ruby' , aLiteralArray first , 'Node') asSymbol.
-	node := class new.
-	2 to: aLiteralArray size by: 2 do: [ :i | 
-		| name value |
-		name := aLiteralArray at: i.
-		name = #comments
-			ifTrue:
-				[ value := self createCommentIntervalsFrom: (aLiteralArray at: i + 1) ]
-			ifFalse: [ value := self createASTFrom: (aLiteralArray at: i + 1) ].
-		node perform: (name , ':') asSymbol with: value ].
-	^ node
 ]
 
 { #category : #importing }
@@ -529,57 +242,6 @@ GtRubyImporter >> createStubClassesFromTables [
 					mooseModel add: inheritance.
 					each rubyActiveRecordClass: class.
 					self createActiveRecordLinkBetweenClass: class andTable: each ] ]
-]
-
-{ #category : #parsing }
-GtRubyImporter >> createTokenFrom: aLiteralArray [
-	^ SmaCCToken
-		value: aLiteralArray first
-		start: aLiteralArray last
-		ids:
-			(((GtRubyScanner keywordMap at: 1) includesKey: aLiteralArray first)
-				ifTrue: [ #(2) ]
-				ifFalse: [ #(1) ])
-]
-
-{ #category : #'generating ast node classes' }
-GtRubyImporter >> createVisitor [
-	| model |
-	model := self createInitialRubyParseNode.
-	self createVisitorIn: model.
-	^ model
-]
-
-{ #category : #'generating ast node classes' }
-GtRubyImporter >> createVisitorIn: aModel [
-	| class trait |
-	class := aModel classNamed: #RubyProgramNode.
-	trait := (aModel classNamed: #TRubyProgramNodeVisitor)
-		ifNil: [ aModel
-				smaccDefineTrait:
-					'Trait named: #TRubyProgramNodeVisitor uses: TSmaCCParseNodeVisitor package: ''GToolkit4Ruby'''.
-			aModel classNamed: #TRubyProgramNodeVisitor ].
-	class withAllSubclasses
-		do: [ :cls | 
-			| name superName |
-			name := cls name copyFrom: 5 to: cls name size - 4.
-			superName := cls == class
-				ifTrue: [ 'SmaCCParseNode' ]
-				ifFalse: [ cls superclass name copyFrom: 5 to: cls superclass name size - 4 ].
-			trait
-				compile:
-					('visit<1s>: aNode<r><t>^ self visit<2s>: aNode'
-						expandMacrosWith: name
-						with: superName)
-				classified: #generated ].
-	aModel
-		defineClass:
-			'Object subclass: #RubyProgramNodeVisitor
-				uses: TRubyProgramNodeVisitor
-				instanceVariableNames: ''''
-				classVariableNames: ''''
-				poolDictionaries: ''''
-				package: ''GToolkit4Ruby'''
 ]
 
 { #category : #accessing }
@@ -687,29 +349,7 @@ GtRubyImporter >> ensureModuleNamed: aString [
 
 { #category : #importing }
 GtRubyImporter >> findTableForClass: aClass [
-	| tableName |
-	tableName := SmaCCVariableDefinition
-		pluralNameFor:
-			(String
-				streamContents: [ :stream | 
-					aClass name
-						keysAndValuesDo: [ :i :each | 
-							i == 1
-								ifFalse: [ each isUppercase
-										ifTrue: [ stream nextPut: $_ ] ].
-							stream nextPut: each asLowercase ] ]).
-	^ tables
-		at: tableName
-		ifAbsent: [ (aClass propertyNamed: #ast)
-				ifNotNil: [ :node | 
-					node body statements
-						do: [ :each | 
-							((each isKindOf: RubyAssignmentNode)
-								and: [ each lhs source = 'self.table_name' ])
-								ifTrue: [ ^ tables
-										at: (self stripQuotesFrom: each value source)
-										ifAbsent: [  ] ] ] ].
-			nil ]
+	^ self subclassResponsibility
 ]
 
 { #category : #importing }
@@ -763,34 +403,11 @@ GtRubyImporter >> inferDeclaredTypes [
 					aColumn rubyActiveRecordAttribute declaredType: aColumn foreignKey rubyActiveRecordClass ] ]]
 ]
 
-{ #category : #'generating ast node classes' }
-GtRubyImporter >> initialVariableTypesFrom: aModel [
-	| types |
-	types := Dictionary new.
-	(aModel classNamed: #RubyProgramNode)
-		ifNotNil: [ :cls | 
-			cls
-				allSubclassesDo: [ :sub | 
-					#(#(compositeNodeVariables #(composite node)) #(compositeTokenVariables #(composite token)) #(nodeVariables #(node)) #(tokenVariables #(token)) #(otherVariables #(token node)))
-						do: [ :entry | 
-							| selector varTypes |
-							selector := entry first.
-							varTypes := entry last.
-							((sub methodFor: selector)
-								ifNotNil: [ :method | self literalArrayFor: method ]
-								ifNil: [ #() ])
-								do: [ :each | 
-									(types at: sub ifAbsentPut: [ Dictionary new ])
-										at: each
-										put: varTypes asSet ] ] ] ].
-	^ types
-]
-
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 GtRubyImporter >> initialize [
 	super initialize.
 	mooseModel := MooseModel new.
-	mooseModel sourceLanguage: FAMIXRubySourceLanguage new.
+	mooseModel sourceLanguage: self sourceLanguage.
 	scopeStack := OrderedCollection new.
 	folders := Dictionary new.
 	files := Dictionary new.
@@ -801,45 +418,8 @@ GtRubyImporter >> initialize [
 ]
 
 { #category : #testing }
-GtRubyImporter >> isNodeLiteral: anArray [
-	^ anArray notEmpty and: [ anArray first isSymbol ]
-]
-
-{ #category : #testing }
-GtRubyImporter >> isTokenLiteral: anArray [
-	^ anArray notEmpty
-		and: [ anArray first isSymbol not and: [ anArray first isString ] ]
-]
-
-{ #category : #'generating ast node classes' }
-GtRubyImporter >> literalArrayFor: aMethod [
-	aMethod parseTree
-		nodesDo: [ :each | 
-			each isLiteralArray
-				ifTrue: [ ^ each value ] ].
-	^ #()
-]
-
-{ #category : #'generating ast node classes' }
-GtRubyImporter >> loadASTAsLiteral: aFilename [
-	| command stream scriptDirectory |
-	NonInteractiveTranscript stdout nextPutAll: aFilename asString; cr.
-	scriptDirectory := GtResourcesUtility default
-		resourceAtPath: Path * 'feenkcom/gt4ruby/ruby/'.
-	command := OSSUnixSubprocess new
-		shellCommand:
-			'ruby "' , scriptDirectory fullName , '/write-ast.rb" "'
-				, aFilename fullName , '"';
-		workingDirectory: scriptDirectory fullName;
-		redirectStdout.
-	command run.
-	stream := WriteStream on: String new.
-	[ stream nextPutAll: command stdoutStream upToEndOfFile.
-	command isRunning ] whileTrue.
-	command waitForExit.
-	stream nextPutAll: command stdoutStream upToEndOfFile.
-	command closeAndCleanStreams.
-	^ (RBParser parseExpression: stream contents) value
+GtRubyImporter >> isAssignment: aNode [
+	^ self subclassResponsibility
 ]
 
 { #category : #importing }
@@ -860,122 +440,21 @@ GtRubyImporter >> model: aModel [
 	mooseModel := aModel
 ]
 
-{ #category : #importing }
-GtRubyImporter >> namespaceFrom: aNode [
-	| current ns name |
-	ns := ''.
-	current := aNode.
-	[ current notNil ]
-		whileTrue: [ ((current isKindOf: RubyCallNode)
-				and: [ current name source = 'namespace' ])
-				ifTrue: [ name := current arguments arguments first source.
-					ns := name first = $:
-						ifTrue: [ name allButFirst , '::' , ns ]
-						ifFalse: [ (self stripQuotesFrom: name) , '::' , ns ] ].
-			current := current parent ].
-	^ ns
-]
-
-{ #category : #parsing }
-GtRubyImporter >> parseCachedDirectory: aString [
-	self baseDirectory: aString asFileReference.
-	^ (aString asFileReference allFiles
-		select: [ :e | e extension = 'ast' ])
-		collect: [ :each | self parseCachedFile: each ]
-]
-
-{ #category : #parsing }
-GtRubyImporter >> parseCachedFile: aFileReference [
-	| node rubyName |
-	node := [ | literalAST |
-	literalAST := (RBParser parseExpression: aFileReference contents)
-		value.
-	self createASTFrom: literalAST ]
-		on: Error
-		do: [ :ex | ex return: SmaCCErrorNode new ].
-	rubyName := aFileReference fullName allButLast: 4.
-	node completeSource: rubyName asFileReference contents.
-	node filename: rubyName.
-	^ node
-]
-
 { #category : #parsing }
 GtRubyImporter >> parseDirectory: aString [
 	self baseDirectory: aString asFileReference.
-	^ (aString asFileReference allFiles
-		select: [ :e | e extension = 'rb' ])
+	^ (RubyParser sourceFilesIn: aString)
 		collect: [ :each | self parseFile: each ]
 ]
 
 { #category : #parsing }
-GtRubyImporter >> parseFile: aFileReference [
-	| node |
-	node := [ | literalAST |
-	literalAST := self loadASTAsLiteral: aFileReference.
-	self createASTFrom: literalAST ]
-		on: Error
-		do: [ :ex | ex return: SmaCCErrorNode new ].
-	node completeSource: aFileReference contents.
-	node filename: aFileReference fullName.
-	^ node
-]
-
-{ #category : #importing }
-GtRubyImporter >> processRouteFiles [
-	| first |
-	first := true.
-	[ routeFiles notEmpty ]
-		whileTrue: [ currentFile := routeFiles first attributeNamed: #entity.
-			GtRubyRouteImporter new
-				importer: self;
-				insideDraw: first not;
-				accept: routeFiles removeFirst.
-			first := false ]
+GtRubyImporter >> parseFile: aFilename [
+	^ self subclassResponsibility
 ]
 
 { #category : #importing }
 GtRubyImporter >> processSchemaCall: aNode [
-	| name |
-	name := aNode name source.
-	name = 'create_table'
-		ifTrue: [ | tableName |
-			tableName := self
-				stripQuotesFrom: aNode arguments arguments first source.
-			currentTable := GtTable new name: tableName.
-			mooseModel add: currentTable.
-			self storeAST: aNode into: currentTable.
-			currentFile addEntity: currentTable.
-			self addSourceFor: aNode to: currentTable.
-			tables at: tableName put: currentTable.
-			aNode arguments arguments
-				do: [ :each | 
-					(each isKindOf: RubyAssociationArgumentsNode)
-						ifTrue: [ each args
-								do: [ :assoc | 
-									assoc key source = 'id:'
-										ifTrue: [ | column |
-											column := GtTableColumn new name: 'id'.
-											mooseModel add: column.
-											self storeAST: assoc into: column.
-											currentFile addEntity: column.
-											self addSourceFor: assoc to: column.
-											currentTable addAttribute: column ] ] ] ].
-			self visitProgram: aNode.
-			currentTable := nil.
-			^ self ]
-		ifFalse: [ (currentTable notNil
-				and:
-					[ #('binary' 'boolean' 'date' 'datetime' 'decimal' 'float' 'integer' 'primary_key' 'string' 'text' 'time' 'timestamp')
-						includes: name ])
-				ifTrue: [ | column |
-					column := GtTableColumn new
-						name: (self stripQuotesFrom: aNode arguments arguments first source).
-					mooseModel add: column.
-					self storeAST: aNode into: column.
-					currentFile addEntity: column.
-					self addSourceFor: aNode to: column.
-					currentTable addAttribute: column ] ].
-	^ self visitProgram: aNode
+	^ self subclassResponsibility
 ]
 
 { #category : #accessing }
@@ -1020,6 +499,11 @@ GtRubyImporter >> sourceAnchorFor: aNode [
 		model: mooseModel
 ]
 
+{ #category : #initialization }
+GtRubyImporter >> sourceLanguage [
+	^ FAMIXRubySourceLanguage new
+]
+
 { #category : #importing }
 GtRubyImporter >> storeAST: aNode into: anEntity [
 	anEntity propertyNamed: #ast put: aNode
@@ -1032,65 +516,6 @@ GtRubyImporter >> stripQuotesFrom: aString [
 	(aString beginsWith: ':')
 		ifTrue: [ ^ aString allButFirst ].
 	^ aString
-]
-
-{ #category : #'generating ast node classes' }
-GtRubyImporter >> typeFor: aLiteralArray [
-	| types |
-	aLiteralArray isEmpty
-		ifTrue: [ ^ #() ].
-	aLiteralArray first isSymbol
-		ifTrue: [ ^ #(node) ].
-	aLiteralArray first isString
-		ifTrue: [ ^ #(token) ].
-	types := Set new.
-	(aLiteralArray first isKindOf: Array)
-		ifTrue: [ types add: #composite.
-			aLiteralArray do: [ :each | types addAll: (self typeFor: each) ] ].
-	^ types
-]
-
-{ #category : #'generating ast node classes' }
-GtRubyImporter >> updateVariableTypes: variableTypes from: aLiteralArray in: aModel [
-	| class className |
-	(self isNodeLiteral: aLiteralArray)
-		ifTrue: [ className := ('Ruby' , aLiteralArray first , 'Node') asSymbol.
-			class := aModel classNamed: className.
-			2 to: aLiteralArray size by: 2 do: [ :i | 
-				| varName |
-				varName := aLiteralArray at: i.
-				varName = #comments
-					ifFalse: [ ((variableTypes at: class ifAbsentPut: [ Dictionary new ])
-							at: varName
-							ifAbsentPut: [ Set new ])
-							addAll: (self typeFor: (aLiteralArray at: i + 1)) ] ] ].
-	aLiteralArray
-		do: [ :each | 
-			each isArray
-				ifTrue: [ self updateVariableTypes: variableTypes from: each in: aModel ] ]
-]
-
-{ #category : #visiting }
-GtRubyImporter >> visitCall: aNode [
-	insideSchemaFile
-		ifTrue: [ ^ self processSchemaCall: aNode ].
-	^ self visitProgram: aNode
-]
-
-{ #category : #visiting }
-GtRubyImporter >> visitClass: aNode [
-	| class |
-	class := self ensureClassNamed: (self fullNameFor: aNode name source).
-	aNode superclass
-		ifNotNil: [ :spr | 
-			superclasses
-				add:
-					{class.
-					spr source} ].
-	self storeAST: aNode into: class.
-	currentFile addEntity: class.
-	self addSourceFor: aNode to: class.
-	^ self assignScope: class around: [ self visitSmaCCParseNode: aNode ]
 ]
 
 { #category : #visiting }
@@ -1129,58 +554,4 @@ GtRubyImporter >> visitFile: aNode [
 	(aNode filename endsWith: '/config/routes.rb')
 		ifTrue: [ routeFiles add: aNode ].
 	^ self visitSmaCCParseNode: aNode
-]
-
-{ #category : #visiting }
-GtRubyImporter >> visitMethod: aNode [
-	| method container |
-	container := self containerScope.
-	method := (container isKindOf: FAMIXClass)
-		ifTrue: [ self ensureMethodNamed: aNode name source ]
-		ifFalse: [ self ensureFunctionNamed: aNode name source ].
-	self storeAST: aNode into: method.
-	currentFile addEntity: method.
-	(container isKindOf: FAMIXClass)
-		ifTrue: [ method parentType: container ]
-		ifFalse: [ method container: container ].
-	method sourceAnchor: (self sourceAnchorFor: aNode).
-	method
-		signature:
-			(String
-				streamContents: [ :stream | 
-					| p |
-					stream nextPutAll: aNode name source.
-					p := self getParametersFor: aNode params.
-					stream nextPut: $(.
-					(p variables ifNil: [ #() ])
-						do: [ :each | stream nextPutAll: each variableName ]
-						separatedBy: [ stream nextPutAll: ', ' ].
-					stream nextPut: $) ]).
-	^ self
-		assignScope: method
-		around: [ self visitSmaCCParseNode: aNode ]
-]
-
-{ #category : #visiting }
-GtRubyImporter >> visitModule: aNode [
-	| module |
-	module := self
-		ensureModuleNamed: (self fullNameFor: aNode name source).
-	self storeAST: aNode into: module.
-	currentFile addEntity: module.
-	self addSourceFor: aNode to: module.
-	^ self
-		assignScope: module
-		around: [ self visitSmaCCParseNode: aNode ]
-]
-
-{ #category : #visiting }
-GtRubyImporter >> visitVariable: aNode [
-	| name |
-	name := aNode name source.
-	(name beginsWith: '@@')
-		ifTrue: [ self createClassVariableReferenceFrom: aNode ]
-		ifFalse: [ (name beginsWith: '@')
-				ifTrue: [ self createInstanceVariableReferenceFrom: aNode ] ].
-	^ self visitProgram: aNode
 ]

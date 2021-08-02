@@ -4,10 +4,10 @@ Class {
 	#category : #'GToolkit4Ruby-Model'
 }
 
-{ #category : #accessing }
+{ #category : #private }
 FAMIXRubySourceLanguage >> gtASTNodeFor: aString at: anInterval [
 	| ast |
-	ast := GtRubyParser parseFile: aString.
+	ast := RubyParser parseWithErrors: aString.
 	ast
 		withAllNodesDo: [ :each | 
 			(anInterval first <= each startPosition
@@ -16,7 +16,7 @@ FAMIXRubySourceLanguage >> gtASTNodeFor: aString at: anInterval [
 	^ nil
 ]
 
-{ #category : #accessing }
+{ #category : #private }
 FAMIXRubySourceLanguage >> gtStyler [
-	^ GtRubyParser gtStyler
+	^ RubyParser gtStyler
 ]

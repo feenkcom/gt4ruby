@@ -1,8 +1,8 @@
 Extension { #name : #GtSmaCCParserStyler }
 
 { #category : #'*GToolkit4Ruby' }
-GtSmaCCParserStyler class >> rubyStyler: aParserClass [
-	<smaccStyler: #GtRubyParser priority: 50>
+GtSmaCCParserStyler class >> rpRubyStyler: aParserClass [
+	<smaccStyler: #RpRubyParser priority: 50>
 	^ (self forParser: aParserClass)
 		stylerRules:
 			{(GtSmaCCKeywordTokensStylerRule
@@ -13,16 +13,16 @@ GtSmaCCParserStyler class >> rubyStyler: aParserClass [
 			(GtSmaCCCommentStylerRule
 				styleBlock: [ :styler | styler foreground: Color lightGray ]).
 			(GtSmaCCNodeStylerRule
-				nodeClassName: #RubyNumberNode
+				nodeClassName: #RpRubyNumberNode
 				styleBlock: [ :styler | styler foreground: Color blue ]).
 			(GtSmaCCNodeStylerRule
-				nodeClassName: #RubyStringNode
+				nodeClassName: #RpRubyStringNode
 				styleBlock: [ :styler | styler foreground: Color blue ]).
 			(GtSmaCCNodeStylerRule
-				nodeClassName: #RubyRegexNode
+				nodeClassName: #RpRubyRegexNode
 				styleBlock: [ :styler | styler foreground: Color blue ]).
 			(GtSmaCCNodeStylerRule
-				nodeClassName: #RubyXStringNode
+				nodeClassName: #RpRubyXStringNode
 				styleBlock: [ :styler | styler foreground: Color blue ]).
 			(GtSmaCCNodeVariableStylerRule
 				nodeClassName: #SmaCCErrorNode
