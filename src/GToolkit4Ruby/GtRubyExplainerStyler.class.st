@@ -46,6 +46,12 @@ GtRubyExplainerStyler >> styleAST: aNode [
 ]
 
 { #category : #visiting }
+GtRubyExplainerStyler >> visitAliasStatement: aNode [
+	self explain: aNode as: #Alias.
+	self visitSmaCCParseNode: aNode
+]
+
+{ #category : #visiting }
 GtRubyExplainerStyler >> visitArrayExpression: aNode [
 	(aNode left notNil and: [ aNode left source = '[' ])
 		ifTrue: [ self explain: aNode as: #Array ].
@@ -65,8 +71,44 @@ GtRubyExplainerStyler >> visitBlock: aNode [
 ]
 
 { #category : #visiting }
+GtRubyExplainerStyler >> visitBoolean: aNode [
+	self explain: aNode as: #Boolean.
+	self visitSmaCCParseNode: aNode
+]
+
+{ #category : #visiting }
+GtRubyExplainerStyler >> visitCase: aNode [
+	self explain: aNode as: #Case.
+	self visitSmaCCParseNode: aNode
+]
+
+{ #category : #visiting }
+GtRubyExplainerStyler >> visitCharacter: aNode [
+	self explain: aNode as: #Character.
+	self visitSmaCCParseNode: aNode
+]
+
+{ #category : #visiting }
 GtRubyExplainerStyler >> visitClass: aNode [
 	self explain: aNode as: #Class.
+	self visitSmaCCParseNode: aNode
+]
+
+{ #category : #visiting }
+GtRubyExplainerStyler >> visitConditionalExpression: aNode [
+	self explain: aNode questionMark as: #Ternary.
+	self visitSmaCCParseNode: aNode
+]
+
+{ #category : #visiting }
+GtRubyExplainerStyler >> visitDictionary: aNode [
+	self explain: aNode as: #Hash.
+	self visitSmaCCParseNode: aNode
+]
+
+{ #category : #visiting }
+GtRubyExplainerStyler >> visitEnsure: aNode [
+	self explain: aNode as: #Ensure.
 	self visitSmaCCParseNode: aNode
 ]
 
@@ -77,8 +119,32 @@ GtRubyExplainerStyler >> visitFile: aNode [
 ]
 
 { #category : #visiting }
+GtRubyExplainerStyler >> visitFor: aNode [
+	self explain: aNode as: #For.
+	self visitSmaCCParseNode: aNode
+]
+
+{ #category : #visiting }
+GtRubyExplainerStyler >> visitIf: aNode [
+	self explain: aNode as: #If.
+	self visitSmaCCParseNode: aNode
+]
+
+{ #category : #visiting }
+GtRubyExplainerStyler >> visitIfModifier: aNode [
+	self explain: aNode ifToken as: #'If Modifier'.
+	self visitSmaCCParseNode: aNode
+]
+
+{ #category : #visiting }
 GtRubyExplainerStyler >> visitMethod: aNode [
 	self explain: aNode as: #Method.
+	self visitSmaCCParseNode: aNode
+]
+
+{ #category : #visiting }
+GtRubyExplainerStyler >> visitNil: aNode [
+	self explain: aNode as: #Pseudo.
 	self visitSmaCCParseNode: aNode
 ]
 
@@ -89,8 +155,20 @@ GtRubyExplainerStyler >> visitNumber: aNode [
 ]
 
 { #category : #visiting }
+GtRubyExplainerStyler >> visitRangeExpression: aNode [
+	self explain: aNode operator as: #Range.
+	self visitSmaCCParseNode: aNode
+]
+
+{ #category : #visiting }
 GtRubyExplainerStyler >> visitRegex: aNode [
 	self explain: aNode as: #Regex.
+	self visitSmaCCParseNode: aNode
+]
+
+{ #category : #visiting }
+GtRubyExplainerStyler >> visitRescue: aNode [
+	self explain: aNode as: #Rescue.
 	self visitSmaCCParseNode: aNode
 ]
 
@@ -113,6 +191,30 @@ GtRubyExplainerStyler >> visitSymbol: aNode [
 ]
 
 { #category : #visiting }
+GtRubyExplainerStyler >> visitUnless: aNode [
+	self explain: aNode as: #Unless.
+	self visitSmaCCParseNode: aNode
+]
+
+{ #category : #visiting }
+GtRubyExplainerStyler >> visitUnlessModifier: aNode [
+	self explain: aNode unlessToken as: #'Unless Modifier'.
+	self visitSmaCCParseNode: aNode
+]
+
+{ #category : #visiting }
+GtRubyExplainerStyler >> visitUntil: aNode [
+	self explain: aNode as: #Until.
+	self visitSmaCCParseNode: aNode
+]
+
+{ #category : #visiting }
+GtRubyExplainerStyler >> visitUntilModifier: aNode [
+	self explain: aNode untilToken as: #'Until Modifier'.
+	self visitSmaCCParseNode: aNode
+]
+
+{ #category : #visiting }
 GtRubyExplainerStyler >> visitVariable: aNode [
 	| name |
 	name := aNode name source.
@@ -122,7 +224,7 @@ GtRubyExplainerStyler >> visitVariable: aNode [
 		ifTrue: [ self explain: aNode as: #Constant ].
 	(name first isLowercase or: [ name first = $_ ])
 		ifTrue: [ self explain: aNode as: #Local ].
-	(#('true' 'false' 'nil' '__FILE__' '__LINE__') includes: name)
+	(#('__FILE__' '__LINE__') includes: name)
 		ifTrue: [ self explain: aNode as: #Pseudo ].
 	name = 'super'
 		ifTrue: [ self explain: aNode as: #Super ].
@@ -133,5 +235,23 @@ GtRubyExplainerStyler >> visitVariable: aNode [
 					((name beginsWith: '@@')
 						ifTrue: [ #ClassVariable ]
 						ifFalse: [ #InstanceVariable ]) ].
+	self visitSmaCCParseNode: aNode
+]
+
+{ #category : #visiting }
+GtRubyExplainerStyler >> visitWhen: aNode [
+	self explain: aNode as: #When.
+	self visitSmaCCParseNode: aNode
+]
+
+{ #category : #visiting }
+GtRubyExplainerStyler >> visitWhile: aNode [
+	self explain: aNode as: #While.
+	self visitSmaCCParseNode: aNode
+]
+
+{ #category : #visiting }
+GtRubyExplainerStyler >> visitWhileModifier: aNode [
+	self explain: aNode whileToken as: #'While Modifier'.
 	self visitSmaCCParseNode: aNode
 ]

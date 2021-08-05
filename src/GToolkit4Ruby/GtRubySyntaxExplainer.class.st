@@ -150,6 +150,7 @@ GtRubySyntaxExplainer >> horizontalGroupElement [
 GtRubySyntaxExplainer >> initialize [
 	super initialize.
 	tooltips := 	#(
+		#('Constructs' #Alias 'Creates an alias name for a method.')
 		#('Constructs' #Assignment 'An assignment node assgines values to objects.')
 		#('Constructs' #Block 'A block contains multiple instructions to be executed.')
 		#('Constructs' #Class 'A class defines the methods and variables that an object can use.')
@@ -157,9 +158,27 @@ GtRubySyntaxExplainer >> initialize [
 		#('Constructs' #Method 'A method can be defined on any object.')
 		#('Constructs' #Super 'Calls a method defined in a superclass.')
 		
+		#('Control flow' #Case 'Switch or case statement.')
+		#('Control flow' #When 'A particular condition of a case statement.')
+		#('Control flow' #Ensure 'Execute statements after the block finishes execution')
+		#('Control flow' #For 'Execute the statements for each item in the collection.')
+		#('Control flow' #If 'Classic "if" statement.')
+		#('Control flow' #'If Modifier' 'Ruby allows putting the "if" condition after the expression.')
+		#('Control flow' #Rescue 'Exception handling is provided by rescue.')
+		#('Control flow' #Ternary 'The shortcut ternary operator if expression.')
+		#('Control flow' #Unless 'Like an "if" statement, but the condition is inverted.')
+		#('Control flow' #'Unless Modifier' 'Ruby allows putting the "unless" condition after the expression.')
+		#('Control flow' #Until 'Repeats a statement block until the condition is true.')
+		#('Control flow' #'Until Modifier' 'Ruby allows putting the "until" condition after the expression.')
+		#('Control flow' #While 'Repeats a statement block while the condition is true.')
+		#('Control flow' #'While Modifier' 'Ruby allows putting the "while" condition after the expression.')
+		
 		#('Objects' #Array 'An array is a collection of objects.')
+		#('Objects' #Boolean 'Literals that represent true or false.')
 		#('Objects' #Character 'A character is a representation of a unicode value.')
+		#('Objects' #Hash 'A hash maps unique keys to values.')
 		#('Objects' #Number 'A literal that represents a numeric value.')
+		#('Objects' #Range 'An interval of values from a start valeu to an end value.')
 		#('Objects' #Regex 'A regular expression can match against strings.')
 		#('Objects' #String 'A string is an array of characters.')
 		#('Objects' #Symbol 'A symbol is a uniquely created string.')
