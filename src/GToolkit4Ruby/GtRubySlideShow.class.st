@@ -51,7 +51,7 @@ GtRubySlideShow >> activeRecordElement [
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical matchParent ];
-		layout: BlLinearLayout vertical;
+		layout: BlLinearLayout horizontal;
 		margin: (BlInsets all: 10);
 		background: Color white;
 		yourself.
@@ -203,7 +203,7 @@ GtRubySlideShow >> routesElement [
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical matchParent ];
-		layout: BlLinearLayout vertical;
+		layout: BlLinearLayout horizontal;
 		margin: (BlInsets all: 10);
 		background: Color white;
 		yourself.
