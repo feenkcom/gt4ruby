@@ -13,11 +13,13 @@ GtRubySlideShow >> activeRecordClassFileReference [
 	ref := fileSystem / 'article.rb'.
 	ref exists
 		ifFalse: [ ref
-				writeStreamDo:
-					[ :stream | stream nextPutAll: 'class Article < ApplicationRecord
+				writeStreamDo: [ :stream | 
+					stream
+						nextPutAll:
+							('class Article < ApplicationRecord
   validates :title, presence: true
   validates :body, presence: true, length: { minimum: 10 }
-end' ] ].
+end' copyReplaceAll: String cr with: String lf) ] ].
 	^ ref
 ]
 
@@ -127,8 +129,10 @@ GtRubySlideShow >> controllerFileReference [
 	ref := fileSystem / 'articles_controller.rb'.
 	ref exists
 		ifFalse: [ ref
-				writeStreamDo:
-					[ :stream | stream nextPutAll: 'class ArticlesController < ApplicationController
+				writeStreamDo: [ :stream | 
+					stream
+						nextPutAll:
+							('class ArticlesController < ApplicationController
   def index
     @articles = Article.all
   end
@@ -150,7 +154,7 @@ GtRubySlideShow >> controllerFileReference [
       render :new
     end
   end
-end' ] ].
+end' copyReplaceAll: String cr with: String lf) ] ].
 	^ ref
 ]
 
@@ -235,12 +239,14 @@ GtRubySlideShow >> routesFileReference [
 	ref := fileSystem / 'routes.rb'.
 	ref exists
 		ifFalse: [ ref
-				writeStreamDo:
-					[ :stream | stream nextPutAll: 'Rails.application.routes.draw do
+				writeStreamDo: [ :stream | 
+					stream
+						nextPutAll:
+							('Rails.application.routes.draw do
   root "articles#index"
 
   resources :articles
-end' ] ].
+end' copyReplaceAll: String cr with: String lf) ] ].
 	^ ref
 ]
 
@@ -290,15 +296,17 @@ GtRubySlideShow >> schemaFileReference [
 	ref := fileSystem / 'schema.rb'.
 	ref exists
 		ifFalse: [ ref
-				writeStreamDo:
-					[ :stream | stream nextPutAll: 'ActiveRecord::Schema.define do
+				writeStreamDo: [ :stream | 
+					stream
+						nextPutAll:
+							('ActiveRecord::Schema.define do
   create_table :articles do |t|
     t.string :title
     t.text :body
 
     t.timestamps
   end
-end' ] ].
+end' copyReplaceAll: String cr with: String lf) ] ].
 	^ ref
 ]
 
