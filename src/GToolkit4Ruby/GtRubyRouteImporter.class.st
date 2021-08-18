@@ -1,6 +1,6 @@
 Class {
-	#name : #GtRubyRouteImporter,
-	#superclass : #Object,
+	#name : 'GtRubyRouteImporter',
+	#superclass : 'Object',
 	#instVars : [
 		'importer',
 		'insideDraw',
@@ -8,10 +8,10 @@ Class {
 		'resourceNames',
 		'paths'
 	],
-	#category : #'GToolkit4Ruby-Importer'
+	#category : 'GToolkit4Ruby-Importer'
 }
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyRouteImporter >> addPathFrom: aNode [
 	self
 		normalArgumentsOf: aNode
@@ -24,12 +24,12 @@ GtRubyRouteImporter >> addPathFrom: aNode [
 				ifTrue: [ ^ self addPathPart: (importer stripQuotesFrom: each key source) ] ]
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyRouteImporter >> addPathPart: ns [
 	paths := paths collect: [ :each | each / ns ]
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyRouteImporter >> addRouteFrom: aNode to: method named: methodName verb: verbString [
 	paths
 		do: [ :each | 
@@ -45,7 +45,7 @@ GtRubyRouteImporter >> addRouteFrom: aNode to: method named: methodName verb: ve
 			route path: each ]
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyRouteImporter >> findMethod: methodName inClass: className [
 	^ importer classesAndModules
 		at:
@@ -61,35 +61,35 @@ GtRubyRouteImporter >> findMethod: methodName inClass: className [
 			nil ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtRubyRouteImporter >> importer [
 	^ importer
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtRubyRouteImporter >> importer: rubyImporter [
 	importer := rubyImporter.
 	paths := OrderedCollection with: importer rootUrl
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtRubyRouteImporter >> initialize [
 	super initialize.
 	namespace := ''.
 	resourceNames := #()
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtRubyRouteImporter >> insideDraw [
 	^ insideDraw
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtRubyRouteImporter >> insideDraw: anObject [
 	^ insideDraw := anObject
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyRouteImporter >> lookupNonResourceRouteNameFrom: aNode [
 	self
 		associativeArgumentsOf: aNode
@@ -102,12 +102,12 @@ GtRubyRouteImporter >> lookupNonResourceRouteNameFrom: aNode [
 	^ nil
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyRouteImporter >> processDraw: aNode [
 	
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 GtRubyRouteImporter >> visitCall: aNode [
 	| name originalDraw originalNamespace originalResourceNames originalPaths |
 	originalDraw := insideDraw.

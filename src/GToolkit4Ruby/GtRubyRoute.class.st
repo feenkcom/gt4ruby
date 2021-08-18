@@ -1,16 +1,16 @@
 Class {
-	#name : #GtRubyRoute,
-	#superclass : #FAMIXSourcedEntity,
+	#name : 'GtRubyRoute',
+	#superclass : 'FAMIXSourcedEntity',
 	#instVars : [
 		'verb',
 		'method',
 		'methodName',
 		'path'
 	],
-	#category : #'GToolkit4Ruby-Model'
+	#category : 'GToolkit4Ruby-Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtRubyRoute >> gtControllerSourceFor: aView [
 	<gtView>
 	^ self method
@@ -22,7 +22,7 @@ GtRubyRoute >> gtControllerSourceFor: aView [
 				title: 'Controller source' ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtRubyRoute >> gtDisplayOn: aStream [
 	verb notNil
 		ifTrue: [ verb gtDisplayOn: aStream.
@@ -39,7 +39,7 @@ GtRubyRoute >> gtDisplayOn: aStream [
 		ifNotNil: [ :m | m gtDisplayOn: aStream ]
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtRubyRoute >> gtExplainerFor: aView [
 	<gtView>
 	self hasSourceAnchors
@@ -73,26 +73,26 @@ GtRubyRoute >> gtExplainerFor: aView [
 			container ]
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtRubyRoute >> gtSourceFor: aView [
 	^ self gtASTNode notNil
 		ifFalse: [ super gtSourceFor: aView ]
 		ifTrue: [ self gtASTNode gtSourceFor: aView ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtRubyRoute >> hasSourceAnchors [
 	^ self sourceAnchor notNil
 		and: [ self method notNil and: [ self method sourceAnchor notNil ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtRubyRoute >> method [
 	<MSEProperty: #method type: #FAMIXMethod opposite: #routes>
 	^ method
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtRubyRoute >> method: aMethod [
 	method := FMMultivalueLink
 		on: self
@@ -101,17 +101,17 @@ GtRubyRoute >> method: aMethod [
 		to: aMethod
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtRubyRoute >> methodName [
 	^ methodName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtRubyRoute >> methodName: anObject [
 	methodName := anObject
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtRubyRoute >> methodStylerForRoutes: aCollection [
 	| locations |
 	locations := (aCollection
@@ -138,13 +138,13 @@ GtRubyRoute >> methodStylerForRoutes: aCollection [
 												forIdentifier: ('M' , each asString) asSymbol) size: 0)} ] ] ])}
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtRubyRoute >> path [
 	<MSEProperty: #path type: #GtUrlPath opposite: #routes>
 	^ path
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtRubyRoute >> path: urlPath [
 	path := FMMultivalueLink
 		on: self
@@ -153,7 +153,7 @@ GtRubyRoute >> path: urlPath [
 		to: urlPath
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtRubyRoute >> routeStylerForRoutes: aCollection [
 	| locations |
 	locations := (aCollection
@@ -178,7 +178,7 @@ GtRubyRoute >> routeStylerForRoutes: aCollection [
 												forIdentifier: ('R' , each asString) asSymbol) size: 0)} ] ] ])}
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtRubyRoute >> sourceEditorFor: anchor styler: aStyler [
 	| container sourceElement sourceContainer compositeStyler look source label |
 	source := anchor completeText.
@@ -222,12 +222,12 @@ GtRubyRoute >> sourceEditorFor: anchor styler: aStyler [
 	^ container
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtRubyRoute >> verb [
 	^ verb
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtRubyRoute >> verb: aString [
 	verb := aString
 ]

@@ -1,12 +1,12 @@
 Class {
-	#name : #GtSmaCCRubyImporter,
-	#superclass : #GtRubyImporter,
+	#name : 'GtSmaCCRubyImporter',
+	#superclass : 'GtRubyImporter',
 	#traits : 'TRubyProgramNodeVisitor - {#visitFile:}',
 	#classTraits : 'TRubyProgramNodeVisitor classTrait',
-	#category : #'GToolkit4Ruby-Importer'
+	#category : 'GToolkit4Ruby-Importer'
 }
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtSmaCCRubyImporter >> findTableForClass: aClass [
 	| tableName |
 	tableName := SmaCCVariableDefinition
@@ -33,12 +33,12 @@ GtSmaCCRubyImporter >> findTableForClass: aClass [
 			nil ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtSmaCCRubyImporter >> isAssignment: aNode [
 	^ aNode isKindOf: RubyAssignmentNode
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtSmaCCRubyImporter >> namespaceFrom: aNode [
 	| current ns name |
 	ns := ''.
@@ -54,7 +54,7 @@ GtSmaCCRubyImporter >> namespaceFrom: aNode [
 	^ ns
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtSmaCCRubyImporter >> outputArgs: aNode on: stream [
 	aNode args
 		do: [ :each | 
@@ -69,7 +69,7 @@ GtSmaCCRubyImporter >> outputArgs: aNode on: stream [
 		separatedBy: [ stream nextPutAll: ', ' ]
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 GtSmaCCRubyImporter >> parseFile: aFile [
 	| ast fileRef |
 	fileRef := aFile asFileReference.
@@ -78,7 +78,7 @@ GtSmaCCRubyImporter >> parseFile: aFile [
 	^ ast
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtSmaCCRubyImporter >> processRouteFiles [
 	| first |
 	first := true.
@@ -91,7 +91,7 @@ GtSmaCCRubyImporter >> processRouteFiles [
 			first := false ]
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtSmaCCRubyImporter >> processSchemaCall: aNode [
 	| name |
 	name := aNode name source.
@@ -133,14 +133,14 @@ GtSmaCCRubyImporter >> processSchemaCall: aNode [
 	^ self visitProgram: aNode
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 GtSmaCCRubyImporter >> visitCall: aNode [
 	insideSchemaFile
 		ifTrue: [ ^ self processSchemaCall: aNode ].
 	^ self visitExpression: aNode
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 GtSmaCCRubyImporter >> visitClass: aNode [
 	| class |
 	class := self
@@ -162,7 +162,7 @@ GtSmaCCRubyImporter >> visitClass: aNode [
 	^ self assignScope: class around: [ self visitSmaCCParseNode: aNode ]
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 GtSmaCCRubyImporter >> visitMethod: aNode [
 	| method container |
 	container := self containerScope.
@@ -188,7 +188,7 @@ GtSmaCCRubyImporter >> visitMethod: aNode [
 		around: [ self visitSmaCCParseNode: aNode ]
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 GtSmaCCRubyImporter >> visitModule: aNode [
 	| module |
 	module := self
@@ -201,7 +201,7 @@ GtSmaCCRubyImporter >> visitModule: aNode [
 		around: [ self visitSmaCCParseNode: aNode ]
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 GtSmaCCRubyImporter >> visitVariable: aNode [
 	| name |
 	name := aNode name source.

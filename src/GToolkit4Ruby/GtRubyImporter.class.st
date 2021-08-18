@@ -1,6 +1,6 @@
 Class {
-	#name : #GtRubyImporter,
-	#superclass : #Object,
+	#name : 'GtRubyImporter',
+	#superclass : 'Object',
 	#traits : 'TMysqlProgramNodeVisitor - {#visitProgram:}',
 	#classTraits : 'TMysqlProgramNodeVisitor classTrait',
 	#instVars : [
@@ -17,10 +17,10 @@ Class {
 		'routeFiles',
 		'rootUrl'
 	],
-	#category : #'GToolkit4Ruby-Importer'
+	#category : 'GToolkit4Ruby-Importer'
 }
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> addReferenceTo: attribute from: aNode [
 	| access |
 	access := FAMIXAccess new
@@ -34,7 +34,7 @@ GtRubyImporter >> addReferenceTo: attribute from: aNode [
 	currentFile addEntity: access
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> addSourceFor: aNode to: anEntity [
 	| anchor |
 	anchor := self sourceAnchorFor: aNode.
@@ -50,14 +50,14 @@ GtRubyImporter >> addSourceFor: aNode to: anEntity [
 	anEntity sourceAnchor addSourceAnchor: (self sourceAnchorFor: aNode)
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> assignScope: modelObject around: aBlock [
 	scopeStack addLast: modelObject.
 	^ aBlock
 		ensure: [ scopeStack removeLast ]
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> assignSuperclass: superclassName to: rubyClass [
 	| inheritance superclass |
 	classesAndModules
@@ -77,17 +77,17 @@ GtRubyImporter >> assignSuperclass: superclassName to: rubyClass [
 	rubyClass addSuperInheritance: inheritance
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtRubyImporter >> baseDirectory [
 	^ mooseModel rootFolder
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtRubyImporter >> baseDirectory: aFileReference [
 	mooseModel rootFolder: aFileReference asFileReference
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> classScope [
 	scopeStack size to: 1 by: -1 do: [ :i | 
 		((scopeStack at: i) isKindOf: GtRubyClass)
@@ -95,12 +95,12 @@ GtRubyImporter >> classScope [
 	^ nil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtRubyImporter >> classesAndModules [
 	^ classesAndModules
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> containerScope [
 	scopeStack size to: 1 by: -1 do: [ :i | 
 		((scopeStack at: i) isKindOf: FAMIXContainerEntity)
@@ -108,7 +108,7 @@ GtRubyImporter >> containerScope [
 	^ nil
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> createActiveRecordLinkBetweenClass: anActiveRecordClass andTable: table [
 	table rubyActiveRecordClass: anActiveRecordClass.
 	anActiveRecordClass activeRecordTable: table.
@@ -123,7 +123,7 @@ GtRubyImporter >> createActiveRecordLinkBetweenClass: anActiveRecordClass andTab
 			anActiveRecordClass addAttribute: attribute ]
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> createActiveRecordLinksAndAttributes [
 	mooseModel allClasses asOrderedCollection
 		detect: [ :each | each isRubyClass and: [ each isActiveRecordBase ] ]
@@ -137,7 +137,7 @@ GtRubyImporter >> createActiveRecordLinksAndAttributes [
 								andTable: table ] ] ]
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> createClassVariable: aString in: aClass [
 	| attribute |
 	attribute := FAMIXAttribute new.
@@ -148,7 +148,7 @@ GtRubyImporter >> createClassVariable: aString in: aClass [
 	^ attribute
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> createClassVariableReferenceFrom: aNode [
 	| class name attribute |
 	class := self classScope.
@@ -161,7 +161,7 @@ GtRubyImporter >> createClassVariableReferenceFrom: aNode [
 	self addReferenceTo: attribute from: aNode
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> createControllerStubMethods [
 	(self ensureClassNamed: 'ActionController::Base')
 		ifNotNil: [ :sprClass | 
@@ -174,7 +174,7 @@ GtRubyImporter >> createControllerStubMethods [
 					method signature: name , '()' ] ]
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> createForeignKeys [
 	tables
 		do: [ :each | 
@@ -189,7 +189,7 @@ GtRubyImporter >> createForeignKeys [
 								ifPresent: [ :table | col foreignKey: table ] ] ] ]
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> createInstanceVariable: aString in: aClass [
 	| attribute |
 	attribute := FAMIXAttribute new.
@@ -199,7 +199,7 @@ GtRubyImporter >> createInstanceVariable: aString in: aClass [
 	^ attribute
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> createInstanceVariableReferenceFrom: aNode [
 	| class name attribute |
 	class := self classScope.
@@ -212,20 +212,20 @@ GtRubyImporter >> createInstanceVariableReferenceFrom: aNode [
 	self addReferenceTo: attribute from: aNode
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> createRootUrl [
 	rootUrl := GtUrlPath new.
 	mooseModel add: rootUrl
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> createRoutes [
 	self createControllerStubMethods.
 	self createRootUrl.
 	self processRouteFiles
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> createStubClassesFromTables [
 	tables
 		do: [ :each | 
@@ -244,18 +244,18 @@ GtRubyImporter >> createStubClassesFromTables [
 					self createActiveRecordLinkBetweenClass: class andTable: each ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtRubyImporter >> currentFile [
 	^ currentFile
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> ensureActiveRecordBaseClass [
 	^ mooseModel allClasses 
 		detect: [ :each | each isActiveRecordBase ]
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> ensureClassNamed: aString [
 	^ classesAndModules
 		at: aString
@@ -272,7 +272,7 @@ GtRubyImporter >> ensureClassNamed: aString [
 			mooseModel add: class ]
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> ensureFileNamed: aFileReference [
 	| filename |
 	filename := aFileReference pathString.
@@ -305,7 +305,7 @@ GtRubyImporter >> ensureFileNamed: aFileReference [
 			file ]
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> ensureFolderNamed: aFileReference [
 	^ folders
 		at: aFileReference pathString
@@ -320,17 +320,17 @@ GtRubyImporter >> ensureFolderNamed: aFileReference [
 			folder ]
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> ensureFunctionNamed: aString [
 	^ mooseModel add: (FAMIXFunction new name: aString)
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> ensureMethodNamed: aString [
 	^ mooseModel add: (FAMIXMethod new name: aString)
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> ensureModuleNamed: aString [
 	^ classesAndModules
 		at: aString
@@ -347,12 +347,12 @@ GtRubyImporter >> ensureModuleNamed: aString [
 			mooseModel add: module ]
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> findTableForClass: aClass [
 	^ self subclassResponsibility
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> fullNameFor: aString [
 	| name |
 	name := aString first = $:
@@ -365,7 +365,7 @@ GtRubyImporter >> fullNameFor: aString [
 		ifNil: [ '' ]) , name
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> getParametersFor: anObject [
 	| current |
 	current := anObject.
@@ -374,12 +374,12 @@ GtRubyImporter >> getParametersFor: anObject [
 	^ current
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> importAST: aNode [
 	self accept: aNode
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> importASTs: aCollection [
 	superclasses := OrderedCollection new.
 	aCollection do: [ :each | self importAST: each ].
@@ -387,14 +387,14 @@ GtRubyImporter >> importASTs: aCollection [
 		do: [ :each | self assignSuperclass: each last to: each first ]
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> importTables: aMysqlFileNode [
 	scopeStack := OrderedCollection new.
 	self accept: aMysqlFileNode.
 	self createForeignKeys
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> inferDeclaredTypes [
 	tables do: [:aTable | 
 		aTable attributes do: [ :aColumn |
@@ -403,7 +403,7 @@ GtRubyImporter >> inferDeclaredTypes [
 					aColumn rubyActiveRecordAttribute declaredType: aColumn foreignKey rubyActiveRecordClass ] ]]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtRubyImporter >> initialize [
 	super initialize.
 	mooseModel := MooseModel new.
@@ -417,12 +417,12 @@ GtRubyImporter >> initialize [
 	routeFiles := OrderedCollection new
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtRubyImporter >> isAssignment: aNode [
 	^ self subclassResponsibility
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> methodScope [
 	scopeStack size to: 1 by: -1 do: [ :i | 
 		((scopeStack at: i) isKindOf: FAMIXMethod)
@@ -430,39 +430,39 @@ GtRubyImporter >> methodScope [
 	^ nil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtRubyImporter >> model [
 	^ mooseModel
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtRubyImporter >> model: aModel [
 	mooseModel := aModel
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 GtRubyImporter >> parseDirectory: aString [
 	self baseDirectory: aString asFileReference.
 	^ (RubyParser sourceFilesIn: aString)
 		collect: [ :each | self parseFile: each ]
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 GtRubyImporter >> parseFile: aFilename [
 	^ self subclassResponsibility
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> processSchemaCall: aNode [
 	^ self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtRubyImporter >> rootUrl [
 	^ rootUrl
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> rubyClassNameFrom: aString removePluralization: aBoolean [
 	| name |
 	name := String
@@ -490,7 +490,7 @@ GtRubyImporter >> rubyClassNameFrom: aString removePluralization: aBoolean [
 	^ name
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> sourceAnchorFor: aNode [
 	^ FAMIXIndexedFileEntityAnchor
 		file: currentFile
@@ -499,17 +499,17 @@ GtRubyImporter >> sourceAnchorFor: aNode [
 		model: mooseModel
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtRubyImporter >> sourceLanguage [
 	^ FAMIXRubySourceLanguage new
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> storeAST: aNode into: anEntity [
 	anEntity propertyNamed: #ast put: aNode
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 GtRubyImporter >> stripQuotesFrom: aString [
 	((aString beginsWith: '''') or: [ aString beginsWith: '"' ])
 		ifTrue: [ ^ aString copyFrom: 2 to: aString size - 1 ].
@@ -518,7 +518,7 @@ GtRubyImporter >> stripQuotesFrom: aString [
 	^ aString
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 GtRubyImporter >> visitColumnDefinition: aNode [
 	| column |
 	column := GtTableColumn new
@@ -531,7 +531,7 @@ GtRubyImporter >> visitColumnDefinition: aNode [
 	^ self visitSmaCCParseNode: aNode
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 GtRubyImporter >> visitCreateTable: aNode [
 	| table name |
 	name := self stripQuotesFrom: aNode tableName source.
@@ -544,7 +544,7 @@ GtRubyImporter >> visitCreateTable: aNode [
 	^ self assignScope: table around: [ self visitSmaCCParseNode: aNode ]
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 GtRubyImporter >> visitFile: aNode [
 	scopeStack := OrderedCollection new.
 	currentFile := self ensureFileNamed: aNode filename asFileReference.

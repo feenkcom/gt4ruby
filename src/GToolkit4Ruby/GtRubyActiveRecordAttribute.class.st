@@ -1,13 +1,13 @@
 Class {
-	#name : #GtRubyActiveRecordAttribute,
-	#superclass : #FAMIXAttribute,
+	#name : 'GtRubyActiveRecordAttribute',
+	#superclass : 'FAMIXAttribute',
 	#instVars : [
 		'tableColumn'
 	],
-	#category : #'GToolkit4Ruby-Model'
+	#category : 'GToolkit4Ruby-Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtRubyActiveRecordAttribute >> gtSourceFor: aView [
 	<gtView>
 	^ self tableColumn notNil 
@@ -15,13 +15,13 @@ GtRubyActiveRecordAttribute >> gtSourceFor: aView [
 		ifTrue: [ self tableColumn gtSourceFor: aView ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtRubyActiveRecordAttribute >> tableColumn [
 	<MSEProperty: #tableColumn type: #GtTableColumn>
 	^ tableColumn
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtRubyActiveRecordAttribute >> tableColumn: aTableColumn [
 	tableColumn := aTableColumn
 ]

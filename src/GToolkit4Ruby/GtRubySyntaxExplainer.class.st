@@ -1,6 +1,6 @@
 Class {
-	#name : #GtRubySyntaxExplainer,
-	#superclass : #BrStencil,
+	#name : 'GtRubySyntaxExplainer',
+	#superclass : 'BrStencil',
 	#instVars : [
 		'tooltips',
 		'tooltipsContainer',
@@ -8,17 +8,17 @@ Class {
 		'constructsContainer',
 		'source'
 	],
-	#category : #'GToolkit4Ruby-Explainer'
+	#category : 'GToolkit4Ruby-Explainer'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtRubySyntaxExplainer class >> onSource: aString [
 	^ self new
 		source: aString;
 		yourself
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtRubySyntaxExplainer >> constructsList [
 	| verticalContainer |
 	verticalContainer := BrVerticalPane new
@@ -46,7 +46,7 @@ GtRubySyntaxExplainer >> constructsList [
 		aptitude: BrShadowAptitude new
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtRubySyntaxExplainer >> create [
 	| mainContainer sourceEditor leftContainer rightContainer rightContainerLabel leftContainerLabel |
 	mainContainer := BrHorizontalPane new
@@ -118,7 +118,7 @@ GtRubySyntaxExplainer >> create [
 	^ mainContainer
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtRubySyntaxExplainer >> dividerBarElement [
 	^ BlElement new
 		constraintsDo: [ :c | c vertical matchParent ];
@@ -126,7 +126,7 @@ GtRubySyntaxExplainer >> dividerBarElement [
 		background: BrGlamorousColors lightBorderColor
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtRubySyntaxExplainer >> groupLabelWithText: aText [
 	^ BrLabel new
 		beSmallSize;
@@ -136,7 +136,7 @@ GtRubySyntaxExplainer >> groupLabelWithText: aText [
 		hExact: 70
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtRubySyntaxExplainer >> horizontalGroupElement [
 	^ BlElement new
 		constraintsDo: [ :c | 
@@ -146,7 +146,7 @@ GtRubySyntaxExplainer >> horizontalGroupElement [
 		layout: BlLinearLayout horizontal
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtRubySyntaxExplainer >> initialize [
 	super initialize.
 	tooltips := 	#(
@@ -193,7 +193,7 @@ GtRubySyntaxExplainer >> initialize [
 	)
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtRubySyntaxExplainer >> regularLabelFor: aNodeNameSymbol [
 	^ BrLabel new
 		text: aNodeNameSymbol asRopedText glamorousRegularFont;
@@ -202,17 +202,17 @@ GtRubySyntaxExplainer >> regularLabelFor: aNodeNameSymbol [
 		padding: (BlInsets all: 5)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtRubySyntaxExplainer >> source [
 	^ source
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtRubySyntaxExplainer >> source: aString [
 	source := aString
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtRubySyntaxExplainer >> sourceEditor [
 	| sourceElement sourceContainer compositeStyler look explainerStyler |
 	sourceContainer := BlElement new
@@ -241,14 +241,14 @@ GtRubySyntaxExplainer >> sourceEditor [
 	^ sourceContainer
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtRubySyntaxExplainer >> tooltipTextFor: aSymbol [
 	^ (tooltips
 		detect: [ :each | each second = aSymbol ]
 		ifNone: [ #('') ]) last
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtRubySyntaxExplainer >> updateLabels: aCollection [
 	tooltips
 		do: [ :each | 
@@ -278,7 +278,7 @@ GtRubySyntaxExplainer >> updateLabels: aCollection [
 							label aptitude: BrGlamorousLabelAptitude ] ] ]
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtRubySyntaxExplainer >> verticalGroupElement [
 	^ BrVerticalPane new fitContent
 ]

@@ -1,6 +1,6 @@
-Extension { #name : #AbstractFileReference }
+Extension { #name : 'AbstractFileReference' }
 
-{ #category : #'*GToolkit4Ruby' }
+{ #category : '*GToolkit4Ruby' }
 AbstractFileReference >> gtRubySyntaxExplanationFor: aView [
 	<gtView>
 	(self extension = 'rb' and: [ self exists ])

@@ -1,16 +1,16 @@
 Class {
-	#name : #GtUrlPath,
-	#superclass : #FAMIXEntity,
+	#name : 'GtUrlPath',
+	#superclass : 'FAMIXEntity',
 	#instVars : [
 		'name',
 		'parent',
 		'children',
 		'routes'
 	],
-	#category : #'GToolkit4Ruby-Model'
+	#category : 'GToolkit4Ruby-Model'
 }
 
-{ #category : #constructing }
+{ #category : 'constructing' }
 GtUrlPath >> / aString [
 	^ (aString substrings: '/')
 		inject: self
@@ -27,19 +27,19 @@ GtUrlPath >> / aString [
 			path ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtUrlPath >> children [
 	<MSEProperty: #children type: #GtUrlPath opposite: #parent>
 	<multivalued>
 	^ children
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtUrlPath >> children: aCollection [
 	children value: aCollection
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GtUrlPath >> gtDisplayOn: aStream [
 	self isRoot
 		ifFalse: [ parent gtDisplayOn: aStream ].
@@ -48,7 +48,7 @@ GtUrlPath >> gtDisplayOn: aStream [
 	name gtDisplayOn: aStream
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtUrlPath >> gtPathTreeFor: aView [
 	<gtView>
 	^ aView columnedTree
@@ -63,7 +63,7 @@ GtUrlPath >> gtPathTreeFor: aView [
 		expandOneLevel
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtUrlPath >> initialize [
 	super initialize.
 	name := ''.
@@ -74,28 +74,28 @@ GtUrlPath >> initialize [
 	routes := FMMultiMultivalueLink on: self opposite: #paths
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtUrlPath >> isRoot [
 	^ parent isNil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtUrlPath >> name [
 	^ name
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtUrlPath >> name: aString [
 	name := aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtUrlPath >> parent [
 	<MSEProperty: #parent type: #GtUrlPath opposite: #children>
 	^ parent
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtUrlPath >> parent: urlPath [
 	parent := FMMultivalueLink
 		on: self
@@ -104,14 +104,14 @@ GtUrlPath >> parent: urlPath [
 		to: urlPath
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtUrlPath >> routes [
 	<MSEProperty: #routes type: #GtRubyRoute opposite: #path>
 	<multivalued>
 	^ routes
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtUrlPath >> routes: aCollection [
 	routes value: aCollection
 ]

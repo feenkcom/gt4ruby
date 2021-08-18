@@ -1,30 +1,30 @@
-Extension { #name : #MooseAbstractGroup }
+Extension { #name : 'MooseAbstractGroup' }
 
-{ #category : #'*GToolkit4Ruby' }
+{ #category : '*GToolkit4Ruby' }
 MooseAbstractGroup >> allRubyClasses [
 	<navigation: 'All Ruby classes'>
 	^ self allWithType: GtRubyClass
 ]
 
-{ #category : #'*GToolkit4Ruby' }
+{ #category : '*GToolkit4Ruby' }
 MooseAbstractGroup >> allRubyModules [
 	<navigation: 'All Ruby modules'>
 	^ self allWithType: GtRubyModule
 ]
 
-{ #category : #'*GToolkit4Ruby' }
+{ #category : '*GToolkit4Ruby' }
 MooseAbstractGroup >> allRubyRoutes [
 	<navigation: 'All Ruby routes'>
 	^ self allWithType: GtRubyRoute
 ]
 
-{ #category : #'*GToolkit4Ruby' }
+{ #category : '*GToolkit4Ruby' }
 MooseAbstractGroup >> allTables [
 	<navigation: 'All database tables'>
 	^ self allWithType: GtTable
 ]
 
-{ #category : #'*GToolkit4Ruby' }
+{ #category : '*GToolkit4Ruby' }
 MooseAbstractGroup >> allUrlPaths [
 	<navigation: 'All url paths'>
 	^ self allWithType: GtUrlPath

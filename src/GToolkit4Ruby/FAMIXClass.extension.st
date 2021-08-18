@@ -1,6 +1,6 @@
-Extension { #name : #FAMIXClass }
+Extension { #name : 'FAMIXClass' }
 
-{ #category : #'*GToolkit4Ruby' }
+{ #category : '*GToolkit4Ruby' }
 FAMIXClass >> isRubyClass [
 	^ false
 ]

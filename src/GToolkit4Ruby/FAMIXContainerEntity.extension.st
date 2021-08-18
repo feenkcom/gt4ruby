@@ -1,6 +1,6 @@
-Extension { #name : #FAMIXContainerEntity }
+Extension { #name : 'FAMIXContainerEntity' }
 
-{ #category : #'*GToolkit4Ruby' }
+{ #category : '*GToolkit4Ruby' }
 FAMIXContainerEntity >> rubyContainer [
 	<MSEProperty: #rubyContainer type: #FAMIXContainerEntity opposite: #rubyEntities>
 	<MSEComment:
@@ -8,7 +8,7 @@ FAMIXContainerEntity >> rubyContainer [
 	^ self privateState attributeAt: #gtRubyContainer ifAbsent: [  ]
 ]
 
-{ #category : #'*GToolkit4Ruby' }
+{ #category : '*GToolkit4Ruby' }
 FAMIXContainerEntity >> rubyContainer: aContainerEntity [
 	^ self privateState
 		attributeAt: #gtRubyContainer
@@ -20,7 +20,7 @@ FAMIXContainerEntity >> rubyContainer: aContainerEntity [
 				to: aContainerEntity)
 ]
 
-{ #category : #'*GToolkit4Ruby' }
+{ #category : '*GToolkit4Ruby' }
 FAMIXContainerEntity >> rubyEntities [
 	<MSEProperty: #rubyEntities type: #FAMIXContainerEntity opposite: #rubyContainer>
 	<multivalued>
@@ -30,7 +30,7 @@ FAMIXContainerEntity >> rubyEntities [
 		ifAbsentPut: [ FMMultivalueLink on: self opposite: #rubyContainer: ]
 ]
 
-{ #category : #'*GToolkit4Ruby' }
+{ #category : '*GToolkit4Ruby' }
 FAMIXContainerEntity >> rubyEntities: aCollection [
 	self rubyEntities value: aCollection
 ]

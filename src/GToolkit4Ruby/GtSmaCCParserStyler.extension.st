@@ -1,6 +1,6 @@
-Extension { #name : #GtSmaCCParserStyler }
+Extension { #name : 'GtSmaCCParserStyler' }
 
-{ #category : #'*GToolkit4Ruby' }
+{ #category : '*GToolkit4Ruby' }
 GtSmaCCParserStyler class >> rpRubyStyler: aParserClass [
 	<smaccStyler: #RpRubyParser priority: 50>
 	^ (self forParser: aParserClass)
