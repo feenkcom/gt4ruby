@@ -227,7 +227,9 @@ GtRubySlideShow >> createActiveRecordClassStyler [
 										[ (text from: node superclass startPosition - 1 to: node superclass startPosition - 1)
 											attributes: {GtYellowCircleExplanationTextAdornment forIdentifier: #ApplicationRecord}.
 										definedClass := isPerson ] ]};
-		notify: [ createdActiveRecordCheck checked: definedClass ];
+		notify:
+				[ createdActiveRecordCheck checked: definedClass.
+					definedClass := false ];
 		yourself
 ]
 
@@ -322,7 +324,9 @@ GtRubySlideShow >> createTableStyler [
 											attributes: {GtYellowCircleExplanationTextAdornment forIdentifier: #personsTable}.
 										personTableCreated := node blocks notEmpty
 											and: [ node blocks first args size = 1 and: [ node blocks first statements notEmpty ] ] ] ]};
-		notify: [ createdTableCheck checked: personTableCreated ];
+		notify:
+				[ createdTableCheck checked: personTableCreated.
+					personTableCreated := false ];
 		yourself
 ]
 
