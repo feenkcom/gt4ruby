@@ -208,34 +208,31 @@ GtRubySlideShow >> createActiveRecordClassFileReference [
 
 { #category : 'create active record' }
 GtRubySlideShow >> createActiveRecordClassStyler [
-	| definedClass |
-	definedClass := false.
-	^ (GtNotifyingStyler forParser: RubyParser)
+	^ (GtSmaCCParserStyler forParser: RubyParser)
 		stylerRules:
-				{GtSmaCCNodeStylerRule
-							nodeClassName: #RubyClassNode
-							styleBlock:
-								[ :styler :node :text | 
-								| isPerson |
-								isPerson := node name source = 'Person'.
+			{GtSmaCCNodeStylerRule
+					nodeClassName: #RubyClassNode
+					styleBlock:
+						[ :styler :node :text | 
+						| isPerson |
+						isPerson := node name source = 'Person'.
+						isPerson
+							ifTrue:
+								[ (text from: node name startPosition - 1 to: node name startPosition - 1)
+									attributes: {GtYellowCircleExplanationTextAdornment forIdentifier: #personClass} ].
+						(node superclass notNil and: [ node superclass source = 'ApplicationRecord' ])
+							ifTrue:
+								[ (text from: node superclass startPosition - 1 to: node superclass startPosition - 1)
+									attributes: {GtYellowCircleExplanationTextAdornment forIdentifier: #ApplicationRecord}.
 								isPerson
 									ifTrue:
-										[ (text from: node name startPosition - 1 to: node name startPosition - 1)
-											attributes: {GtYellowCircleExplanationTextAdornment forIdentifier: #personClass} ].
-								(node superclass notNil and: [ node superclass source = 'ApplicationRecord' ])
-									ifTrue:
-										[ (text from: node superclass startPosition - 1 to: node superclass startPosition - 1)
-											attributes: {GtYellowCircleExplanationTextAdornment forIdentifier: #ApplicationRecord}.
-										definedClass := isPerson ] ]};
-		notify:
-				[ createdActiveRecordCheck checked: definedClass.
-					definedClass := false ];
-		yourself
+										[ (text from: node startPosition to: node startPosition)
+											attributes: {GtValidatorTextAttribute new model: #definedPersonClass} ] ] ]}
 ]
 
 { #category : 'create active record' }
 GtRubySlideShow >> createActiveRecordElement [
-	| element |
+	| element activeRecordClassElement schemaElement |
 	element := (BlElement new)
 		constraintsDo:
 				[ :c | 
@@ -245,9 +242,15 @@ GtRubySlideShow >> createActiveRecordElement [
 		margin: (BlInsets all: 10);
 		background: Color white;
 		yourself.
+	activeRecordClassElement := self
+		sourceEditorFor: self createActiveRecordClassFileReference
+		styler: self createActiveRecordClassStyler.
+	activeRecordClassElement childNamed: #sourceEditor ifFound: [ :editor | editor installValidatorsFor: #(definedPersonClass) ].
+	schemaElement := self sourceEditorFor: self createSchemaFileReference styler: self createTableStyler.
+	schemaElement childNamed: #sourceEditor ifFound: [ :editor | editor installValidatorsFor: #(personsTable) ].
 	element
-		addChild: (self sourceEditorFor: self createActiveRecordClassFileReference styler: self createActiveRecordClassStyler);
-		addChild: (self sourceEditorFor: self createSchemaFileReference styler: self createTableStyler).
+		addChild: activeRecordClassElement;
+		addChild: schemaElement.
 	^ element
 ]
 
@@ -270,20 +273,21 @@ GtRubySlideShow >> createActiveRecordText [
 				attributes:
 					{BrTextAdornmentDynamicAttribute new
 							stencil:
-								[ (createdActiveRecordCheck := BrCheckbox new)
+								[ (BrCheckbox new)
 									disable;
-									aptitude: BrGlamorousCheckboxAptitude ]}) , ' Define a ' asRopedText
-		, ('person class' asRopedText glamorousExplanationFor: #personClass) , ' as a subclass of ' asRopedText
-		, ('ApplicationRecord' asRopedText glamorousExplanationFor: #ApplicationRecord) , '.' asRopedText , String cr asRopedText
+									aptitude: (GtCheckedValidatorTargetAptitude new model: #definedPersonClass) + BrGlamorousCheckboxAptitude new ]})
+		, ' Define a ' asRopedText , ('person class' asRopedText glamorousExplanationFor: #personClass)
+		, ' as a subclass of ' asRopedText , ('ApplicationRecord' asRopedText glamorousExplanationFor: #ApplicationRecord)
+		, '.' asRopedText , String cr asRopedText
 		,
 			(' ' asRopedText
 				attributes:
 					{BrTextAdornmentDynamicAttribute new
 							stencil:
-								[ (createdTableCheck := BrCheckbox new)
+								[ (BrCheckbox new)
 									disable;
-									aptitude: BrGlamorousCheckboxAptitude ]}) , ' Define a ' asRopedText
-		, ('persons' asRopedText glamorousExplanationFor: #personsTable) , ' table.' asRopedText)
+									aptitude: (GtCheckedValidatorTargetAptitude new model: #personsTable) + BrGlamorousCheckboxAptitude new ]})
+		, ' Define a ' asRopedText , ('persons' asRopedText glamorousExplanationFor: #personsTable) , ' table.' asRopedText)
 		glamorousRegularFont;
 		fontSize: 16
 ]
@@ -309,25 +313,20 @@ end' copyReplaceAll: String cr with: String lf) ] ].
 
 { #category : 'create active record' }
 GtRubySlideShow >> createTableStyler [
-	| personTableCreated |
-	personTableCreated := false.
-	^ (GtNotifyingStyler forParser: RubyParser)
+	^ (GtSmaCCParserStyler forParser: RubyParser)
 		stylerRules:
-				{GtSmaCCNodeStylerRule
-							nodeClassName: #RubyCallNode
-							styleBlock:
-								[ :styler :node :text | 
-								(node name notNil
-									and: [ node name source = 'create_table' and: [ node args notEmpty and: [ node args first source = ':persons' ] ] ])
+			{GtSmaCCNodeStylerRule
+					nodeClassName: #RubyCallNode
+					styleBlock:
+						[ :styler :node :text | 
+						(node name notNil
+							and: [ node name source = 'create_table' and: [ node args notEmpty and: [ node args first source = ':persons' ] ] ])
+							ifTrue:
+								[ (text from: node args first startPosition - 1 to: node args first startPosition - 1)
+									attributes: {GtYellowCircleExplanationTextAdornment forIdentifier: #personsTable}.
+								(node blocks notEmpty and: [ node blocks first args size = 1 and: [ node blocks first statements notEmpty ] ])
 									ifTrue:
-										[ (text from: node args first startPosition - 1 to: node args first startPosition - 1)
-											attributes: {GtYellowCircleExplanationTextAdornment forIdentifier: #personsTable}.
-										personTableCreated := node blocks notEmpty
-											and: [ node blocks first args size = 1 and: [ node blocks first statements notEmpty ] ] ] ]};
-		notify:
-				[ createdTableCheck checked: personTableCreated.
-					personTableCreated := false ];
-		yourself
+										[ (text from: node startPosition to: node startPosition) attributes: {GtValidatorTextAttribute new model: #personsTable} ] ] ]}
 ]
 
 { #category : 'initialize-release' }
@@ -484,7 +483,7 @@ GtRubySlideShow >> sourceEditorFor: aFileReference styler: explainationStyler [
 		aptitude: look;
 		styler: styler;
 		text: aFileReference contents asRopedText.
-	sourceContainer addChild: sourceElement.
+	sourceContainer addChild: sourceElement as: #sourceEditor.
 	container addChild: sourceContainer.
 	^ container
 ]
