@@ -77,6 +77,18 @@ GtRubyExplainerStyler >> visitBoolean: aNode [
 ]
 
 { #category : 'visiting' }
+GtRubyExplainerStyler >> visitBreak: aNode [
+	self explain: aNode as: #Break.
+	self visitSmaCCParseNode: aNode
+]
+
+{ #category : 'visiting' }
+GtRubyExplainerStyler >> visitCall: aNode [
+	aNode name notNil ifTrue: [ self explain: aNode name as: #Call ].
+	self visitSmaCCParseNode: aNode
+]
+
+{ #category : 'visiting' }
 GtRubyExplainerStyler >> visitCase: aNode [
 	self explain: aNode as: #Case.
 	self visitSmaCCParseNode: aNode
@@ -137,8 +149,26 @@ GtRubyExplainerStyler >> visitIfModifier: aNode [
 ]
 
 { #category : 'visiting' }
+GtRubyExplainerStyler >> visitLambda: aNode [
+	self explain: aNode as: #Lambda.
+	self visitSmaCCParseNode: aNode
+]
+
+{ #category : 'visiting' }
 GtRubyExplainerStyler >> visitMethod: aNode [
 	self explain: aNode as: #Method.
+	self visitSmaCCParseNode: aNode
+]
+
+{ #category : 'visiting' }
+GtRubyExplainerStyler >> visitModule: aNode [
+	self explain: aNode as: #Module.
+	self visitSmaCCParseNode: aNode
+]
+
+{ #category : 'visiting' }
+GtRubyExplainerStyler >> visitNext: aNode [
+	self explain: aNode as: #Next.
 	self visitSmaCCParseNode: aNode
 ]
 
@@ -173,6 +203,24 @@ GtRubyExplainerStyler >> visitRescue: aNode [
 ]
 
 { #category : 'visiting' }
+GtRubyExplainerStyler >> visitRescueModifier: aNode [
+	self explain: aNode rescueToken as: #'Rescue Modifier'.
+	self visitSmaCCParseNode: aNode
+]
+
+{ #category : 'visiting' }
+GtRubyExplainerStyler >> visitRetry: aNode [
+	self explain: aNode as: #Retry.
+	self visitSmaCCParseNode: aNode
+]
+
+{ #category : 'visiting' }
+GtRubyExplainerStyler >> visitReturn: aNode [
+	self explain: aNode as: #Return.
+	self visitSmaCCParseNode: aNode
+]
+
+{ #category : 'visiting' }
 GtRubyExplainerStyler >> visitSelf: aNode [
 	self explain: aNode as: #Self.
 	self visitSmaCCParseNode: aNode
@@ -187,6 +235,12 @@ GtRubyExplainerStyler >> visitString: aNode [
 { #category : 'visiting' }
 GtRubyExplainerStyler >> visitSymbol: aNode [
 	self explain: aNode as: #Symbol.
+	self visitSmaCCParseNode: aNode
+]
+
+{ #category : 'visiting' }
+GtRubyExplainerStyler >> visitUndefStatement: aNode [
+	self explain: aNode as: #Undefine.
 	self visitSmaCCParseNode: aNode
 ]
 
@@ -253,5 +307,11 @@ GtRubyExplainerStyler >> visitWhile: aNode [
 { #category : 'visiting' }
 GtRubyExplainerStyler >> visitWhileModifier: aNode [
 	self explain: aNode whileToken as: #'While Modifier'.
+	self visitSmaCCParseNode: aNode
+]
+
+{ #category : 'visiting' }
+GtRubyExplainerStyler >> visitYield: aNode [
+	self explain: aNode as: #Yield.
 	self visitSmaCCParseNode: aNode
 ]
