@@ -1,6 +1,6 @@
-Extension { #name : 'FAMIXMethod' }
+Extension { #name : #FAMIXMethod }
 
-{ #category : '*GToolkit4Ruby' }
+{ #category : #'*GToolkit4Ruby' }
 FAMIXMethod >> routes [
 	<MSEProperty: #routes type: #GtRubyRoute opposite: #method>
 	<multivalued>
@@ -9,7 +9,7 @@ FAMIXMethod >> routes [
 		ifAbsentPut: [ FMMultivalueLink on: self opposite: #method: ]
 ]
 
-{ #category : '*GToolkit4Ruby' }
+{ #category : #'*GToolkit4Ruby' }
 FAMIXMethod >> routes: aCollection [
 	self routes value: aCollection
 ]

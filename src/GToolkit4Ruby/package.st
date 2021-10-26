@@ -1,1 +1,1 @@
-Package { #name : 'GToolkit4Ruby' }
+Package { #name : #GToolkit4Ruby }

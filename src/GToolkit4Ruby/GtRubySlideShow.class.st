@@ -1,6 +1,6 @@
 Class {
-	#name : 'GtRubySlideShow',
-	#superclass : 'Object',
+	#name : #GtRubySlideShow,
+	#superclass : #Object,
 	#instVars : [
 		'fileSystem',
 		'createdActiveRecordCheck',
@@ -9,7 +9,7 @@ Class {
 	#category : 'GToolkit4Ruby-Slides'
 }
 
-{ #category : 'active record' }
+{ #category : #'active record' }
 GtRubySlideShow >> activeRecordClassFileReference [
 	| ref |
 	ref := fileSystem / 'article.rb'.
@@ -25,7 +25,7 @@ end' copyReplaceAll: String cr with: String lf) ] ].
 	^ ref
 ]
 
-{ #category : 'active record' }
+{ #category : #'active record' }
 GtRubySlideShow >> activeRecordClassStyler [
 	^ (GtSmaCCParserStyler forParser: RubyParser)
 		stylerRules:
@@ -48,7 +48,7 @@ GtRubySlideShow >> activeRecordClassStyler [
 										forIdentifier: #ApplicationRecord)} ] ])}
 ]
 
-{ #category : 'active record' }
+{ #category : #'active record' }
 GtRubySlideShow >> activeRecordElement [
 	| element |
 	element := BlElement new
@@ -71,7 +71,7 @@ GtRubySlideShow >> activeRecordElement [
 	^ element
 ]
 
-{ #category : 'active record' }
+{ #category : #'active record' }
 GtRubySlideShow >> activeRecordExplanationSlideFor: aSlide [
 	<gtSlide>
 	^ aSlide textAndElement
@@ -81,7 +81,7 @@ GtRubySlideShow >> activeRecordExplanationSlideFor: aSlide [
 		element: [ self activeRecordElement ].
 ]
 
-{ #category : 'active record' }
+{ #category : #'active record' }
 GtRubySlideShow >> activeRecordText [
 	^ ('Rails uses an active record for the model. The ' asRopedText ,
 		('active record class' asRopedText glamorousExplanationFor: #activeRecordClass) ,
@@ -102,7 +102,7 @@ GtRubySlideShow >> activeRecordText [
 		fontSize: 16
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GtRubySlideShow >> callStyler [
 	^ (GtSmaCCParserStyler forParser: RubyParser)
 		stylerRules:
@@ -125,7 +125,7 @@ GtRubySlideShow >> callStyler [
 								forIdentifier: node source asSymbol)} ])}
 ]
 
-{ #category : 'routes' }
+{ #category : #routes }
 GtRubySlideShow >> controllerFileReference [
 	| ref |
 	ref := fileSystem / 'articles_controller.rb'.
@@ -160,7 +160,7 @@ end' copyReplaceAll: String cr with: String lf) ] ].
 	^ ref
 ]
 
-{ #category : 'routes' }
+{ #category : #routes }
 GtRubySlideShow >> controllerStyler [
 	^ (GtSmaCCParserStyler forParser: RubyParser)
 		stylerRules:
@@ -196,7 +196,7 @@ GtRubySlideShow >> controllerStyler [
 										forIdentifier: node name source asSymbol)}) size: 0 ] ])}
 ]
 
-{ #category : 'create active record' }
+{ #category : #'create active record' }
 GtRubySlideShow >> createActiveRecordClassFileReference [
 	| ref dir |
 	dir := fileSystem / 'create'.
@@ -206,7 +206,7 @@ GtRubySlideShow >> createActiveRecordClassFileReference [
 	^ ref
 ]
 
-{ #category : 'create active record' }
+{ #category : #'create active record' }
 GtRubySlideShow >> createActiveRecordClassStyler [
 	^ (GtSmaCCParserStyler forParser: RubyParser)
 		stylerRules:
@@ -230,7 +230,7 @@ GtRubySlideShow >> createActiveRecordClassStyler [
 											attributes: {GtValidatorTextAttribute new model: #definedPersonClass} ] ] ]}
 ]
 
-{ #category : 'create active record' }
+{ #category : #'create active record' }
 GtRubySlideShow >> createActiveRecordElement [
 	| element activeRecordClassElement schemaElement |
 	element := (BlElement new)
@@ -254,7 +254,7 @@ GtRubySlideShow >> createActiveRecordElement [
 	^ element
 ]
 
-{ #category : 'create active record' }
+{ #category : #'create active record' }
 GtRubySlideShow >> createActiveRecordSlideFor: aSlide [
 	<gtSlide>
 	
@@ -265,7 +265,7 @@ GtRubySlideShow >> createActiveRecordSlideFor: aSlide [
 		element: [ self createActiveRecordElement ]
 ]
 
-{ #category : 'create active record' }
+{ #category : #'create active record' }
 GtRubySlideShow >> createActiveRecordText [
 	^ ('To create an active record for a person do this:' asRopedText , String cr asRopedText
 		,
@@ -292,7 +292,7 @@ GtRubySlideShow >> createActiveRecordText [
 		fontSize: 16
 ]
 
-{ #category : 'create active record' }
+{ #category : #'create active record' }
 GtRubySlideShow >> createSchemaFileReference [
 	| ref dir |
 	dir := fileSystem / 'create'.
@@ -311,7 +311,7 @@ end' copyReplaceAll: String cr with: String lf) ] ].
 	^ ref
 ]
 
-{ #category : 'create active record' }
+{ #category : #'create active record' }
 GtRubySlideShow >> createTableStyler [
 	^ (GtSmaCCParserStyler forParser: RubyParser)
 		stylerRules:
@@ -329,13 +329,13 @@ GtRubySlideShow >> createTableStyler [
 										[ (text from: node startPosition to: node startPosition) attributes: {GtValidatorTextAttribute new model: #personsTable} ] ] ]}
 ]
 
-{ #category : 'initialize-release' }
+{ #category : #'initialize-release' }
 GtRubySlideShow >> initialize [
 	super initialize.
 	fileSystem := FileSystem memory workingDirectory
 ]
 
-{ #category : 'routes' }
+{ #category : #routes }
 GtRubySlideShow >> routesElement [
 	| element |
 	element := BlElement new
@@ -358,7 +358,7 @@ GtRubySlideShow >> routesElement [
 	^ element
 ]
 
-{ #category : 'routes' }
+{ #category : #routes }
 GtRubySlideShow >> routesExplanationSlideFor: aSlide [
 	<gtSlide>
 	^ aSlide textAndElement
@@ -368,7 +368,7 @@ GtRubySlideShow >> routesExplanationSlideFor: aSlide [
 		element: [ self routesElement ]
 ]
 
-{ #category : 'routes' }
+{ #category : #routes }
 GtRubySlideShow >> routesFileReference [
 	| ref |
 	ref := fileSystem / 'routes.rb'.
@@ -385,7 +385,7 @@ end' copyReplaceAll: String cr with: String lf) ] ].
 	^ ref
 ]
 
-{ #category : 'routes' }
+{ #category : #routes }
 GtRubySlideShow >> routesText [
 	^ ('Rails uses a routes file to specify routes from requests to ' asRopedText ,
 		('controller methods' asRopedText glamorousExplanationFor: #controllerMethod) ,
@@ -425,7 +425,7 @@ GtRubySlideShow >> routesText [
 		fontSize: 16
 ]
 
-{ #category : 'active record' }
+{ #category : #'active record' }
 GtRubySlideShow >> schemaFileReference [
 	| ref |
 	ref := fileSystem / 'schema.rb'.
@@ -445,7 +445,7 @@ end' copyReplaceAll: String cr with: String lf) ] ].
 	^ ref
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GtRubySlideShow >> sourceEditorFor: aFileReference styler: explainationStyler [
 	| container sourceElement sourceContainer styler look label |
 	container := BlElement new

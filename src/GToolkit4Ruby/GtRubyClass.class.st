@@ -1,24 +1,24 @@
 Class {
-	#name : 'GtRubyClass',
-	#superclass : 'FAMIXClass',
+	#name : #GtRubyClass,
+	#superclass : #FAMIXClass,
 	#instVars : [
 		'activeRecordTable'
 	],
 	#category : 'GToolkit4Ruby-Model'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtRubyClass >> activeRecordTable [
 	<MSEProperty: #activeRecordTable type: #GtTable>
 	^ activeRecordTable
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtRubyClass >> activeRecordTable: aTable [
 	activeRecordTable := aTable
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtRubyClass >> gtAllConnectionsToDeclaredTypesFor: aView [
 	<gtView>
 	^ aView mondrian
@@ -60,7 +60,7 @@ GtRubyClass >> gtAllConnectionsToDeclaredTypesFor: aView [
 				nodeDistance: 10 ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtRubyClass >> gtDirectConnectionsToDeclaredTypesFor: aView [
 	<gtView>
 	^ aView mondrian
@@ -95,7 +95,7 @@ GtRubyClass >> gtDirectConnectionsToDeclaredTypesFor: aView [
 			m layout horizontalTree levelDistance: 50; nodeDistance: 10 ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtRubyClass >> gtHierarchyFor: aView [
 	<gtView>
 	^ aView mondrian
@@ -116,14 +116,14 @@ GtRubyClass >> gtHierarchyFor: aView [
 			mondrian layout custom: GtGraphTreeLayout new ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtRubyClass >> gtSourceFor: aView [
 	^ self gtASTNode notNil 
 		ifFalse: [ aView empty ]
 		ifTrue: [ self gtASTNode gtSourceFor: aView ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtRubyClass >> gtTableSourceFor: aView [
 	<gtView>
 	activeRecordTable ifNil: [ ^ aView empty].
@@ -132,22 +132,22 @@ GtRubyClass >> gtTableSourceFor: aView [
 		priority: 40
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtRubyClass >> isActiveRecordBase [
 	^ self mooseName = #'ActiveRecord::Base'
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtRubyClass >> isAnActiveRecord [
 	^ self withSuperclassHierarchy anySatisfy: #isActiveRecordBase
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtRubyClass >> isRubyClass [
 	^ true
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 GtRubyClass >> rubyContainer: aContainerEntity [
 	self container: aContainerEntity.
 	^ super rubyContainer: aContainerEntity
