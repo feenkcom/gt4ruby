@@ -1,12 +1,12 @@
 Class {
-	#name : 'GtSmaCCRubyRouteImporter',
-	#superclass : 'GtRubyRouteImporter',
+	#name : #GtSmaCCRubyRouteImporter,
+	#superclass : #GtRubyRouteImporter,
 	#traits : 'TRubyProgramNodeVisitor - {#visitCall:}',
 	#classTraits : 'TRubyProgramNodeVisitor classTrait',
 	#category : 'GToolkit4Ruby-Importer'
 }
 
-{ #category : 'importing' }
+{ #category : #importing }
 GtSmaCCRubyRouteImporter >> associativeArgumentsOf: aNode do: aBlock [
 	aNode args
 		do: [ :arg | 
@@ -16,7 +16,7 @@ GtSmaCCRubyRouteImporter >> associativeArgumentsOf: aNode do: aBlock [
 				ifTrue: [ aBlock value: arg ] ]
 ]
 
-{ #category : 'importing' }
+{ #category : #importing }
 GtSmaCCRubyRouteImporter >> normalArgumentsOf: aNode do: aBlock [
 	aNode args
 		do: [ :arg | 
@@ -26,7 +26,7 @@ GtSmaCCRubyRouteImporter >> normalArgumentsOf: aNode do: aBlock [
 						ifFalse: [ aBlock value: arg ] ] ]
 ]
 
-{ #category : 'importing' }
+{ #category : #importing }
 GtSmaCCRubyRouteImporter >> processNamespace: aNode [
 	| name ns |
 	name := aNode args first source.
@@ -39,7 +39,7 @@ GtSmaCCRubyRouteImporter >> processNamespace: aNode [
 		ifFalse: [ namespace , '::' , ns ]
 ]
 
-{ #category : 'importing' }
+{ #category : #importing }
 GtSmaCCRubyRouteImporter >> processNonResourceRoute: aNode [
 	| callName verb |
 	callName := aNode name source.
@@ -86,7 +86,7 @@ GtSmaCCRubyRouteImporter >> processNonResourceRoute: aNode [
 				verb: verb ]
 ]
 
-{ #category : 'importing' }
+{ #category : #importing }
 GtSmaCCRubyRouteImporter >> processResourceRoute: aNode [
 	| actions methodNames isResources |
 	resourceNames := Set new.
@@ -160,7 +160,7 @@ GtSmaCCRubyRouteImporter >> processResourceRoute: aNode [
 		ifTrue: [ self addPathPart: resourceNames anyOne third ]
 ]
 
-{ #category : 'importing' }
+{ #category : #importing }
 GtSmaCCRubyRouteImporter >> processScope: aNode [
 	| path |
 	self
@@ -185,7 +185,7 @@ GtSmaCCRubyRouteImporter >> processScope: aNode [
 		ifTrue: [ self addPathPart: path ]
 ]
 
-{ #category : 'importing' }
+{ #category : #importing }
 GtSmaCCRubyRouteImporter >> symbolsIn: aNode [
 	| source |
 	(aNode isKindOf: RubyArrayExpressionNode)

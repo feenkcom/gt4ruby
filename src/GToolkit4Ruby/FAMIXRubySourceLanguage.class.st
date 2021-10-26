@@ -1,10 +1,10 @@
 Class {
-	#name : 'FAMIXRubySourceLanguage',
-	#superclass : 'FAMIXSourceLanguage',
+	#name : #FAMIXRubySourceLanguage,
+	#superclass : #FAMIXSourceLanguage,
 	#category : 'GToolkit4Ruby-Model'
 }
 
-{ #category : 'private' }
+{ #category : #private }
 FAMIXRubySourceLanguage >> gtASTNodeFor: aString at: anInterval [
 	| ast |
 	ast := RubyParser parseWithErrors: aString.
@@ -16,7 +16,7 @@ FAMIXRubySourceLanguage >> gtASTNodeFor: aString at: anInterval [
 	^ nil
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 FAMIXRubySourceLanguage >> gtStyler [
 	^ RubyParser gtStyler
 ]

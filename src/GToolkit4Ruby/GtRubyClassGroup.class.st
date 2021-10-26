@@ -1,10 +1,10 @@
 Class {
-	#name : 'GtRubyClassGroup',
-	#superclass : 'FAMIXClassGroup',
+	#name : #GtRubyClassGroup,
+	#superclass : #FAMIXClassGroup,
 	#category : 'GToolkit4Ruby-Model'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtRubyClassGroup >> gtAllActiveRecordConnectionsFor: aView [
 	<gtView>
 	^ aView mondrian
