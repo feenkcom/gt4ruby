@@ -8,7 +8,7 @@ Class {
 		'constructsContainer',
 		'source'
 	],
-	#category : 'GToolkit4Ruby-Explainer'
+	#category : #'GToolkit4Ruby-Explainer'
 }
 
 { #category : #'instance creation' }
@@ -80,7 +80,7 @@ GtRubySyntaxExplainer >> create [
 		constraintsDo: [ :c | c ignoreByLayout ];
 		size: 0 @ 0;
 		elevation: (BlRelativeElevation elevation: 10);
-		geometry: BlCircle new.
+		geometry: BlCircleGeometry new.
 	constructsContainer := self constructsList.
 	leftContainerLabel := BrLabel new
 		text:
