@@ -7,7 +7,7 @@ Class {
 		'children',
 		'routes'
 	],
-	#category : 'GToolkit4Ruby-Model'
+	#category : #'GToolkit4Ruby-Model'
 }
 
 { #category : #constructing }
@@ -61,6 +61,17 @@ GtUrlPath >> gtPathTreeFor: aView [
 				collect: [:route | route verb ]
 				thenSelect: [:verb | verb notNil ]) ];
 		expandOneLevel
+]
+
+{ #category : #accessing }
+GtUrlPath >> gtRoutesFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'Routes';
+		items: [self routes];
+		column: 'Kind' text: #verb;
+		column: 'Path' text: #path;
+		column: 'Method' text: #method
 ]
 
 { #category : #initialization }
