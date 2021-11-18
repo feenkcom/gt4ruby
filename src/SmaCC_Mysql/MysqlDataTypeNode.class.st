@@ -5,17 +5,19 @@ Class {
 		'typeName',
 		'characterToken',
 		'setToken',
-		'equals',
 		'charsetName',
 		'collateToken',
 		'collationName',
+		'equals',
 		'charsetToken',
+		'zerofillToken',
 		'unsignedToken',
 		'leftParen',
 		'length',
 		'rightParen',
-		'comma',
-		'precision'
+		'commas',
+		'precision',
+		'enumValues'
 	],
 	#category : #'SmaCC_Mysql'
 }
@@ -76,13 +78,28 @@ MysqlDataTypeNode >> collationName: aSmaCCToken [
 ]
 
 { #category : #generated }
-MysqlDataTypeNode >> comma [
-	^ comma
+MysqlDataTypeNode >> commas [
+	^ commas
 ]
 
 { #category : #generated }
-MysqlDataTypeNode >> comma: aSmaCCToken [
-	comma := aSmaCCToken
+MysqlDataTypeNode >> commas: anOrderedCollection [
+	commas := anOrderedCollection
+]
+
+{ #category : #generated }
+MysqlDataTypeNode >> compositeTokenVariables [
+	^ #(#commas #enumValues)
+]
+
+{ #category : #generated }
+MysqlDataTypeNode >> enumValues [
+	^ enumValues
+]
+
+{ #category : #generated }
+MysqlDataTypeNode >> enumValues: anOrderedCollection [
+	enumValues := anOrderedCollection
 ]
 
 { #category : #generated }
@@ -93,6 +110,13 @@ MysqlDataTypeNode >> equals [
 { #category : #generated }
 MysqlDataTypeNode >> equals: aSmaCCToken [
 	equals := aSmaCCToken
+]
+
+{ #category : #'generated-initialize-release' }
+MysqlDataTypeNode >> initialize [
+	super initialize.
+	commas := OrderedCollection new: 2.
+	enumValues := OrderedCollection new: 2.
 ]
 
 { #category : #generated }
@@ -147,7 +171,7 @@ MysqlDataTypeNode >> setToken: aSmaCCToken [
 
 { #category : #generated }
 MysqlDataTypeNode >> tokenVariables [
-	^ #(#typeName #characterToken #setToken #equals #charsetName #collateToken #collationName #charsetToken #unsignedToken #leftParen #length #rightParen #comma #precision)
+	^ #(#typeName #characterToken #setToken #charsetName #collateToken #collationName #equals #charsetToken #zerofillToken #unsignedToken #leftParen #length #rightParen #precision)
 ]
 
 { #category : #generated }
@@ -168,4 +192,14 @@ MysqlDataTypeNode >> unsignedToken [
 { #category : #generated }
 MysqlDataTypeNode >> unsignedToken: aSmaCCToken [
 	unsignedToken := aSmaCCToken
+]
+
+{ #category : #generated }
+MysqlDataTypeNode >> zerofillToken [
+	^ zerofillToken
+]
+
+{ #category : #generated }
+MysqlDataTypeNode >> zerofillToken: aSmaCCToken [
+	zerofillToken := aSmaCCToken
 ]

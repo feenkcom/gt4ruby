@@ -51,11 +51,9 @@ MysqlCreateTableNode >> _hash [
 
 { #category : #generated }
 MysqlCreateTableNode >> _hash: aSmaCCErrorNode [
-	self _hash notNil
-		ifTrue: [ self _hash parent: nil ].
+	self _hash notNil ifTrue: [ self _hash parent: nil ].
 	_hash := aSmaCCErrorNode.
-	self _hash notNil
-		ifTrue: [ self _hash parent: self ]
+	self _hash notNil ifTrue: [ self _hash parent: self ]
 ]
 
 { #category : #generated }
@@ -274,11 +272,9 @@ MysqlCreateTableNode >> list [
 
 { #category : #generated }
 MysqlCreateTableNode >> list: aSmaCCErrorNode [
-	self list notNil
-		ifTrue: [ self list parent: nil ].
+	self list notNil ifTrue: [ self list parent: nil ].
 	list := aSmaCCErrorNode.
-	self list notNil
-		ifTrue: [ self list parent: self ]
+	self list notNil ifTrue: [ self list parent: self ]
 ]
 
 { #category : #generated }
@@ -355,11 +351,9 @@ MysqlCreateTableNode >> query [
 
 { #category : #generated }
 MysqlCreateTableNode >> query: aSmaCCErrorNode [
-	self query notNil
-		ifTrue: [ self query parent: nil ].
+	self query notNil ifTrue: [ self query parent: nil ].
 	query := aSmaCCErrorNode.
-	self query notNil
-		ifTrue: [ self query parent: self ]
+	self query notNil ifTrue: [ self query parent: self ]
 ]
 
 { #category : #generated }
@@ -369,11 +363,9 @@ MysqlCreateTableNode >> range [
 
 { #category : #generated }
 MysqlCreateTableNode >> range: aSmaCCErrorNode [
-	self range notNil
-		ifTrue: [ self range parent: nil ].
+	self range notNil ifTrue: [ self range parent: nil ].
 	range := aSmaCCErrorNode.
-	self range notNil
-		ifTrue: [ self range parent: self ]
+	self range notNil ifTrue: [ self range parent: self ]
 ]
 
 { #category : #generated }

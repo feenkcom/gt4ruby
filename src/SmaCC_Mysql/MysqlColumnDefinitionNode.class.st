@@ -4,6 +4,11 @@ Class {
 	#instVars : [
 		'columnName',
 		'dataType',
+		'onTokens',
+		'updateTokens',
+		'values',
+		'leftParens',
+		'rightParens',
 		'visibleToken',
 		'invisibleToken',
 		'autoIncrementToken',
@@ -25,15 +30,11 @@ Class {
 		'memoryToken',
 		'referencesToken',
 		'tableName',
-		'leftParens',
 		'refColumnNames',
 		'directions',
 		'lengths',
-		'rightParens',
 		'exprs',
 		'commas',
-		'onTokens',
-		'updateToken',
 		'restrictTokens',
 		'cascadeTokens',
 		'setTokens',
@@ -52,7 +53,6 @@ Class {
 		'notTokens',
 		'constraintToken',
 		'constraintName',
-		'value',
 		'asToken',
 		'generated',
 		'virtualToken',
@@ -135,11 +135,9 @@ MysqlColumnDefinitionNode >> check [
 
 { #category : #generated }
 MysqlColumnDefinitionNode >> check: aSmaCCErrorNode [
-	self check notNil
-		ifTrue: [ self check parent: nil ].
+	self check notNil ifTrue: [ self check parent: nil ].
 	check := aSmaCCErrorNode.
-	self check notNil
-		ifTrue: [ self check parent: self ]
+	self check notNil ifTrue: [ self check parent: self ]
 ]
 
 { #category : #generated }
@@ -229,7 +227,7 @@ MysqlColumnDefinitionNode >> compositeNodeVariables [
 
 { #category : #generated }
 MysqlColumnDefinitionNode >> compositeTokenVariables [
-	^ #(#keyTokens #equalses #leftParens #refColumnNames #directions #lengths #rightParens #commas #onTokens #restrictTokens #cascadeTokens #setTokens #nullTokens #noTokens #actionTokens #defaultTokens #notTokens)
+	^ #(#onTokens #updateTokens #leftParens #rightParens #keyTokens #equalses #refColumnNames #directions #lengths #commas #restrictTokens #cascadeTokens #setTokens #nullTokens #noTokens #actionTokens #defaultTokens #notTokens)
 ]
 
 { #category : #generated }
@@ -239,11 +237,9 @@ MysqlColumnDefinitionNode >> constraintName [
 
 { #category : #generated }
 MysqlColumnDefinitionNode >> constraintName: aSmaCCErrorNode [
-	self constraintName notNil
-		ifTrue: [ self constraintName parent: nil ].
+	self constraintName notNil ifTrue: [ self constraintName parent: nil ].
 	constraintName := aSmaCCErrorNode.
-	self constraintName notNil
-		ifTrue: [ self constraintName parent: self ]
+	self constraintName notNil ifTrue: [ self constraintName parent: self ]
 ]
 
 { #category : #generated }
@@ -263,11 +259,9 @@ MysqlColumnDefinitionNode >> dataType [
 
 { #category : #generated }
 MysqlColumnDefinitionNode >> dataType: aMysqlDataTypeNode [
-	self dataType notNil
-		ifTrue: [ self dataType parent: nil ].
+	self dataType notNil ifTrue: [ self dataType parent: nil ].
 	dataType := aMysqlDataTypeNode.
-	self dataType notNil
-		ifTrue: [ self dataType parent: self ]
+	self dataType notNil ifTrue: [ self dataType parent: self ]
 ]
 
 { #category : #generated }
@@ -369,11 +363,9 @@ MysqlColumnDefinitionNode >> generated [
 
 { #category : #generated }
 MysqlColumnDefinitionNode >> generated: aSmaCCErrorNode [
-	self generated notNil
-		ifTrue: [ self generated parent: nil ].
+	self generated notNil ifTrue: [ self generated parent: nil ].
 	generated := aSmaCCErrorNode.
-	self generated notNil
-		ifTrue: [ self generated parent: self ]
+	self generated notNil ifTrue: [ self generated parent: self ]
 ]
 
 { #category : #generated }
@@ -389,16 +381,18 @@ MysqlColumnDefinitionNode >> generatedToken: aSmaCCToken [
 { #category : #'generated-initialize-release' }
 MysqlColumnDefinitionNode >> initialize [
 	super initialize.
+	onTokens := OrderedCollection new: 2.
+	updateTokens := OrderedCollection new: 2.
+	values := OrderedCollection new: 2.
+	leftParens := OrderedCollection new: 2.
+	rightParens := OrderedCollection new: 2.
 	keyTokens := OrderedCollection new: 2.
 	equalses := OrderedCollection new: 2.
-	leftParens := OrderedCollection new: 2.
 	refColumnNames := OrderedCollection new: 2.
 	directions := OrderedCollection new: 2.
 	lengths := OrderedCollection new: 2.
-	rightParens := OrderedCollection new: 2.
 	exprs := OrderedCollection new: 2.
 	commas := OrderedCollection new: 2.
-	onTokens := OrderedCollection new: 2.
 	restrictTokens := OrderedCollection new: 2.
 	cascadeTokens := OrderedCollection new: 2.
 	setTokens := OrderedCollection new: 2.
@@ -516,7 +510,7 @@ MysqlColumnDefinitionNode >> onTokens: anOrderedCollection [
 
 { #category : #generated }
 MysqlColumnDefinitionNode >> otherVariables [
-	^ #(#value)
+	^ #(#values)
 ]
 
 { #category : #generated }
@@ -651,7 +645,7 @@ MysqlColumnDefinitionNode >> tableName: aSmaCCToken [
 
 { #category : #generated }
 MysqlColumnDefinitionNode >> tokenVariables [
-	^ #(#columnName #visibleToken #invisibleToken #autoIncrementToken #uniqueToken #primaryToken #commentToken #collateToken #collationName #columnFormatToken #columnFormat #engineAttributeToken #engineAttribute #secondaryToken #secondaryEngineAttribute #storageToken #diskToken #memoryToken #referencesToken #tableName #updateToken #_deleteToken #matchToken #fullToken #partialToken #simpleToken #checkToken #enforcedToken #constraintToken #asToken #virtualToken #storedToken #generatedToken #alwaysToken)
+	^ #(#columnName #visibleToken #invisibleToken #autoIncrementToken #uniqueToken #primaryToken #commentToken #collateToken #collationName #columnFormatToken #columnFormat #engineAttributeToken #engineAttribute #secondaryToken #secondaryEngineAttribute #storageToken #diskToken #memoryToken #referencesToken #tableName #_deleteToken #matchToken #fullToken #partialToken #simpleToken #checkToken #enforcedToken #constraintToken #asToken #virtualToken #storedToken #generatedToken #alwaysToken)
 ]
 
 { #category : #generated }
@@ -665,25 +659,25 @@ MysqlColumnDefinitionNode >> uniqueToken: aSmaCCToken [
 ]
 
 { #category : #generated }
-MysqlColumnDefinitionNode >> updateToken [
-	^ updateToken
+MysqlColumnDefinitionNode >> updateTokens [
+	^ updateTokens
 ]
 
 { #category : #generated }
-MysqlColumnDefinitionNode >> updateToken: aSmaCCToken [
-	updateToken := aSmaCCToken
+MysqlColumnDefinitionNode >> updateTokens: anOrderedCollection [
+	updateTokens := anOrderedCollection
 ]
 
 { #category : #generated }
-MysqlColumnDefinitionNode >> value [
-	^ value
+MysqlColumnDefinitionNode >> values [
+	^ values
 ]
 
 { #category : #generated }
-MysqlColumnDefinitionNode >> value: anObject [
-	self setParent: self value to: nil.
-	value := anObject.
-	self setParent: self value to: self
+MysqlColumnDefinitionNode >> values: anOrderedCollection [
+	self setParent: self values to: nil.
+	values := anOrderedCollection.
+	self setParent: self values to: self
 ]
 
 { #category : #generated }

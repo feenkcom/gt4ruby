@@ -98,11 +98,9 @@ MysqlConstraintDefinitionNode >> check [
 
 { #category : #generated }
 MysqlConstraintDefinitionNode >> check: aSmaCCErrorNode [
-	self check notNil
-		ifTrue: [ self check parent: nil ].
+	self check notNil ifTrue: [ self check parent: nil ].
 	check := aSmaCCErrorNode.
-	self check notNil
-		ifTrue: [ self check parent: self ]
+	self check notNil ifTrue: [ self check parent: self ]
 ]
 
 { #category : #generated }
@@ -152,11 +150,9 @@ MysqlConstraintDefinitionNode >> constraintName [
 
 { #category : #generated }
 MysqlConstraintDefinitionNode >> constraintName: aSmaCCErrorNode [
-	self constraintName notNil
-		ifTrue: [ self constraintName parent: nil ].
+	self constraintName notNil ifTrue: [ self constraintName parent: nil ].
 	constraintName := aSmaCCErrorNode.
-	self constraintName notNil
-		ifTrue: [ self constraintName parent: self ]
+	self constraintName notNil ifTrue: [ self constraintName parent: self ]
 ]
 
 { #category : #generated }
@@ -374,11 +370,9 @@ MysqlConstraintDefinitionNode >> option [
 
 { #category : #generated }
 MysqlConstraintDefinitionNode >> option: aMysqlIndexOptionNode [
-	self option notNil
-		ifTrue: [ self option parent: nil ].
+	self option notNil ifTrue: [ self option parent: nil ].
 	option := aMysqlIndexOptionNode.
-	self option notNil
-		ifTrue: [ self option parent: self ]
+	self option notNil ifTrue: [ self option parent: self ]
 ]
 
 { #category : #generated }
