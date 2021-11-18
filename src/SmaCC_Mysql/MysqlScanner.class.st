@@ -7,19 +7,19 @@ Class {
 { #category : #'generated-initialization' }
 MysqlScanner class >> initializeKeywordMap [
 	keywordMap := Dictionary new.
-	#(#(143 '''LZ4''' 1) #(143 '''N''' 2) #(143 '''NONE''' 3) #(143 '''Y''' 4) #(143 '''ZLIB''' 5) #(149 'ACTION' 14) #(149 'ALGORITHM' 15) #(149 'ALWAYS' 16) #(149 'AS' 17) #(149 'ASC' 18) #(149 'AUTOEXTEND_SIZE' 19) #(149 'AUTO_INCREMENT' 20) #(149 'AVG_ROW_LENGTH' 21) #(149 'BIGINT' 22) #(149 'BLOB' 23) #(149 'BTREE' 24) #(149 'BY' 25) #(149 'CASCADE' 26) #(149 'CHAR' 27) #(149 'CHARACTER' 28) #(149 'CHARSET' 29) #(149 'CHECK' 30) #(149 'CHECKSUM' 31) #(149 'COLLATE' 32) #(149 'COLUMNS' 33) #(149 'COLUMN_FORMAT' 34) #(149 'COMMENT' 35) #(149 'COMPACT' 36) #(149 'COMPRESSED' 37) #(149 'COMPRESSION' 38) #(149 'CONNECTION' 39) #(149 'CONSTRAINT' 40) #(149 'CREATE' 41) #(149 'CURRENT_TIMESTAMP' 42) #(149 'DATA' 43) #(149 'DATE' 44) #(149 'DATETIME' 45) #(149 'DECIMAL' 46) #(149 'DEFAULT' 47) #(149 'DELAY_KEY_WRITE' 48) #(149 'DELETE' 49) #(149 'DESC' 50) #(149 'DIRECTORY' 51) #(149 'DISK' 52) #(149 'DOUBLE' 53) #(149 'DYNAMIC' 54) #(149 'ENCRYPTION' 55) #(149 'ENFORCED' 56) #(149 'ENGINE' 57) #(149 'ENGINE_ATTRIBUTE' 58) #(149 'ENUM' 59) #(149 'EXISTS' 60) #(149 'FIRST' 61) #(149 'FIXED' 62) #(149 'FLOAT' 63) #(149 'FOREIGN' 64) #(149 'FULL' 65) #(149 'FULLTEXT' 66) #(149 'GENERATED' 67) #(149 'HASH' 68) #(149 'IF' 69) #(149 'IGNORE' 70) #(149 'IN' 71) #(149 'INDEX' 72) #(149 'INNODB' 76) #(149 'INSERT_METHOD' 73) #(149 'INT' 74) #(149 'INVISIBLE' 75) #(149 'JSON' 77) #(149 'KEY' 78) #(149 'KEY_BLOCK_SIZE' 79) #(149 'LAST' 80) #(149 'LESS' 81) #(149 'LIKE' 82) #(149 'LINEAR' 83) #(149 'LIST' 84) #(149 'LONGBLOB' 85) #(149 'LONGTEXT' 86) #(149 'MATCH' 87) #(149 'MAXVALUE' 88) #(149 'MAX_ROWS' 89) #(149 'MEDIUMBLOB' 90) #(149 'MEDIUMTEXT' 91) #(149 'MEMORY' 92) #(149 'MIN_ROWS' 93) #(149 'NO' 94) #(149 'NOT' 95) #(149 'NULL' 96) #(149 'ON' 97) #(149 'PACK_KEYS' 98) #(149 'PARSER' 99) #(149 'PARTIAL' 100) #(149 'PARTITION' 101) #(149 'PARTITIONS' 102) #(149 'PASSWORD' 103) #(149 'PRIMARY' 104) #(149 'RANGE' 105) #(149 'REDUNDANT' 106) #(149 'REFERENCES' 107) #(149 'REPLACE' 108) #(149 'RESTRICT' 109) #(149 'ROW_FORMAT' 110) #(149 'SECONDARY_ENGINE_ATTRIBUTE' 111) #(149 'SET' 112) #(149 'SIMPLE' 113) #(149 'SMALLINT' 114) #(149 'SPATIAL' 115) #(149 'STATS_AUTO_RECALC' 116) #(149 'STATS_PERSISTENT' 117) #(149 'STATS_SAMPLE_PAGES' 118) #(149 'STORAGE' 119) #(149 'STORED' 120) #(149 'SUBPARTITION' 121) #(149 'SUBPARTITIONS' 122) #(149 'TABLE' 123) #(149 'TABLESPACE' 124) #(149 'TEMPORARY' 125) #(149 'TEXT' 126) #(149 'THAN' 127) #(149 'TIMESTAMP' 128) #(149 'TINYINT' 129) #(149 'TINYTEXT' 130) #(149 'UNION' 131) #(149 'UNIQUE' 132) #(149 'UNSIGNED' 141) #(149 'UPDATE' 133) #(149 'USING' 134) #(149 'VALUES' 135) #(149 'VARBINARY' 136) #(149 'VARCHAR' 137) #(149 'VIRTUAL' 138) #(149 'VISIBLE' 139) #(149 'WITH' 140) #(149 'ZEROFILL' 142))
+	#(#(146 '''LZ4''' 1) #(146 '''N''' 2) #(146 '''NONE''' 3) #(146 '''Y''' 4) #(146 '''ZLIB''' 5) #(152 'ACTION' 14) #(152 'ALGORITHM' 15) #(152 'ALWAYS' 16) #(152 'AS' 17) #(152 'ASC' 18) #(152 'AUTOEXTEND_SIZE' 19) #(152 'AUTO_INCREMENT' 20) #(152 'AVG_ROW_LENGTH' 21) #(152 'BIGINT' 22) #(152 'BLOB' 23) #(152 'BTREE' 24) #(152 'BY' 25) #(152 'CASCADE' 26) #(152 'CHAR' 27) #(152 'CHARACTER' 28) #(152 'CHARSET' 29) #(152 'CHECK' 30) #(152 'CHECKSUM' 31) #(152 'COLLATE' 32) #(152 'COLUMNS' 33) #(152 'COLUMN_FORMAT' 34) #(152 'COMMENT' 35) #(152 'COMPACT' 36) #(152 'COMPRESSED' 37) #(152 'COMPRESSION' 38) #(152 'CONNECTION' 39) #(152 'CONSTRAINT' 40) #(152 'CREATE' 41) #(152 'CURRENT_TIMESTAMP' 42) #(152 'DATA' 43) #(152 'DATE' 44) #(152 'DATETIME' 45) #(152 'DECIMAL' 46) #(152 'DEFAULT' 47) #(152 'DELAY_KEY_WRITE' 48) #(152 'DELETE' 49) #(152 'DESC' 50) #(152 'DIRECTORY' 51) #(152 'DISK' 52) #(152 'DOUBLE' 53) #(152 'DROP' 54) #(152 'DYNAMIC' 55) #(152 'ENCRYPTION' 56) #(152 'ENFORCED' 57) #(152 'ENGINE' 58) #(152 'ENGINE_ATTRIBUTE' 59) #(152 'ENUM' 60) #(152 'EXISTS' 61) #(152 'FIRST' 62) #(152 'FIXED' 63) #(152 'FLOAT' 64) #(152 'FOREIGN' 65) #(152 'FULL' 66) #(152 'FULLTEXT' 67) #(152 'GENERATED' 68) #(152 'HASH' 69) #(152 'IF' 70) #(152 'IGNORE' 71) #(152 'IN' 72) #(152 'INDEX' 73) #(152 'INNODB' 77) #(152 'INSERT_METHOD' 74) #(152 'INT' 75) #(152 'INVISIBLE' 76) #(152 'JSON' 78) #(152 'KEY' 79) #(152 'KEY_BLOCK_SIZE' 80) #(152 'LAST' 81) #(152 'LESS' 82) #(152 'LIKE' 83) #(152 'LINEAR' 84) #(152 'LIST' 85) #(152 'LONGBLOB' 86) #(152 'LONGTEXT' 87) #(152 'MATCH' 88) #(152 'MAXVALUE' 89) #(152 'MAX_ROWS' 90) #(152 'MEDIUMBLOB' 91) #(152 'MEDIUMTEXT' 92) #(152 'MEMORY' 93) #(152 'MIN_ROWS' 94) #(152 'MYISAM' 95) #(152 'NO' 96) #(152 'NOT' 97) #(152 'NULL' 98) #(152 'ON' 99) #(152 'PACK_KEYS' 100) #(152 'PARSER' 101) #(152 'PARTIAL' 102) #(152 'PARTITION' 103) #(152 'PARTITIONS' 104) #(152 'PASSWORD' 105) #(152 'PRIMARY' 106) #(152 'RANGE' 107) #(152 'REDUNDANT' 108) #(152 'REFERENCES' 109) #(152 'REPLACE' 110) #(152 'RESTRICT' 111) #(152 'ROW_FORMAT' 112) #(152 'SECONDARY_ENGINE_ATTRIBUTE' 113) #(152 'SET' 114) #(152 'SIMPLE' 115) #(152 'SMALLINT' 116) #(152 'SPATIAL' 117) #(152 'STATS_AUTO_RECALC' 118) #(152 'STATS_PERSISTENT' 119) #(152 'STATS_SAMPLE_PAGES' 120) #(152 'STORAGE' 121) #(152 'STORED' 122) #(152 'SUBPARTITION' 123) #(152 'SUBPARTITIONS' 124) #(152 'TABLE' 125) #(152 'TABLESPACE' 126) #(152 'TEMPORARY' 127) #(152 'TEXT' 128) #(152 'THAN' 129) #(152 'TIME' 130) #(152 'TIMESTAMP' 131) #(152 'TINYINT' 132) #(152 'TINYTEXT' 133) #(152 'UNION' 134) #(152 'UNIQUE' 135) #(152 'UNSIGNED' 144) #(152 'UPDATE' 136) #(152 'USING' 137) #(152 'VALUES' 138) #(152 'VARBINARY' 139) #(152 'VARCHAR' 140) #(152 'VIRTUAL' 141) #(152 'VISIBLE' 142) #(152 'WITH' 143) #(152 'ZEROFILL' 145))
 		do: [ :each | (keywordMap at: each first ifAbsentPut: [ Dictionary new ]) at: (each at: 2) put: each last ].
 	^ keywordMap
 ]
 
 { #category : #generated }
 MysqlScanner >> emptySymbolTokenId [
-	^ 266
+	^ 270
 ]
 
 { #category : #generated }
 MysqlScanner >> errorTokenId [
-	^ 267
+	^ 271
 ]
 
 { #category : #generated }
@@ -32,7 +32,7 @@ MysqlScanner >> scan1 [
 	[ self step.
 	currentCharacter == $'
 		ifTrue:
-			[ self recordMatch: #(143).
+			[ self recordMatch: #(146).
 			self step.
 			currentCharacter == $' ifTrue: [ ^ self scan1 ].
 			^ self reportLastMatch ].
@@ -41,7 +41,7 @@ MysqlScanner >> scan1 [
 
 { #category : #generated }
 MysqlScanner >> scan2 [
-	[ self recordMatch: #(145).
+	[ self recordMatch: #(148).
 	self step.
 	currentCharacter == $. ifTrue: [ ^ self scan3 ].
 	currentCharacter isDigit ] whileTrue.
@@ -53,7 +53,7 @@ MysqlScanner >> scan3 [
 	self step.
 	currentCharacter isDigit
 		ifTrue:
-			[ [ self recordMatch: #(145).
+			[ [ self recordMatch: #(148).
 			self step.
 			currentCharacter isDigit ] whileTrue ].
 	^ self reportLastMatch
@@ -66,14 +66,14 @@ MysqlScanner >> scan4 [
 		ifTrue:
 			[ [ self step.
 			currentCharacter == $* ] whileTrue.
-			currentCharacter == $/ ifTrue: [ ^ self recordAndReportMatch: #(147) ].
+			currentCharacter == $/ ifTrue: [ ^ self recordAndReportMatch: #(150) ].
 			^ self scan4 ].
 	true ] whileTrue
 ]
 
 { #category : #generated }
 MysqlScanner >> scan5 [
-	[ self recordMatch: #(144 145).
+	[ self recordMatch: #(147 148).
 	self step.
 	currentCharacter == $. ifTrue: [ ^ self scan3 ].
 	currentCharacter isDigit ] whileTrue.
@@ -96,7 +96,7 @@ MysqlScanner >> scanForTokenX1 [
 	self step.
 	currentCharacter == $-
 		ifTrue:
-			[ [ self recordMatch: #(147).
+			[ [ self recordMatch: #(150).
 			self step.
 			currentCharacter <= Character tab
 				or:
@@ -129,14 +129,14 @@ MysqlScanner >> scanForTokenX2 [
 	currentCharacter ~~ $`
 		ifTrue:
 			[ [ self step.
-			currentCharacter == $` ifTrue: [ ^ self recordAndReportMatch: #(146) ].
+			currentCharacter == $` ifTrue: [ ^ self recordAndReportMatch: #(149) ].
 			true ] whileTrue ].
 	^ self reportLastMatch
 ]
 
 { #category : #generated }
 MysqlScanner >> scanForTokenX3 [
-	self recordMatch: #(11 144 145).
+	self recordMatch: #(11 147 148).
 	self step.
 	currentCharacter == $. ifTrue: [ ^ self scan3 ].
 	currentCharacter isDigit ifTrue: [ ^ self scan5 ].
@@ -145,7 +145,7 @@ MysqlScanner >> scanForTokenX3 [
 
 { #category : #generated }
 MysqlScanner >> scanForTokenX4 [
-	self recordMatch: #(10 144 145).
+	self recordMatch: #(10 147 148).
 	self step.
 	currentCharacter == $. ifTrue: [ ^ self scan3 ].
 	currentCharacter isDigit ifTrue: [ ^ self scan5 ].
@@ -154,7 +154,7 @@ MysqlScanner >> scanForTokenX4 [
 
 { #category : #generated }
 MysqlScanner >> scanForTokenX5 [
-	self recordMatch: #(9 144 145).
+	self recordMatch: #(9 147 148).
 	self step.
 	currentCharacter == $. ifTrue: [ ^ self scan3 ].
 	currentCharacter isDigit ifTrue: [ ^ self scan5 ].
@@ -163,7 +163,7 @@ MysqlScanner >> scanForTokenX5 [
 
 { #category : #generated }
 MysqlScanner >> scanForTokenX6 [
-	[ self recordMatch: #(148).
+	[ self recordMatch: #(151).
 	self step.
 	currentCharacter isSeparator or: [ currentCharacter == Character pageUp ] ] whileTrue.
 	^ self reportLastMatch
@@ -171,7 +171,7 @@ MysqlScanner >> scanForTokenX6 [
 
 { #category : #generated }
 MysqlScanner >> scanForTokenX7 [
-	[ self recordMatch: #(149).
+	[ self recordMatch: #(152).
 	self step.
 	currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ] ] whileTrue
 ]
@@ -192,7 +192,7 @@ MysqlScanner >> scanForTokenX9 [
 
 { #category : #generated }
 MysqlScanner >> tokenActions [
-	^ #(nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil #comment #whitespace)
+	^ #(nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil #comment #whitespace)
 ]
 
 { #category : #generated }
