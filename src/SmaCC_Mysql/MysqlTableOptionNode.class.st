@@ -450,11 +450,9 @@ MysqlTableOptionNode >> tablespaceName [
 
 { #category : #generated }
 MysqlTableOptionNode >> tablespaceName: aSmaCCErrorNode [
-	self tablespaceName notNil
-		ifTrue: [ self tablespaceName parent: nil ].
+	self tablespaceName notNil ifTrue: [ self tablespaceName parent: nil ].
 	tablespaceName := aSmaCCErrorNode.
-	self tablespaceName notNil
-		ifTrue: [ self tablespaceName parent: self ]
+	self tablespaceName notNil ifTrue: [ self tablespaceName parent: self ]
 ]
 
 { #category : #generated }

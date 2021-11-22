@@ -276,11 +276,9 @@ MysqlPartitionDefinitionNode >> partitionName [
 
 { #category : #generated }
 MysqlPartitionDefinitionNode >> partitionName: aSmaCCErrorNode [
-	self partitionName notNil
-		ifTrue: [ self partitionName parent: nil ].
+	self partitionName notNil ifTrue: [ self partitionName parent: nil ].
 	partitionName := aSmaCCErrorNode.
-	self partitionName notNil
-		ifTrue: [ self partitionName parent: self ]
+	self partitionName notNil ifTrue: [ self partitionName parent: self ]
 ]
 
 { #category : #generated }
@@ -330,11 +328,9 @@ MysqlPartitionDefinitionNode >> tablespaceName [
 
 { #category : #generated }
 MysqlPartitionDefinitionNode >> tablespaceName: aSmaCCErrorNode [
-	self tablespaceName notNil
-		ifTrue: [ self tablespaceName parent: nil ].
+	self tablespaceName notNil ifTrue: [ self tablespaceName parent: nil ].
 	tablespaceName := aSmaCCErrorNode.
-	self tablespaceName notNil
-		ifTrue: [ self tablespaceName parent: self ]
+	self tablespaceName notNil ifTrue: [ self tablespaceName parent: self ]
 ]
 
 { #category : #generated }

@@ -26,6 +26,11 @@ TMysqlProgramNodeVisitor >> visitDataType: aDataType [
 ]
 
 { #category : #generated }
+TMysqlProgramNodeVisitor >> visitDropTable: aDropTable [
+	^ self visitProgram: aDropTable
+]
+
+{ #category : #generated }
 TMysqlProgramNodeVisitor >> visitFile: aFile [
 	^ self visitProgram: aFile
 ]

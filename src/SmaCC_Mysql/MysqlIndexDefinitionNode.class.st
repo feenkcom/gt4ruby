@@ -173,11 +173,9 @@ MysqlIndexDefinitionNode >> option [
 
 { #category : #generated }
 MysqlIndexDefinitionNode >> option: aMysqlIndexOptionNode [
-	self option notNil
-		ifTrue: [ self option parent: nil ].
+	self option notNil ifTrue: [ self option parent: nil ].
 	option := aMysqlIndexOptionNode.
-	self option notNil
-		ifTrue: [ self option parent: self ]
+	self option notNil ifTrue: [ self option parent: self ]
 ]
 
 { #category : #generated }

@@ -204,11 +204,9 @@ MysqlSubpartitionDefinitionNode >> subpartion [
 
 { #category : #generated }
 MysqlSubpartitionDefinitionNode >> subpartion: aSmaCCErrorNode [
-	self subpartion notNil
-		ifTrue: [ self subpartion parent: nil ].
+	self subpartion notNil ifTrue: [ self subpartion parent: nil ].
 	subpartion := aSmaCCErrorNode.
-	self subpartion notNil
-		ifTrue: [ self subpartion parent: self ]
+	self subpartion notNil ifTrue: [ self subpartion parent: self ]
 ]
 
 { #category : #generated }
@@ -238,11 +236,9 @@ MysqlSubpartitionDefinitionNode >> tablespaceName [
 
 { #category : #generated }
 MysqlSubpartitionDefinitionNode >> tablespaceName: aSmaCCErrorNode [
-	self tablespaceName notNil
-		ifTrue: [ self tablespaceName parent: nil ].
+	self tablespaceName notNil ifTrue: [ self tablespaceName parent: nil ].
 	tablespaceName := aSmaCCErrorNode.
-	self tablespaceName notNil
-		ifTrue: [ self tablespaceName parent: self ]
+	self tablespaceName notNil ifTrue: [ self tablespaceName parent: self ]
 ]
 
 { #category : #generated }
