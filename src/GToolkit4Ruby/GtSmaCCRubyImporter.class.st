@@ -3,7 +3,10 @@ Class {
 	#superclass : #GtRubyImporter,
 	#traits : 'TRubyProgramNodeVisitor - {#visitFile:}',
 	#classTraits : 'TRubyProgramNodeVisitor classTrait',
-	#category : 'GToolkit4Ruby-Importer'
+	#instVars : [
+		'includes'
+	],
+	#category : #'GToolkit4Ruby-Importer'
 }
 
 { #category : #importing }
@@ -31,6 +34,13 @@ GtSmaCCRubyImporter >> findTableForClass: aClass [
 										at: (self stripQuotesFrom: each value source)
 										ifAbsent: [  ] ] ] ].
 			nil ]
+]
+
+{ #category : #visiting }
+GtSmaCCRubyImporter >> importASTs: aCollection [
+	includes := OrderedCollection new.
+	super importASTs: aCollection.
+	includes do: [ :each | each first rubyIncludedContainers add: (self ensureModuleNamed: each last) ]
 ]
 
 { #category : #testing }
@@ -135,8 +145,20 @@ GtSmaCCRubyImporter >> processSchemaCall: aNode [
 
 { #category : #visiting }
 GtSmaCCRubyImporter >> visitCall: aNode [
-	insideSchemaFile
-		ifTrue: [ ^ self processSchemaCall: aNode ].
+	| name |
+	name := aNode name ifNotNil: [ :token | token source ].
+	(name = 'include' and: [ aNode args size = 1 ])
+		ifTrue:
+			[ self classOrModuleScope
+				ifNotNil:
+					[ :item | 
+					((aNode args first isKindOf: RubyVariableNode) or: [ aNode args first isKindOf: RubyAccessExpressionNode ])
+						ifTrue:
+							[ includes
+								add:
+									{item.
+										aNode args first source} ] ] ].
+	insideSchemaFile ifTrue: [ ^ self processSchemaCall: aNode ].
 	^ self visitExpression: aNode
 ]
 

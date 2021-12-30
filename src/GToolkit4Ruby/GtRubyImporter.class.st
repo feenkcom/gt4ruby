@@ -17,7 +17,7 @@ Class {
 		'routeFiles',
 		'rootUrl'
 	],
-	#category : 'GToolkit4Ruby-Importer'
+	#category : #'GToolkit4Ruby-Importer'
 }
 
 { #category : #importing }
@@ -85,6 +85,16 @@ GtRubyImporter >> baseDirectory [
 { #category : #accessing }
 GtRubyImporter >> baseDirectory: aFileReference [
 	mooseModel rootFolder: aFileReference asFileReference
+]
+
+{ #category : #importing }
+GtRubyImporter >> classOrModuleScope [
+	scopeStack size
+		to: 1
+		by: -1
+		do:
+			[ :i | (((scopeStack at: i) isKindOf: GtRubyClass) or: [ (scopeStack at: i) isKindOf: GtRubyModule ]) ifTrue: [ ^ scopeStack at: i ] ].
+	^ nil
 ]
 
 { #category : #importing }
@@ -396,11 +406,22 @@ GtRubyImporter >> importTables: aMysqlFileNode [
 
 { #category : #importing }
 GtRubyImporter >> inferDeclaredTypes [
-	tables do: [:aTable | 
-		aTable attributes do: [ :aColumn |
-			(aColumn foreignKey notNil and: [ aColumn rubyActiveRecordAttribute notNil ])
-				ifTrue: [ 
-					aColumn rubyActiveRecordAttribute declaredType: aColumn foreignKey rubyActiveRecordClass ] ]]
+	tables
+		do:
+			[ :aTable | 
+			aTable attributes
+				do:
+					[ :aColumn | 
+					aColumn rubyActiveRecordAttribute notNil
+						ifTrue:
+							[ aColumn foreignKey notNil
+								ifTrue: [ aColumn rubyActiveRecordAttribute declaredType: aColumn foreignKey rubyActiveRecordClass ]
+								ifFalse:
+									[ (aColumn name endsWith: '_id')
+										ifTrue:
+											[ classesAndModules
+												at: (self rubyClassNameFrom: (aColumn name allButLast: 3) removePluralization: true)
+												ifPresent: [ :cls | cls isClass ifTrue: [ aColumn rubyActiveRecordAttribute declaredType: cls ] ] ] ] ] ] ]
 ]
 
 { #category : #initialization }

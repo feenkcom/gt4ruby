@@ -1,6 +1,24 @@
 Extension { #name : #FAMIXContainerEntity }
 
 { #category : #'*GToolkit4Ruby' }
+FAMIXContainerEntity >> allIncludedByContainersDo: aBlock [
+	self rubyIncludedByContainers
+		do:
+			[ :each | 
+			aBlock value: each.
+			each allIncludedByContainersDo: aBlock ]
+]
+
+{ #category : #'*GToolkit4Ruby' }
+FAMIXContainerEntity >> allIncludedContainersDo: aBlock [
+	self rubyIncludedContainers
+		do:
+			[ :each | 
+			aBlock value: each.
+			each allIncludedContainersDo: aBlock ]
+]
+
+{ #category : #'*GToolkit4Ruby' }
 FAMIXContainerEntity >> rubyContainer [
 	<MSEProperty: #rubyContainer type: #FAMIXContainerEntity opposite: #rubyEntities>
 	<MSEComment:
@@ -33,4 +51,32 @@ FAMIXContainerEntity >> rubyEntities [
 { #category : #'*GToolkit4Ruby' }
 FAMIXContainerEntity >> rubyEntities: aCollection [
 	self rubyEntities value: aCollection
+]
+
+{ #category : #'*GToolkit4Ruby' }
+FAMIXContainerEntity >> rubyIncludedByContainers [
+	<MSEProperty: #rubyIncludedByContainers type: #FAMIXContainerEntity opposite: #rubyIncludedContainers>
+	<multivalued>
+	^ self privateState
+		attributeAt: #rubyIncludedByContainers
+		ifAbsentPut: [ FMMultiMultivalueLink on: self opposite: #rubyIncludedContainers ]
+]
+
+{ #category : #'*GToolkit4Ruby' }
+FAMIXContainerEntity >> rubyIncludedByContainers: aCollection [
+	self rubyIncludedByContainers value: aCollection
+]
+
+{ #category : #'*GToolkit4Ruby' }
+FAMIXContainerEntity >> rubyIncludedContainers [
+	<MSEProperty: #rubyIncludedContainers type: #FAMIXContainerEntity opposite: #rubyIncludedByContainers>
+	<multivalued>
+	^ self privateState
+		attributeAt: #rubyIncludedContainers
+		ifAbsentPut: [ FMMultiMultivalueLink on: self opposite: #rubyIncludedByContainers ]
+]
+
+{ #category : #'*GToolkit4Ruby' }
+FAMIXContainerEntity >> rubyIncludedContainers: aCollection [
+	self rubyIncludedContainers value: aCollection
 ]
