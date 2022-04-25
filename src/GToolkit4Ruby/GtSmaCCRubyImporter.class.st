@@ -104,9 +104,11 @@ GtSmaCCRubyImporter >> processRouteFiles [
 { #category : #importing }
 GtSmaCCRubyImporter >> processSchemaCall: aNode [
 	| name |
+	aNode name ifNil: [ ^ self ].
 	name := aNode name source.
 	name = 'create_table'
-		ifTrue: [ | tableName |
+		ifTrue:
+			[ | tableName |
 			tableName := self stripQuotesFrom: aNode args first source.
 			currentTable := GtTable new name: tableName.
 			mooseModel add: currentTable.
@@ -115,10 +117,13 @@ GtSmaCCRubyImporter >> processSchemaCall: aNode [
 			self addSourceFor: aNode to: currentTable.
 			tables at: tableName put: currentTable.
 			aNode args
-				do: [ :each | 
+				do:
+					[ :each | 
 					(each isKindOf: RubyAssociationNode)
-						ifTrue: [ each key source = 'id:'
-								ifTrue: [ | column |
+						ifTrue:
+							[ each key source = 'id:'
+								ifTrue:
+									[ | column |
 									column := GtTableColumn new name: 'id'.
 									mooseModel add: column.
 									self storeAST: each into: column.
@@ -128,13 +133,14 @@ GtSmaCCRubyImporter >> processSchemaCall: aNode [
 			self visitProgram: aNode.
 			currentTable := nil.
 			^ self ]
-		ifFalse: [ (currentTable notNil
+		ifFalse:
+			[ (currentTable notNil
 				and:
 					[ #('binary' 'boolean' 'date' 'datetime' 'decimal' 'float' 'integer' 'primary_key' 'string' 'text' 'time' 'timestamp')
 						includes: name ])
-				ifTrue: [ | column |
-					column := GtTableColumn new
-						name: (self stripQuotesFrom: aNode args first source).
+				ifTrue:
+					[ | column |
+					column := GtTableColumn new name: (self stripQuotesFrom: aNode args first source).
 					mooseModel add: column.
 					self storeAST: aNode into: column.
 					currentFile addEntity: column.
