@@ -1,8 +1,7 @@
 Class {
 	#name : #GtUrlPath,
-	#superclass : #FAMIXEntity,
+	#superclass : #FAMIXNamedEntity,
 	#instVars : [
-		'name',
 		'parent',
 		'children',
 		'routes'
@@ -39,19 +38,11 @@ GtUrlPath >> children: aCollection [
 	children value: aCollection
 ]
 
-{ #category : #printing }
-GtUrlPath >> gtDisplayOn: aStream [
-	self isRoot
-		ifFalse: [ parent gtDisplayOn: aStream ].
-	(self isRoot or: [ parent isRoot not ])
-		ifTrue: [ aStream nextPut: $/ ].
-	name gtDisplayOn: aStream
-]
-
 { #category : #accessing }
 GtUrlPath >> gtPathTreeFor: aView [
 	<gtView>
 	^ aView columnedTree
+		priority: 0;
 		title: 'Path tree';
 		items: [ {self} ];
 		children: #children;
@@ -77,7 +68,6 @@ GtUrlPath >> gtRoutesFor: aView [
 { #category : #initialization }
 GtUrlPath >> initialize [
 	super initialize.
-	name := ''.
 	children := FMNullMultivalueLink
 		on: self
 		opposite: #parent:
@@ -90,14 +80,13 @@ GtUrlPath >> isRoot [
 	^ parent isNil
 ]
 
-{ #category : #accessing }
-GtUrlPath >> name [
-	^ name
-]
-
-{ #category : #accessing }
-GtUrlPath >> name: aString [
-	name := aString
+{ #category : #printing }
+GtUrlPath >> mooseNameOn: aStream [
+	self isRoot
+		ifFalse: [ parent mooseNameOn: aStream ].
+	(self isRoot or: [ parent isRoot not ])
+		ifTrue: [ aStream nextPut: $/ ].
+	aStream nextPutAll: (self name ifNil: [''])
 ]
 
 { #category : #accessing }
