@@ -1,7 +1,7 @@
 Class {
 	#name : #GtRubyImporter,
 	#superclass : #Object,
-	#traits : 'TMysqlProgramNodeVisitor - {#visitProgram:}',
+	#traits : 'TMysqlProgramNodeVisitor',
 	#classTraits : 'TMysqlProgramNodeVisitor classTrait',
 	#instVars : [
 		'mooseModel',
