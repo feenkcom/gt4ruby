@@ -7,7 +7,7 @@ Class {
 		'methodName',
 		'path'
 	],
-	#category : #'GToolkit4Ruby-Model'
+	#category : 'GToolkit4Ruby-Model'
 }
 
 { #category : #accessing }
@@ -183,30 +183,33 @@ GtRubyRoute >> sourceEditorFor: anchor styler: aStyler [
 	| container sourceElement sourceContainer compositeStyler look source label |
 	source := anchor completeText.
 	container := BlElement new
-			constraintsDo: [ :c | 
-				c horizontal matchParent.
-				c vertical matchParent ];
-			layout: BlLinearLayout vertical;
-			margin: (BlInsets all: 10);
-			background: Color white.
-	label := BrLabel new text: anchor fileName asFileReference basename asRopedText.
+		constraintsDo: [ :c | 
+			c horizontal matchParent.
+			c vertical matchParent ];
+		layout: BlLinearLayout vertical;
+		margin: (BlInsets all: 10);
+		background: Color white.
+	label := BrLabel new
+		aptitude: BrGlamorousLabelAptitude new;
+		text: anchor fileName asFileReference basename asRopedText.
 	label margin: (BlInsets left: 15).
 	label hMatchParent.
 	container addChild: label.
 	sourceContainer := BlElement new
-			constraintsDo: [ :c | 
-				c horizontal matchParent.
-				c vertical matchParent ];
-			layout: BlLinearLayout vertical;
-			margin: (BlInsets all: 10);
-			background: Color white;
-			aptitude: BrShadowAptitude.
+		constraintsDo: [ :c | 
+			c horizontal matchParent.
+			c vertical matchParent ];
+		layout: BlLinearLayout vertical;
+		margin: (BlInsets all: 10);
+		background: Color white;
+		aptitude: BrShadowAptitude.
 	look := BrGlamorousCodeEditorAptitude new.
 	sourceElement := BrEditor new.
 	compositeStyler := GtCompositeSmaCCASTStyler forParser: RubyParser.
 	compositeStyler
-		stylers: {RubyParser gtStyler.
-				aStyler}.
+		stylers:
+			{RubyParser gtStyler.
+			aStyler}.
 	look styler: compositeStyler.
 	sourceElement
 		aptitude: look;
