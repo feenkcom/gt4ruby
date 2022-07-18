@@ -50,63 +50,56 @@ GtRubySyntaxExplainer >> constructsList [
 GtRubySyntaxExplainer >> create [
 	| mainContainer sourceEditor leftContainer rightContainer rightContainerLabel leftContainerLabel |
 	mainContainer := BrHorizontalPane new
-		matchParent;
-		padding: (BlInsets all: 5).
+			matchParent;
+			padding: (BlInsets all: 5).
 	mainContainer explainer isExplanationHolder: true.
 	leftContainer := BrVerticalPane new
-		hFitContent;
-		vMatchParent;
-		padding: (BlInsets all: 5);
-		margin: (BlInsets right: 20).
+			hFitContent;
+			vMatchParent;
+			padding: (BlInsets all: 5);
+			margin: (BlInsets right: 20).
 	rightContainer := BrVerticalPane new
-		matchParent;
-		padding: (BlInsets all: 5).
+			matchParent;
+			padding: (BlInsets all: 5).
 	tooltipsContainer := BrEditor new
-		text: '' asRopedText;
-		padding: (BlInsets all: 10);
-		margin:
-			(BlInsets
-				top: 10
-				right: 0
-				bottom: 0
-				left: 0);
-		constraintsDo: [ :c | c horizontal matchParent ];
-		visibility: BlVisibility gone;
-		border: (BlBorder paint: BrGlamorousColors textHighlightColor width: 2);
-		aptitude: BrShadowAptitude + BrGlamorousEditorAptitude;
-		vFitContent;
-		background: BrGlamorousColors textHighlightColor.
+			text: '' asRopedText;
+			padding: (BlInsets all: 10);
+			margin: (BlInsets
+					top: 10
+					right: 0
+					bottom: 0
+					left: 0);
+			constraintsDo: [ :c | c horizontal matchParent ];
+			visibility: BlVisibility gone;
+			border: (BlBorder paint: BrGlamorousColors textHighlightColor width: 2);
+			aptitude: BrShadowAptitude + BrGlamorousEditorAptitude;
+			vFitContent;
+			background: BrGlamorousColors textHighlightColor.
 	tooltipsTarget := BrButton new
-		constraintsDo: [ :c | c ignoreByLayout ];
-		size: 0 @ 0;
-		elevation: (BlRelativeElevation elevation: 10);
-		geometry: BlCircleGeometry new.
+			constraintsDo: [ :c | c ignoreByLayout ];
+			size: 0 @ 0;
+			elevation: (BlRelativeElevation elevation: 10);
+			geometry: BlCircleGeometry new.
 	constructsContainer := self constructsList.
 	leftContainerLabel := BrLabel new
-		text:
-			('Ruby constructs:' asRopedText
-				glamorousRegularFont;
-				foreground: Color gray);
-		aptitude: BrGlamorousLabelAptitude;
-		hFitContent;
-		margin:
-			(BlInsets
-				top: 0
-				right: 0
-				bottom: 5
-				left: 0).
+			text: ('Ruby constructs:' asRopedText
+					glamorousRegularFont;
+					foreground: Color gray);
+			hFitContent;
+			margin: (BlInsets
+					top: 0
+					right: 0
+					bottom: 5
+					left: 0).
 	rightContainerLabel := BrLabel new
-		text:
-			('Source:' asRopedText
-				glamorousRegularFont;
-				foreground: Color gray);
-		aptitude: BrGlamorousLabelAptitude;
-		margin:
-			(BlInsets
-				top: 0
-				right: 0
-				bottom: 5
-				left: 5).
+			text: ('Source:' asRopedText
+					glamorousRegularFont;
+					foreground: Color gray);
+			margin: (BlInsets
+					top: 0
+					right: 0
+					bottom: 5
+					left: 5).
 	sourceEditor := self sourceEditor.
 	leftContainer addChild: leftContainerLabel.
 	leftContainer addChild: constructsContainer.
@@ -207,7 +200,6 @@ GtRubySyntaxExplainer >> initialize [
 GtRubySyntaxExplainer >> regularLabelFor: aNodeNameSymbol [
 	^ BrLabel new
 		text: aNodeNameSymbol asRopedText glamorousRegularFont;
-		aptitude: BrGlamorousLabelAptitude;
 		geometry: (BlRoundedRectangleGeometry cornerRadius: 4);
 		padding: (BlInsets all: 5)
 ]
