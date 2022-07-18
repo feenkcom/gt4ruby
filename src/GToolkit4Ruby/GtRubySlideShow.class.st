@@ -6,7 +6,7 @@ Class {
 		'createdActiveRecordCheck',
 		'createdTableCheck'
 	],
-	#category : 'GToolkit4Ruby-Slides'
+	#category : #'GToolkit4Ruby-Slides'
 }
 
 { #category : #'active record' }
@@ -449,35 +449,33 @@ end' copyReplaceAll: String cr with: String lf) ] ].
 GtRubySlideShow >> sourceEditorFor: aFileReference styler: explainationStyler [
 	| container sourceElement sourceContainer styler look label |
 	container := BlElement new
-		constraintsDo: [ :c | 
-			c horizontal matchParent.
-			c vertical matchParent ];
-		layout: BlLinearLayout vertical;
-		margin: (BlInsets all: 10);
-		background: Color white.
+			constraintsDo: [ :c | 
+				c horizontal matchParent.
+				c vertical matchParent ];
+			layout: BlLinearLayout vertical;
+			margin: (BlInsets all: 10);
+			background: Color white.
 	label := BrLabel new
-		aptitude: BrGlamorousLabelAptitude new;
-		text: (aFileReference basename asRopedText foreground: Color gray).
+			text: (aFileReference basename asRopedText foreground: Color gray).
 	label margin: (BlInsets left: 15).
 	label hMatchParent.
 	container addChild: label.
 	sourceContainer := BlElement new
-		constraintsDo: [ :c | 
-			c horizontal matchParent.
-			c vertical matchParent ];
-		layout: BlLinearLayout vertical;
-		margin: (BlInsets all: 10);
-		background: Color white;
-		aptitude: BrShadowAptitude.
+			constraintsDo: [ :c | 
+				c horizontal matchParent.
+				c vertical matchParent ];
+			layout: BlLinearLayout vertical;
+			margin: (BlInsets all: 10);
+			background: Color white;
+			aptitude: BrShadowAptitude.
 	look := BrGlamorousCodeEditorAptitude new.
 	sourceElement := BrEditor new.
 	explainationStyler isNil
 		ifTrue: [ styler := RubyParser gtStyler ]
 		ifFalse: [ styler := GtCompositeSmaCCASTStyler forParser: RubyParser.
 			styler
-				stylers:
-					{RubyParser gtStyler.
-					explainationStyler} ].
+				stylers: {RubyParser gtStyler.
+						explainationStyler} ].
 	look styler: styler.
 	sourceElement
 		aptitude: look;
