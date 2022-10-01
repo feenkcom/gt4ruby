@@ -9,13 +9,14 @@ Class {
 		'currentFile',
 		'files',
 		'folders',
-		'classesAndModules',
 		'superclasses',
 		'tables',
 		'insideSchemaFile',
 		'currentTable',
 		'routeFiles',
-		'rootUrl'
+		'rootUrl',
+		'modules',
+		'classes'
 	],
 	#category : #'GToolkit4Ruby-Importer'
 }
@@ -60,7 +61,7 @@ GtRubyImporter >> assignScope: modelObject around: aBlock [
 { #category : #importing }
 GtRubyImporter >> assignSuperclass: superclassName to: rubyClass [
 	| inheritance superclass |
-	classesAndModules
+	classes
 		at: superclassName
 		ifPresent: [ :each | 
 			superclass := each.
@@ -106,8 +107,8 @@ GtRubyImporter >> classScope [
 ]
 
 { #category : #accessing }
-GtRubyImporter >> classesAndModules [
-	^ classesAndModules
+GtRubyImporter >> classes [
+	^ classes
 ]
 
 { #category : #importing }
@@ -267,7 +268,7 @@ GtRubyImporter >> ensureActiveRecordBaseClass [
 
 { #category : #importing }
 GtRubyImporter >> ensureClassNamed: aString [
-	^ classesAndModules
+	^ classes
 		at: aString
 		ifAbsentPut: [ | index name namespace module class |
 			index := aString lastIndexOf: $:.
@@ -342,7 +343,7 @@ GtRubyImporter >> ensureMethodNamed: aString [
 
 { #category : #importing }
 GtRubyImporter >> ensureModuleNamed: aString [
-	^ classesAndModules
+	^ modules
 		at: aString
 		ifAbsentPut: [ | index name namespace parentModule module |
 			index := aString lastIndexOf: $:.
@@ -419,7 +420,7 @@ GtRubyImporter >> inferDeclaredTypes [
 								ifFalse:
 									[ (aColumn name endsWith: '_id')
 										ifTrue:
-											[ classesAndModules
+											[ classes
 												at: (self rubyClassNameFrom: (aColumn name allButLast: 3) removePluralization: true)
 												ifPresent: [ :cls | cls isClass ifTrue: [ aColumn rubyActiveRecordAttribute declaredType: cls ] ] ] ] ] ] ]
 ]
@@ -432,7 +433,8 @@ GtRubyImporter >> initialize [
 	scopeStack := OrderedCollection new.
 	folders := Dictionary new.
 	files := Dictionary new.
-	classesAndModules := Dictionary new.
+	classes := Dictionary new.
+	modules := Dictionary new.
 	tables := Dictionary new.
 	insideSchemaFile := false.
 	routeFiles := OrderedCollection new
