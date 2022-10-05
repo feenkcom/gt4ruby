@@ -7,7 +7,7 @@ Class {
 		'methodName',
 		'path'
 	],
-	#category : 'GToolkit4Ruby-Model'
+	#category : #'GToolkit4Ruby-Model'
 }
 
 { #category : #accessing }
@@ -48,7 +48,7 @@ GtRubyRoute >> gtExplainerFor: aView [
 		title: 'Explainer' translated;
 		priority: 5;
 		stencil: [ | container routes |
-			routes := self mooseModel allRubyRoutes
+			routes := self mooseModel allRailsRoutes
 				select: [ :each | 
 					each hasSourceAnchors
 						and: [ self sourceAnchor fileName = each sourceAnchor fileName
