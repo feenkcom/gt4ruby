@@ -8,7 +8,7 @@ Class {
 		'resourceNames',
 		'paths'
 	],
-	#category : 'GToolkit4Ruby-Importer'
+	#category : #'GToolkit4Ruby-Importer'
 }
 
 { #category : #importing }
@@ -47,14 +47,14 @@ GtRubyRouteImporter >> addRouteFrom: aNode to: method named: methodName verb: ve
 
 { #category : #importing }
 GtRubyRouteImporter >> findMethod: methodName inClass: className [
-	^ importer classesAndModules
+	^ importer classes
 		at:
 			((className includes: $:)
 				ifTrue: [ className ]
 				ifFalse: [ (importer rubyClassNameFrom: namespace removePluralization: false)
 						, '::' , className ])
 		ifPresent: [ :cls | cls lookUp: methodName , '()' ]
-		ifAbsent: [ importer classesAndModules
+		ifAbsent: [ importer classes
 				keysAndValuesDo: [ :key :value | 
 					(key = className or: [ key endsWith: '::' , className ])
 						ifTrue: [ (value lookUp: methodName , '()') ifNotNil: [ :m | ^ m ] ] ].
