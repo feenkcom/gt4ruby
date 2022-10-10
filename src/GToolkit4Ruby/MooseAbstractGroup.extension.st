@@ -5,7 +5,9 @@ MooseAbstractGroup >> allRailsApplicationRecords [
 	<navigation: 'All Rails application records'>
 	| applicationRecords |
 	applicationRecords := self allRubyClasses entityNamed: #ApplicationRecord.
-	applicationRecords isEmptyOrNil ifFalse: [ ^ applicationRecords withSubclassHierarchy ]
+	applicationRecords isEmptyOrNil
+		ifFalse: [ ^ applicationRecords withSubclassHierarchy ]
+		ifTrue: [ ^ self allRubyClasses ]
 ]
 
 { #category : #'*GToolkit4Ruby' }
