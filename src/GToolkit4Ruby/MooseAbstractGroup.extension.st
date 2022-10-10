@@ -3,7 +3,9 @@ Extension { #name : #MooseAbstractGroup }
 { #category : #'*GToolkit4Ruby' }
 MooseAbstractGroup >> allRailsApplicationRecords [
 	<navigation: 'All Rails application records'>
-	^ (self allRubyClasses entityNamed: #'ApplicationRecord') withSubclassHierarchy
+	| applicationRecords |
+	applicationRecords := self allRubyClasses entityNamed: #ApplicationRecord.
+	applicationRecords isEmptyOrNil ifFalse: [ ^ applicationRecords withSubclassHierarchy ]
 ]
 
 { #category : #'*GToolkit4Ruby' }
