@@ -127,7 +127,7 @@ GtRubyImporter >> createActiveRecordLinkBetweenClass: anActiveRecordClass andTab
 		do: [ :column | 
 			| attribute |
 			attribute := GtRubyActiveRecordAttribute new.
-			attribute name: (column name removeSuffix: '_id').
+			attribute name: (column name withoutSuffix: '_id').
 			attribute tableColumn: column.
 			column rubyActiveRecordAttribute: attribute.
 			mooseModel add: attribute.
