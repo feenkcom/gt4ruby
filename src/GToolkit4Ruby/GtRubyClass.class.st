@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'activeRecordTable'
 	],
-	#category : 'GToolkit4Ruby-Model'
+	#category : #'GToolkit4Ruby-Model'
 }
 
 { #category : #accessing }
@@ -26,16 +26,14 @@ GtRubyClass >> gtAllConnectionsToDeclaredTypesFor: aView [
 		painting: [ :m | 
 			m nodes
 				stencil: [ :c | 
-					BlTextElement new
+					BrLabel new
 						zIndex: 10;
-						text:
-							(c name asRopedText glamorousRegularFont
-								foreground:
-									(self = c
-										ifTrue: [ Color blue ]
-										ifFalse: [ Color black ])) ];
-				with:
-					({self}
+						text: c name;
+						aptitude: (BrGlamorousLabelAptitude new
+								foreground: (self = c ifTrue: [ Color blue ] ifFalse: [ Color black ]))
+								+ (BrStyleCommonAptitude new
+										hovered: [ :aStyle | aStyle background: (BrGlamorousColors selectedListItemColor) ]) ];
+				with: ({self}
 						withDeepCollect: [ :class | 
 							class attributes
 								select: [ :each | each declaredType notNil ]
@@ -43,20 +41,23 @@ GtRubyClass >> gtAllConnectionsToDeclaredTypesFor: aView [
 			m edges
 				fromRightCenter;
 				toLeftCenter;
-				stencil: [:class | 
-					BlParabollaArcElement new 
+				stencil: [ :class | 
+					BlParabollaArcElement new
 						zIndex: 0;
 						curvatureFraction: 0.3;
-						border: (BlBorder paint: (Color orange alpha: 0.8) width: 2);
+						border: (BlBorder paint: (Color lightGray alpha: 0.8) width: 1);
 						toHead: (BlArrowheadSimpleArrow new
-							border: (BlBorder builder paint: (Color orange alpha: 0.8); width: 2; build)) ];
+								border: (BlBorder builder
+										paint: (Color lightGray alpha: 0.8);
+										width: 1;
+										build)) ];
 				connectFrom: [ :class | class ]
 					toAll: [ :class | 
-					class attributes
-						select: [ :each | each declaredType notNil ]
-						thenCollect: [ :each | each declaredType ] ].
+						class attributes
+							select: [ :each | each declaredType notNil ]
+							thenCollect: [ :each | each declaredType ] ].
 			m layout horizontalDominanceTree
-				levelDistance: 50;
+				levelDistance: 10;
 				nodeDistance: 10 ]
 ]
 
