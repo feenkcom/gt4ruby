@@ -1,14 +1,14 @@
 Class {
 	#name : #GtRubyClassGroup,
 	#superclass : #FAMIXClassGroup,
-	#category : 'GToolkit4Ruby-Model'
+	#category : #'GToolkit4Ruby-Model'
 }
 
 { #category : #accessing }
 GtRubyClassGroup >> gtAllActiveRecordConnectionsFor: aView [
 	<gtView>
 	^ aView mondrian
-		title: 'Active Record connections';
+		title: 'Active record connections';
 		painting: [ :m | 
 			m nodes
 				stencil: [ :c | 
