@@ -6,6 +6,6 @@ AbstractFileReference >> gtRubySyntaxExplanationFor: aView [
 	(self extension = 'rb' and: [ self exists ])
 		ifFalse: [ ^ aView empty ].
 	^ aView explicit
-		title: 'Syntax Explanation' translated;
+		title: 'Syntax explanation' translated;
 		stencil: [ GtRubySyntaxExplainer onSource: self contents ]
 ]
