@@ -1,12 +1,14 @@
 Class {
 	#name : #GtRubySlideShow,
 	#superclass : #Object,
+	#traits : 'TGtSlideShow',
+	#classTraits : 'TGtSlideShow classTrait',
 	#instVars : [
 		'fileSystem',
 		'createdActiveRecordCheck',
 		'createdTableCheck'
 	],
-	#category : 'GToolkit4Ruby-Slides'
+	#category : #'GToolkit4Ruby-Slides'
 }
 
 { #category : #'active record' }
