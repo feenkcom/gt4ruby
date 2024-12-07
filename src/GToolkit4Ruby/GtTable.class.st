@@ -5,7 +5,7 @@ Class {
 		'rubyActiveRecordClass',
 		'foreignKeyReferences'
 	],
-	#category : 'GToolkit4Ruby-Model'
+	#category : #'GToolkit4Ruby-Model'
 }
 
 { #category : #accessing }
@@ -17,6 +17,17 @@ GtTable >> foreignKeyReferences [
 { #category : #accessing }
 GtTable >> foreignKeyReferences: aCollection [
 	foreignKeyReferences value: aCollection
+]
+
+{ #category : #views }
+GtTable >> gtIncomingReferencesFor: aView [
+	<gtView>
+	^ aView columnedList
+		priority: 1;
+		title: 'Incoming references';
+		items: [ self incomingReferences ];
+		column: 'From' text: [ :each | each from gtDisplayString ];
+		column: 'To' text: [ :each | each to gtDisplayString ]
 ]
 
 { #category : #accessing }
