@@ -30,6 +30,20 @@ GtTable >> gtIncomingReferencesFor: aView [
 		column: 'To' text: [ :each | each to gtDisplayString ]
 ]
 
+{ #category : #views }
+GtTable >> gtRubyActiveRecordClassSourceFor: aView [
+	<gtView>
+	rubyActiveRecordClass ifNil: [ ^ aView empty ].
+	^ aView forward
+		title: 'ActiveRecord source';
+		priority: 6;
+		object: [ rubyActiveRecordClass ];
+		view: #gtSourceFor:;
+		actionButtonIcon: BrGlamorousVectorIcons inspect
+			label: 'Inspect class'
+			action: [ :b | b phlow spawnObject: rubyActiveRecordClass ]
+]
+
 { #category : #accessing }
 GtTable >> initialize [
 	super initialize.
