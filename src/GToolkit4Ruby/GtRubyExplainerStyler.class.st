@@ -7,7 +7,7 @@ Class {
 		'explanations',
 		'completionAction'
 	],
-	#category : 'GToolkit4Ruby-Explainer'
+	#category : #'GToolkit4Ruby-Explainer'
 }
 
 { #category : #initialization }

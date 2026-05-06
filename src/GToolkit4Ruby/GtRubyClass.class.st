@@ -22,7 +22,8 @@ GtRubyClass >> activeRecordTable: aTable [
 GtRubyClass >> gtAllConnectionsToDeclaredTypesFor: aView [
 	<gtView>
 	^ aView mondrian
-		title: 'All connections';
+		title: 'All Rails connections';
+		priority: 13;
 		painting: [ :m | 
 			m nodes
 				stencil: [ :c | 
@@ -65,7 +66,7 @@ GtRubyClass >> gtAllConnectionsToDeclaredTypesFor: aView [
 GtRubyClass >> gtDirectConnectionsToDeclaredTypesFor: aView [
 	<gtView>
 	^ aView mondrian
-		title: 'Direct connections';
+		title: 'Direct Rails connections';
 		painting: [ :m | 
 			m nodes
 				stencil: [ :c | 
@@ -130,7 +131,7 @@ GtRubyClass >> gtTableSourceFor: aView [
 	activeRecordTable ifNil: [ ^ aView empty].
 	^ (activeRecordTable gtASTNode gtSourceFor: aView)
 		title: 'Table source';
-		priority: 40
+		priority: 11
 ]
 
 { #category : #accessing }

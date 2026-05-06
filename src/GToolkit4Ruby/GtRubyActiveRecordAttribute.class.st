@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'tableColumn'
 	],
-	#category : 'GToolkit4Ruby-Model'
+	#category : #'GToolkit4Ruby-Model'
 }
 
 { #category : #accessing }

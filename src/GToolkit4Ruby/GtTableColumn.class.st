@@ -5,7 +5,7 @@ Class {
 		'rubyActiveRecordAttribute',
 		'foreignKey'
 	],
-	#category : 'GToolkit4Ruby-Model'
+	#category : #'GToolkit4Ruby-Model'
 }
 
 { #category : #accessing }
