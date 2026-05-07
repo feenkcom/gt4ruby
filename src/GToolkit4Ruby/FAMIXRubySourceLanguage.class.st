@@ -1,7 +1,7 @@
 Class {
 	#name : #FAMIXRubySourceLanguage,
 	#superclass : #FAMIXSourceLanguage,
-	#category : 'GToolkit4Ruby-Model'
+	#category : #'GToolkit4Ruby-Model'
 }
 
 { #category : #private }

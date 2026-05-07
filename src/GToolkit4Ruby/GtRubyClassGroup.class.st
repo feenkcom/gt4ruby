@@ -40,3 +40,15 @@ GtRubyClassGroup >> gtAllActiveRecordConnectionsFor: aView [
 				levelDistance: 50;
 				nodeDistance: 0 ]
 ]
+
+{ #category : #'as yet unclassified' }
+GtRubyClassGroup >> gtItemsFor: aView [
+	^ aView columnedList
+		title: 'Items';
+		priority: 0;
+		items: [ self allRubyClasses sorted: [:a :b | a name < b name ] ];
+		column: 'Name' text: #name;
+		column: 'Methods' text: [ :each | each methods size ];
+		column: 'Attributes' text: [ :each | each attributes size ];
+		column: 'ActiveRecord' text: [ :each | each isAnActiveRecord ifFalse: [''] ifTrue: ['yes'] ]
+]

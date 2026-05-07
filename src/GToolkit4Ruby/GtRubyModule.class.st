@@ -1,7 +1,7 @@
 Class {
 	#name : #GtRubyModule,
 	#superclass : #FAMIXNamespace,
-	#category : 'GToolkit4Ruby-Model'
+	#category : #'GToolkit4Ruby-Model'
 }
 
 { #category : #'as yet unclassified' }

@@ -3,7 +3,7 @@ Class {
 	#superclass : #GtRubyRouteImporter,
 	#traits : 'TRubyProgramNodeVisitor - {#visitCall:}',
 	#classTraits : 'TRubyProgramNodeVisitor classTrait',
-	#category : 'GToolkit4Ruby-Importer'
+	#category : #'GToolkit4Ruby-Importer'
 }
 
 { #category : #importing }
